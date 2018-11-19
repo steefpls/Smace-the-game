@@ -18,6 +18,7 @@
 #define LP_SPRITE   LPD3DXSPRITE
 #define LP_3DDEVICE LPDIRECT3DDEVICE9
 #define LP_3D       LPDIRECT3D9
+#define VECTOR2     D3DXVECTOR2
 
 // Color defines
 #define COLOR_ARGB DWORD
@@ -97,12 +98,7 @@ private:
     // Initialize D3D presentation parameters
     void    initD3Dpp();
 
-	
-
 public:
-
-
-
     // Constructor
     Graphics();
 
@@ -133,6 +129,23 @@ public:
 
     // Reset the graphics device.
     HRESULT reset();
+
+	// Toggle, fullscreen or window display mode
+// Pre: All user created D3DPOOL_DEFAULT surfaces are freed.
+// Post: All user surfaces are recreated.
+	void    changeDisplayMode(graphicsNS::DISPLAY_MODE mode = graphicsNS::TOGGLE);
+
+	// Return length of vector v.
+	static float    Vector2Length(const VECTOR2 *v) { return D3DXVec2Length(v); }
+
+	// Return Dot product of vectors v1 and v2.
+	static float    Vector2Dot(const VECTOR2 *v1, const VECTOR2 *v2) { return D3DXVec2Dot(v1, v2); }
+
+	// Normalize vector v.
+	static void     Vector2Normalize(VECTOR2 *v) { D3DXVec2Normalize(v, v); }
+
+	// Transform vector v with matrix m.
+	static VECTOR2* Vector2Transform(VECTOR2 *v, D3DXMATRIX *m) { return D3DXVec2TransformCoord(v, v, m); }
 
     // get functions
     // Return direct3d.
