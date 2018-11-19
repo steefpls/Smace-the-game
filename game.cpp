@@ -24,9 +24,9 @@ Game::~Game()
     ShowCursor(true);           // show cursor
 }
 
-//=============================================================================
+//============================================================================
 // Window message handler
-//=============================================================================
+//============================================================================
 LRESULT Game::messageHandler( HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
     if(initialized)     // do not process messages if not initialized
