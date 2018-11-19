@@ -37,7 +37,7 @@ const float SHIP_ANIMATION_DELAY = 0.2f; // time between frames of ship animatio
 const int  SHIP_COLS = 2;                // ship texture has 2 columns
 const int  SHIP_WIDTH = 32;              // width of ship image
 const int  SHIP_HEIGHT = 32;             // height of ship image
-const float SHIP_STARTSCALE = 1.5f;                  // starting ship scale
+const float SHIP1_STARTSCALE = 1.5f;                  // starting ship scale
 const float SCALE_RATE = 0.2f;			//% change per second
 
 //keybinds
@@ -51,9 +51,9 @@ const char S = 'S';
 // window
 const char CLASS_NAME[] = "Spacewar";
 const char GAME_TITLE[] = "Spacewar";
-const bool FULLSCREEN = false;              // windowed or fullscreen
-const UINT GAME_WIDTH =  640;               // width of game in pixels
-const UINT GAME_HEIGHT = 480;               // height of game in pixels
+const bool FULLSCREEN = true;              // windowed or fullscreen
+const UINT GAME_WIDTH =  1920;               // width of game in pixels
+const UINT GAME_HEIGHT = 1080;               // height of game in pixels
  
 // game
 const double PI = 3.14159265;
@@ -75,18 +75,18 @@ const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
 //                  Variables
 //-----------------------------------------------
 
-static float SHIP_ROTATION_RATE = 100; //degrees per second
-static float SHIP_ROTATION_DRAG = 97/100; //degrees per second
-static float SHIP_ROTATION_ACCELERATION_RATE = 100.0f; //degrees per second per second
+static float SHIP1_ROTATION_RATE = 100; //degrees per second
+static float SHIP1_ROTATION_DRAG = 90/100; //percentage drag per second
+static float SHIP1_ROTATION_ACCELERATION_RATE = 200.0f; //degrees per second per second
 
 
-static float SHIP_X_ACC = 100;			//pixels per second per second
-static float SHIP_Y_ACC = 100;
+static float SHIP1_X_ACC = 300;			//pixels per second per second
+static float SHIP1_Y_ACC = 300;			//pixels per second per second
 
-static float SHIP_X_SPEED = 0;			//pixels per second
-static float SHIP_Y_SPEED = 0;			//pixels per second
-static float SHIP_ANGLE = 0;
-static float SHIP_SCALE = SHIP_STARTSCALE;
+static float SHIP1_X_SPEED = 0;			//pixels per second
+static float SHIP1_Y_SPEED = 0;			//pixels per second
+static float SHIP1_ANGLE = 0;
+static float SHIP1_SCALE = SHIP1_STARTSCALE;
 
 static float DRAG = 99 / 100;			//air resistance (IK its in space but stfu)
 
