@@ -31,6 +31,10 @@ void Spacewar::initialize(HWND hwnd)
 	if (!planetTexture.initialize(graphics, PLANET_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing planet texture"));
 
+	//ship1Textures
+	if (!shipTexture.initialize(graphics, SHIP_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1 texture"));
+
 	// ship
 	if (!ship1.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &shipTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1"));

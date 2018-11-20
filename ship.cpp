@@ -71,7 +71,7 @@ void Ship::update(float frameTime)
 		spriteData.angle -= 360;
 	}
 
-	if (shipNS::ROTATION_RATE < 240) //if ship is rotating at a speed of less than 5 degrees per frame
+	if (shipNS::ROTATION_RATE < 1) //if ship is rotating at a speed of less than 5 degrees per frame
 	{
 		if (input->isKeyDown(ship1Right)) //and the D key is held
 		{
@@ -79,7 +79,7 @@ void Ship::update(float frameTime)
 		}
 	}
 
-	if (shipNS::ROTATION_RATE > -240) //if ship is rotating at a speed of less than -5 degrees per frame
+	if (shipNS::ROTATION_RATE > -1) //if ship is rotating at a speed of less than -5 degrees per frame
 	{
 		if (input->isKeyDown(ship1Left)) //And the A key is held
 		{
