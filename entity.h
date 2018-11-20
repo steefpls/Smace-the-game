@@ -142,6 +142,9 @@ public:
 	// Does this entity collide with ent?
 	virtual bool collidesWith(Entity &ent, VECTOR2 &collisionVector);
 
+	// Damage this Entity with weapon.
+	virtual void damage(int weapon);
+
 	// Entity bounces after collision with other Entity
 	void bounce(VECTOR2 &collisionVector, Entity &ent);
 

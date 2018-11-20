@@ -25,6 +25,10 @@
 //-----------------------------------------------
 //                  Constants
 //-----------------------------------------------
+
+//weapon types
+enum WEAPON {TORPEDO, SHIP, PLANET};
+
 // graphic images
 const char NEBULA_IMAGE[] = "pictures\\orion.jpg";  // photo source NASA/courtesy of nasaimages.org 
 const char PLANET_IMAGE[] = "pictures\\planet.png"; // picture of planet
