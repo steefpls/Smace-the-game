@@ -305,9 +305,7 @@ public:
 	void spriteEnd()
 	{
 		sprite->End();
-	}
-
-	
+	}	
 };
 
 #endif

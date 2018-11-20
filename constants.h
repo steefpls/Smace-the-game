@@ -27,28 +27,29 @@
 //-----------------------------------------------
 
 //weapon types
-enum WEAPON {TORPEDO, SHIP, PLANET};
+enum WEAPON {TORPEDO, SHIP};
 
 // graphic images
 const char NEBULA_IMAGE[] = "pictures\\orion.jpg";  // photo source NASA/courtesy of nasaimages.org 
 const char PLANET_IMAGE[] = "pictures\\planet.png"; // picture of planet
 const char SHIP_IMAGE[] = "pictures\\ship.png";   // spaceship
 
-//Ship Animation
-const int  SHIP_START_FRAME = 0;         // starting frame of ship animation
-const int  SHIP_END_FRAME = 3;           // last frame of ship animation
-const float SHIP_ANIMATION_DELAY = 0.2f; // time between frames of ship animation
-const int  SHIP_COLS = 2;                // ship texture has 2 columns
-const int  SHIP_WIDTH = 32;              // width of ship image
-const int  SHIP_HEIGHT = 32;             // height of ship image
-const float SHIP1_STARTSCALE = 1.5f;                  // starting ship scale
-const float SCALE_RATE = 0.2f;			//% change per second
+////Ship Animation
+//const int  SHIP_START_FRAME = 0;         // starting frame of ship animation
+//const int  SHIP_END_FRAME = 3;           // last frame of ship animation
+//const float SHIP_ANIMATION_DELAY = 0.2f; // time between frames of ship animation
+//const int  SHIP_COLS = 2;                // ship texture has 2 columns
+//const int  SHIP_WIDTH = 32;              // width of ship image
+//const int  SHIP_HEIGHT = 32;             // height of ship image
+//const float SHIP1_STARTSCALE = 1.5f;                  // starting ship scale
+//const float SCALE_RATE = 0.2f;			//% change per second
+
 
 //keybinds
-const char D = 'D';
-const char A = 'A';
-const char W = 'W';
-const char S = 'S';
+const char ship1Right = 'D';
+const char ship1Left = 'A';
+const char ship1Up = 'W';
+const char ship1Down = 'S';
 
 
 
@@ -79,19 +80,19 @@ const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
 //                  Variables
 //-----------------------------------------------
 
-static float SHIP1_ROTATION_RATE = 100; //degrees per second
-static float SHIP1_ROTATION_DRAG = 90/100; //percentage drag per second
-static float SHIP1_ROTATION_ACCELERATION_RATE = 200.0f; //degrees per second per second
+//static float SHIP1_ROTATION_RATE = 100; //degrees per second
+//static float SHIP1_ROTATION_DRAG = 90/100; //percentage drag per second
+//static float SHIP1_ROTATION_ACCELERATION_RATE = 200.0f; //degrees per second per second
 
 
-static float SHIP1_X_ACC = 300;			//pixels per second per second
-static float SHIP1_Y_ACC = 300;			//pixels per second per second
+//static float SHIP1_X_ACC = 300;			//pixels per second per second
+//static float SHIP1_Y_ACC = 300;			//pixels per second per second
 
-static float SHIP1_X_SPEED = 0;			//pixels per second
-static float SHIP1_Y_SPEED = 0;			//pixels per second
-static float SHIP1_ANGLE = 0;
-static float SHIP1_SCALE = SHIP1_STARTSCALE;
+//static float SHIP1_X_SPEED = 0;			//pixels per second
+//static float SHIP1_Y_SPEED = 0;			//pixels per second
+//static float SHIP1_ANGLE = 0;
+//static float SHIP1_SCALE = SHIP1_STARTSCALE;
 
-static float DRAG = 99 / 100;			//air resistance (IK its in space but stfu)
+//static float DRAG = 99 / 100;			//air resistance (IK its in space but stfu)
 
 #endif

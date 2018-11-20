@@ -20,7 +20,7 @@ Ship::Ship() : Entity()
 	radius = shipNS::WIDTH / 2.0;
 	shieldOn = false;
 	mass = shipNS::MASS;
-	collisionType = entityNS::CIRCLE;
+	collisionType = entityNS::ROTATED_BOX;
 }
 
 //=============================================================================
@@ -57,9 +57,63 @@ void Ship::draw()
 void Ship::update(float frameTime)
 {
 	Entity::update(frameTime);
-	spriteData.angle += frameTime * shipNS::ROTATION_RATE;  // rotate the ship
-	spriteData.x += frameTime * velocity.x;         // move ship along X 
-	spriteData.y += frameTime * velocity.y;         // move ship along Y
+
+	//------------Handle Ship Rotation on Key Press--------------
+
+	//Keeping the ranges of the angle to 0<x<360
+	while (spriteData.angle < 0) 
+	{
+		spriteData.angle += 360;
+	}
+	
+	while (spriteData.angle > 360)
+	{
+		spriteData.angle -= 360;
+	}
+
+	if (shipNS::ROTATION_RATE < 240) //if ship is rotating at a speed of less than 5 degrees per frame
+	{
+		if (input->isKeyDown(ship1Right)) //and the D key is held
+		{
+			shipNS::ROTATION_RATE += shipNS::ROTATION_ACC_RATE * frameTime;
+		}
+	}
+
+	if (shipNS::ROTATION_RATE > -240) //if ship is rotating at a speed of less than -5 degrees per frame
+	{
+		if (input->isKeyDown(ship1Left)) //And the A key is held
+		{
+			shipNS::ROTATION_RATE -= shipNS::ROTATION_ACC_RATE * frameTime;
+		}
+	}
+
+	spriteData.angle=(spriteData.angle + shipNS::ROTATION_RATE * frameTime); //update ship rotation
+
+	shipNS::ROTATION_RATE = shipNS::ROTATION_RATE - ((1 - shipNS::ROTATION_DRAG) *shipNS::ROTATION_RATE) * frameTime;// Update ship rotation rate due to air resistance
+
+	if (input->isKeyDown(ship1Up)) //If the W key is held
+	{
+		shipNS::X_SPEED += sin(spriteData.angle / 360 * 2 * PI) * shipNS::X_ACC * frameTime;
+		shipNS::Y_SPEED -= cos(spriteData.angle / 360 * 2 * PI) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
+	}
+
+	if (input->isKeyDown(ship1Down)) //If the S key is held
+	{
+		shipNS::X_SPEED -= sin(spriteData.angle / 360 * 2 * PI) * shipNS::X_ACC * frameTime;
+		shipNS::Y_SPEED += cos(spriteData.angle / 360 * 2 * PI) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
+	}
+
+	//----------------------------------Ship Location Wrapping-------------------------------------
+	//SHIP LOCATION UPDATE
+	spriteData.x = (spriteData.x + shipNS::X_SPEED * spriteData.scale * frameTime); // Update Ship X location
+	spriteData.y = (spriteData.y + shipNS::Y_SPEED * spriteData.scale * frameTime); // Update Ship Y location
+
+	shipNS::X_SPEED = shipNS::X_SPEED - ((1 - shipNS::DRAG) *shipNS::X_SPEED) * frameTime;
+	shipNS::Y_SPEED = shipNS::Y_SPEED - ((1 - shipNS::DRAG) *shipNS::Y_SPEED) * frameTime;   //Implementation of "Air" Resistance
+
+	//spriteData.angle += frameTime * shipNS::ROTATION_RATE;  // rotate the ship
+	//spriteData.x += frameTime * velocity.x;         // move ship along X 
+	//spriteData.y += frameTime * velocity.y;         // move ship along Y
 
 	// Bounce off walls
 	if (spriteData.x > GAME_WIDTH - shipNS::WIDTH)    // if hit right screen edge
@@ -82,6 +136,7 @@ void Ship::update(float frameTime)
 		spriteData.y = 0;                           // position at top screen edge
 		velocity.y = -velocity.y;                   // reverse Y direction
 	}
+
 	if (shieldOn)
 	{
 		shield.update(frameTime);

@@ -11,8 +11,14 @@ namespace shipNS
 	const int HEIGHT = 32;                  // image height
 	const int X = GAME_WIDTH / 2 - WIDTH / 2;   // location on screen
 	const int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
-	const float ROTATION_RATE = (float)PI / 4; // radians per second
-	const float SPEED = 100;                // 100 pixels per second
+	static float ROTATION_RATE = 100;		// degrees per second
+	static float ROTATION_ACC_RATE = 200.0f;//degrees per second per second
+	static float ROTATION_DRAG = 90 / 100;	//percentage drag per second
+	static float X_SPEED = 0;                // pixels per second
+	static float Y_SPEED = 0;                // pixels per second
+	static float X_ACC = 300;			//pixels per second per second
+	static float Y_ACC = 300;			//pixels per second per second
+	static float DRAG = 99 / 100;			//air resistance (IK its in space but stfu)
 	const float MASS = 300.0f;              // mass
 	const int   TEXTURE_COLS = 8;           // texture has 8 columns
 	const int   SHIP1_START_FRAME = 0;      // ship1 starts at frame 0
