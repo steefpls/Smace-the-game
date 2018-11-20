@@ -89,9 +89,6 @@ void Spacewar::update()
 	{
 		PostQuitMessage(0);
 	}
-
-
-	
 	//------------Handle Ship Rotation on Key Press--------------
 
 	//Keeping the ranges of the angle to 0<x<360

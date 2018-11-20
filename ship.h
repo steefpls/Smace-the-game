@@ -9,10 +9,10 @@ namespace shipNS
 {
 	const int WIDTH = 32;                   // image width
 	const int HEIGHT = 32;                  // image height
-	const int X = GAME_WIDTH / 2 - WIDTH / 2;   // location on screen
-	const int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
+	static int X = GAME_WIDTH / 2 - WIDTH / 2;   // location on screen
+	static int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
 	static float ROTATION_RATE = 0;		    // degrees per second
-	static float ROTATION_ACC_RATE = 100*(180/PI);   //degrees per second per second
+	static float ROTATION_ACC_RATE = 100 * PI / 180;   //degrees per second per second
 	static float ROTATION_DRAG = 90 / 100;	//percentage drag per second
 	static float X_SPEED = 0;                // pixels per second
 	static float Y_SPEED = 0;                // pixels per second
