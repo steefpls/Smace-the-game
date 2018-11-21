@@ -45,17 +45,20 @@ void Spacewar::initialize(HWND hwnd)
 	if (!planet.initialize(graphics, 0, 0, 0, &planetTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing planet"));
 
-	// ship
-	if (!ship.initialize(graphics, SHIP_WIDTH, SHIP_HEIGHT, SHIP_COLS, &shipTexture))
+	// ship1
+	if (!ship.initialize(graphics, SHIP1_WIDTH, SHIP1_HEIGHT, SHIP1_COLS, &shipTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship"));
 
 	//Scale Nebula to fullscreen
-	nebula.setScale(GAME_WIDTH/nebula.getWidth() );
+	nebula.setScale(GAME_WIDTH/nebula.getWidth());
+
+	//Scale Ship to Intended Size
+	ship.setScale(SHIP1_SET_WIDTH / ship.getWidth());
 
 	//Ship animation
-	ship.setFrames(SHIP_START_FRAME, SHIP_END_FRAME);   // animation frames 
-	ship.setCurrentFrame(SHIP_START_FRAME);             // starting frame
-	ship.setFrameDelay(SHIP_ANIMATION_DELAY);
+	ship.setFrames(SHIP1_START_FRAME, SHIP1_END_FRAME);   // animation frames 
+	ship.setCurrentFrame(SHIP1_START_FRAME);             // starting frame
+	ship.setFrameDelay(SHIP1_ANIMATION_DELAY);
 
 
 
@@ -79,7 +82,7 @@ void Spacewar::update()
 	{
 		PostQuitMessage(0);
 	}
-	
+
 	//------------Handle Ship Rotation on Key Press--------------
 
 	//Keeping the ranges of the angle to 0<x<360
@@ -96,21 +99,43 @@ void Spacewar::update()
 	{
 		if (input->isKeyDown(D)) //and the D key is held
 		{
-			SHIP1_ROTATION_RATE += SHIP1_ROTATION_ACCELERATION_RATE* frameTime;
+			SHIP1_ROTATION_RATE += SHIP1_ROTATION_ACCELERATION_RATE * frameTime;
 		}
-		
+
 	}
+
 	if (SHIP1_ROTATION_RATE > -240) //if ship is rotating at a speed of less than -5 degrees per frame
 	{
 		if (input->isKeyDown(A)) //And the A key is held
 		{
-			SHIP1_ROTATION_RATE -= SHIP1_ROTATION_ACCELERATION_RATE* frameTime;
+			SHIP1_ROTATION_RATE -= SHIP1_ROTATION_ACCELERATION_RATE * frameTime;
 		}
 
 	}
-	ship.setDegrees(ship.getDegrees() + SHIP1_ROTATION_RATE * frameTime); //update ship rotation
 
-	SHIP1_ROTATION_RATE = SHIP1_ROTATION_RATE - ((1 - SHIP1_ROTATION_DRAG) *SHIP1_ROTATION_RATE) * frameTime;// Update ship rotation rate due to air resistance
+	// SHIP ROTATION CALCULATION-----------------------------------------------
+
+
+
+	if (!input->isKeyDown(A) && !input->isKeyDown(D))
+	{
+		if (SHIP1_ROTATION_RATE < -SHIP1_ROTATION_DRAG *frameTime)
+		{
+			SHIP1_ROTATION_RATE += SHIP1_ROTATION_DRAG * frameTime;
+		}
+		else if (SHIP1_ROTATION_RATE > SHIP1_ROTATION_DRAG*frameTime)
+		{
+			SHIP1_ROTATION_RATE -= SHIP1_ROTATION_DRAG * frameTime;
+		}
+		else
+		{
+			SHIP1_ROTATION_RATE = 0;
+		}
+	}
+
+	ship.setDegrees(ship.getDegrees() + SHIP1_ROTATION_RATE * frameTime);	//update ship rotation 
+
+	
 
 	//----------------------------Handle Ship acceleration on Key Press-------------------------------------------
 
@@ -131,8 +156,8 @@ void Spacewar::update()
 
 	//----------------------------------Ship Location Wrapping-------------------------------------
 	//SHIP LOCATION UPDATE
-	ship.setX(ship.getX() + SHIP1_X_SPEED * ship.getScale() * frameTime); // Update Ship X location
-	ship.setY(ship.getY() + SHIP1_Y_SPEED * ship.getScale() * frameTime); // Update Ship Y location
+	ship.setX(ship.getX() + SHIP1_X_SPEED  * frameTime); // Update Ship X location
+	ship.setY(ship.getY() + SHIP1_Y_SPEED  * frameTime); // Update Ship Y location
 	   
 	
 	if (ship.getX() > GAME_WIDTH)               // if off screen right

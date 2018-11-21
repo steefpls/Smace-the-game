@@ -31,14 +31,14 @@ const char PLANET_IMAGE[] = "pictures\\planet.png"; // picture of planet
 const char SHIP_IMAGE[] = "pictures\\ship.png";   // spaceship
 
 //Ship Animation
-const int  SHIP_START_FRAME = 0;         // starting frame of ship animation
-const int  SHIP_END_FRAME = 3;           // last frame of ship animation
-const float SHIP_ANIMATION_DELAY = 0.2f; // time between frames of ship animation
-const int  SHIP_COLS = 2;                // ship texture has 2 columns
-const int  SHIP_WIDTH = 32;              // width of ship image
-const int  SHIP_HEIGHT = 32;             // height of ship image
+const int  SHIP1_START_FRAME = 0;         // starting frame of ship animation
+const int  SHIP1_END_FRAME = 3;           // last frame of ship animation
+const float SHIP1_ANIMATION_DELAY = 0.2f; // time between frames of ship animation
+const int  SHIP1_COLS = 2;                // ship texture has 2 columns
+const int  SHIP1_WIDTH = 32;              // width of ship image
+const int  SHIP1_HEIGHT = 32;             // height of ship image
 const float SHIP1_STARTSCALE = 1.5f;                  // starting ship scale
-const float SCALE_RATE = 0.2f;			//% change per second
+const float SCALE1_RATE = 0.2f;			//% change per second
 
 //keybinds
 const char D = 'D';
@@ -57,10 +57,10 @@ const UINT GAME_HEIGHT = 1080;               // height of game in pixels
  
 // game
 const double PI = 3.14159265;
-const float FRAME_RATE  = 200.0f;               // the target frame rate (frames/sec)
-const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
-const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
-const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
+const float FRAME_RATE  = 200.0f;					  // the target frame rate (frames/sec)
+const float MIN_FRAME_RATE = 10.0f;					  // the minimum frame rate
+const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;			// minimum desired time for 1 frame
+const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE;		// maximum time used in calculations
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
@@ -75,11 +75,15 @@ const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
 //                  Variables
 //-----------------------------------------------
 
-static float SHIP1_ROTATION_RATE = 100; //degrees per second
-static float SHIP1_ROTATION_DRAG = 90/100; //percentage drag per second
-static float SHIP1_ROTATION_ACCELERATION_RATE = 200.0f; //degrees per second per second
+//-------------Ship 1 Variables------------------------------------
 
+//Ship 1 Rotation
+static float SHIP1_ROTATION_RATE = 0;						 //degrees per second
+static float SHIP1_ROTATION_DRAG = 100;					 //Degrees per second per second of drag
 
+static float SHIP1_ROTATION_ACCELERATION_RATE = 300.0f;		 //degrees per second per second
+
+//Ship 1 Movement
 static float SHIP1_X_ACC = 300;			//pixels per second per second
 static float SHIP1_Y_ACC = 300;			//pixels per second per second
 
@@ -89,5 +93,11 @@ static float SHIP1_ANGLE = 0;
 static float SHIP1_SCALE = SHIP1_STARTSCALE;
 
 static float DRAG = 99 / 100;			//air resistance (IK its in space but stfu)
+
+//Ship 1 Set Width
+static float SHIP1_SET_WIDTH = 64;
+
+//Ship 1 Weight
+static float SHIP1_WEIGHT = 1;
 
 #endif
