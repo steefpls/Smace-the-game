@@ -104,7 +104,7 @@ void Ship::update(float frameTime)
 		}
 		else
 		{
-			shipNS::ROTATION_RATE = 0.0f;
+			shipNS::ROTATION_RATE = 0.0f;										//If speed is less than drag, set speed to 0
 		}
 	}
 
