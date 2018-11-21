@@ -6,6 +6,7 @@
 #include "game.h"
 #include "textureManager.h"
 #include "image.h"
+#include "ship.h"
 
 
 //=============================================================================
@@ -22,7 +23,7 @@ private:
 	Image   planet;                 // planet image
 	Image   nebula;                 // nebula image
 
-	Image	ship;					// ship image
+	Ship	ship1;					// ship image
 
 
 public:
