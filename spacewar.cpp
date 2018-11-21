@@ -129,7 +129,7 @@ void Spacewar::render()
 	planet.draw();                          // add the planet to the scene
 
 	ship1.draw();							// add the ship to the scene
-
+	//bullet1.draw();				
 	graphics->spriteEnd();                  // end drawing sprites
 }
 

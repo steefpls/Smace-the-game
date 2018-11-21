@@ -7,6 +7,7 @@
 #include "textureManager.h"
 #include "image.h"
 #include "ship.h"
+//#include "bullet1.h"
 
 
 //=============================================================================
@@ -24,7 +25,7 @@ private:
 	Image   nebula;                 // nebula image
 
 	Ship	ship1;					// ship image
-
+	//Bullet	bullet1;				// bullet image
 
 public:
     // Constructor
