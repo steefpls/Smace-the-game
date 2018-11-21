@@ -11,8 +11,8 @@ Ship::Ship() : Entity()
 	spriteData.y = shipNS::Y;
 	spriteData.rect.bottom = shipNS::HEIGHT;    // rectangle to select parts of an image
 	spriteData.rect.right = shipNS::WIDTH;
-	velocity.x = 0;                             // velocity X
-	velocity.y = 0;                             // velocity Y
+	velocity.x = shipNS::X_SPEED;                             // velocity X
+	velocity.y = shipNS::Y_SPEED;                             // velocity Y
 	frameDelay = shipNS::SHIP_ANIMATION_DELAY;
 	startFrame = shipNS::SHIP1_START_FRAME;     // first frame of ship animation
 	endFrame = shipNS::SHIP1_END_FRAME;     // last frame of ship animation
@@ -91,70 +91,27 @@ void Ship::update(float frameTime)
 
 	shipNS::ROTATION_RATE = shipNS::ROTATION_RATE - ((1 - shipNS::ROTATION_DRAG) *shipNS::ROTATION_RATE) * frameTime;// Update ship rotation rate due to air resistance
 
-	if (0 < spriteData.angle < PI / 2) //if first quadrant
+	if (input->isKeyDown(ship1Up)) //If the W key is held
 	{
-		if (input->isKeyDown(ship1Up)) //If the W key is held
-		{
-			shipNS::X_SPEED += sin(spriteData.angle / PI * 2) * shipNS::X_ACC * frameTime;
-			shipNS::Y_SPEED -= cos(spriteData.angle / PI * 2) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
-		}
-
-		if (input->isKeyDown(ship1Down)) //If the S key is held
-		{
-			shipNS::X_SPEED -= sin(spriteData.angle / PI * 2) * shipNS::X_ACC * frameTime;
-			shipNS::Y_SPEED += cos(spriteData.angle / PI * 2) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
-		}
+		velocity.x += sin(spriteData.angle / PI / 2) * shipNS::X_ACC * frameTime;
+		velocity.y -= cos(spriteData.angle / PI / 2) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
 	}
-	else if (PI / 2 <= spriteData.angle < PI) //if second quadrant
+
+	if (input->isKeyDown(ship1Down)) //If the S key is held
 	{
-		if (input->isKeyDown(ship1Up)) //If the W key is held
-		{
-			shipNS::X_SPEED -= sin(spriteData.angle / PI * 2) * shipNS::X_ACC * frameTime;
-			shipNS::Y_SPEED -= cos(spriteData.angle / PI * 2) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
-		}
-
-		if (input->isKeyDown(ship1Down)) //If the S key is held
-		{
-			shipNS::X_SPEED += sin(spriteData.angle / PI * 2) * shipNS::X_ACC * frameTime;
-			shipNS::Y_SPEED += cos(spriteData.angle / PI * 2) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
-		}
-	}
-	else if (PI <= spriteData.angle < 3 * PI / 4) //If 3rd quadrant
-	{
-		if (input->isKeyDown(ship1Up)) //If the W key is held
-		{
-			shipNS::X_SPEED -= sin(spriteData.angle / PI * 2) * shipNS::X_ACC * frameTime;
-			shipNS::Y_SPEED -= cos(spriteData.angle / PI * 2) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
-		}
-
-		if (input->isKeyDown(ship1Down)) //If the S key is held
-		{
-			shipNS::X_SPEED += sin(spriteData.angle / PI * 2) * shipNS::X_ACC * frameTime;
-			shipNS::Y_SPEED += cos(spriteData.angle / PI * 2) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
-		}
-	}
-	else {
-		if (input->isKeyDown(ship1Up)) //If the W key is held
-		{
-			shipNS::X_SPEED += sin(spriteData.angle / PI * 2) * shipNS::X_ACC * frameTime;
-			shipNS::Y_SPEED += cos(spriteData.angle / PI * 2) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
-		}
-
-		if (input->isKeyDown(ship1Down)) //If the S key is held
-		{
-			shipNS::X_SPEED -= sin(spriteData.angle / PI * 2) * shipNS::X_ACC * frameTime;
-			shipNS::Y_SPEED -= cos(spriteData.angle / PI * 2) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
-		}
+		velocity.x -= sin(spriteData.angle / PI / 2) * shipNS::X_ACC * frameTime;
+		velocity.y += cos(spriteData.angle / PI / 2) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
 	}
 	
 
 	//----------------------------------Ship Location Wrapping-------------------------------------
 	//SHIP LOCATION UPDATE
-	spriteData.x += (shipNS::X_SPEED * spriteData.scale * frameTime); // Update Ship X location
-	spriteData.y += (shipNS::Y_SPEED * spriteData.scale * frameTime); // Update Ship Y location
+	spriteData.x += (velocity.x * spriteData.scale * frameTime); // Update Ship X location
+	spriteData.y += (velocity.y * spriteData.scale * frameTime); // Update Ship Y location
 
-	shipNS::X_SPEED = shipNS::X_SPEED - ((1 - shipNS::DRAG) *shipNS::X_SPEED) * frameTime;
-	shipNS::Y_SPEED = shipNS::Y_SPEED - ((1 - shipNS::DRAG) *shipNS::Y_SPEED) * frameTime;   //Implementation of "Air" Resistance
+	velocity.x = velocity.x - ((1 - shipNS::DRAG) *velocity.x) * frameTime;
+	velocity.y = velocity.y - ((1 - shipNS::DRAG) *velocity.y) * frameTime;   //Implementation of "Air" Resistance
+
 
 	//spriteData.angle += frameTime * shipNS::ROTATION_RATE;  // rotate the ship
 	//spriteData.x += frameTime * velocity.x;         // move ship along X 

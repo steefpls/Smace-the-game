@@ -128,14 +128,14 @@ void Spacewar::update()
 
 	//if (input->isKeyDown(W)) //If the W key is held
 	//{
-	//	SHIP1_X_SPEED += sin(ship.getDegrees() / 360 * 2 * PI) * SHIP1_X_ACC * frameTime;
-	//	SHIP1_Y_SPEED -= cos(ship.getDegrees() / 360 * 2 * PI) * SHIP1_Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
+	//	SHIP1_X_SPEED += sin(ship.getDegrees() / 360) * SHIP1_X_ACC * frameTime;
+	//	SHIP1_Y_SPEED -= cos(ship.getDegrees() / 360) * SHIP1_Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
 	//}
 
 	//if (input->isKeyDown(S)) //If the S key is held
 	//{
-	//	SHIP1_X_SPEED -= sin(ship.getDegrees() / 360 * 2 * PI) * SHIP1_X_ACC * frameTime;
-	//	SHIP1_Y_SPEED += cos(ship.getDegrees() / 360 * 2 * PI) * SHIP1_Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
+	//	SHIP1_X_SPEED -= sin(ship.getDegrees() / 360) * SHIP1_X_ACC * frameTime;
+	//	SHIP1_Y_SPEED += cos(ship.getDegrees() / 360) * SHIP1_Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
 	//}
 
 
