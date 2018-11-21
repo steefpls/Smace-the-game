@@ -7,19 +7,27 @@
 
 namespace shipNS
 {
+	//Location handling
 	const int WIDTH = 32;                   // image width
 	const int HEIGHT = 32;                  // image height
 	static int X = GAME_WIDTH / 2 - WIDTH / 2;   // location on screen
 	static int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
-	static float ROTATION_RATE = 0;		    // degrees per second
-	static float ROTATION_ACC_RATE = 100 * PI / 180;   //degrees per second per second
-	static float ROTATION_DRAG = 90 / 100;	//percentage drag per second
-	static float X_SPEED = 0;                // pixels per second
-	static float Y_SPEED = 0;                // pixels per second
-	static float X_ACC = 300;			//pixels per second per second
-	static float Y_ACC = 300;			//pixels per second per second
+
+	//2d Rotation
+	static float ROTATION_RATE = 0.0f;		    // degrees per second
+	static float ROTATION_ACC_RATE = 250.0f  ;   //degrees per second per second
+	static float ROTATION_DRAG = 200.0f ;	//degrees drag per second
+	static float MAX_ROTATION_RATE = 240.0f ;	 // degrees per second
+
+	//2d Movement
+	static float X_SPEED = 0.0f;                // pixels per second
+	static float Y_SPEED = 0.0f;                // pixels per second
+	static float X_ACC = 300.0f;			//pixels per second per second
+	static float Y_ACC = 300.0f;			//pixels per second per second
 	static float DRAG = 99 / 100;			//air resistance (IK its in space but stfu)
 	const float MASS = 300.0f;              // mass
+
+	//Textures
 	const int   TEXTURE_COLS = 2;           // texture has 2 columns
 	const int   SHIP1_START_FRAME = 0;      // ship1 starts at frame 0
 	const int   SHIP1_END_FRAME = 3;        // ship1 animation frames 0,1,2,3
