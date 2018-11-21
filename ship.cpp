@@ -34,7 +34,7 @@ bool Ship::initialize(Game *gamePtr, int width, int height, int ncols,
 	shield.setFrames(shipNS::SHIELD_START_FRAME, shipNS::SHIELD_END_FRAME);
 	shield.setCurrentFrame(shipNS::SHIELD_START_FRAME);
 	shield.setFrameDelay(shipNS::SHIELD_ANIMATION_DELAY);
-	shield.setLoop(false);                  // do not loop animation
+	shield.setLoop(true);                  // do not loop animation
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
@@ -126,7 +126,6 @@ void Ship::update(float frameTime)
 		}
 
 
-	//----------------------------------EDGE Location Wrapping-------------------------------------
 	shipNS::X_SPEED = shipNS::X_SPEED - ((1 - shipNS::DRAG) *shipNS::X_SPEED) * frameTime;
 	shipNS::Y_SPEED = shipNS::Y_SPEED - ((1 - shipNS::DRAG) *shipNS::Y_SPEED) * frameTime;   //Implementation of "Air" Resistance
 
@@ -202,10 +201,26 @@ void Ship::update(float frameTime)
 		}
 	}
 
+	//================================================= SHIP DASH TIMER =================================================
+	if (shipNS::DASH_TIMER > 0)		//If timer is larger than 0
+	{
+		shipNS::DASH_TIMER -= 1.0f * frameTime; //Timer goes down by 1 per second
+		
+	}
 
-	//SHIP LOCATION UPDATE
+	if (input->isKeyDown(SPACE) && shipNS::DASH_TIMER<=0)
+	{
+		shipNS::X_SPEED += sin(spriteData.angle) * shipNS::BOOST_AMT ;
+		shipNS::Y_SPEED -= cos(spriteData.angle) * shipNS::BOOST_AMT ;
+		shipNS::DASH_TIMER = shipNS::MAX_DASH_TIMER;
+		
+	}
+
+
+	//SHIP LOCATION UPDATEb
 	spriteData.x += (shipNS::X_SPEED * spriteData.scale * frameTime); // Update Ship X location
 	spriteData.y += (shipNS::Y_SPEED * spriteData.scale * frameTime); // Update Ship Y location
+
 }
 
 //=============================================================================

@@ -22,9 +22,9 @@ namespace shipNS
 	//2d Movement
 	static float X_SPEED = 0.0f;                // pixels per second
 	static float Y_SPEED = 0.0f;                // pixels per second
-	static float X_ACC = 300.0f;			//pixels per second per second
-	static float Y_ACC = 300.0f;			//pixels per second per second
-	static float DRAG = 99 / 100;			//air resistance (IK its in space but stfu)
+	static float X_ACC = 400.0f;			//pixels per second per second
+	static float Y_ACC = 400.0f;			//pixels per second per second
+	static float DRAG = 98 / 100;			//air resistance (IK its in space but stfu)
 	const float MASS = 300.0f;              // mass
 
 	//Textures
@@ -37,6 +37,12 @@ namespace shipNS
 	const int   SHIELD_START_FRAME = 24;    // shield start frame
 	const int   SHIELD_END_FRAME = 27;      // shield end frame
 	const float SHIELD_ANIMATION_DELAY = 0.1f; // time between frames
+
+	//Timers
+	const float MAX_DASH_TIMER = 3.0f;
+	static float DASH_TIMER = 1.0f;
+	static bool CAN_DASH = false;
+	static float BOOST_AMT = 400; //pixels per second
 }
 
 // inherits from Entity class
