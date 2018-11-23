@@ -29,7 +29,7 @@ namespace bullet1NS
 	const float MASS = 300.0f;              // mass
 
 	//Textures
-	const int   TEXTURE_COLS = 1;           // texture has 1 columns
+	const int   TEXTURE_COLS = 1;           // texture has 1 column
 	const int   BULLET1_START_FRAME = 0;      // bullet1 starts at frame 0
 	const int   BULLET1_END_FRAME = 0;        // bullet1 animation frames 0,1,2,3
 
@@ -52,6 +52,5 @@ public:
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
 		TextureManager *textureM);
 	void update(float frameTime);
-	void damage(WEAPON);
 };
 #endif

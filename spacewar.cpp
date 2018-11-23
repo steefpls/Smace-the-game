@@ -84,6 +84,8 @@ void Spacewar::initialize(HWND hwnd)
 //=============================================================================
 void Spacewar::update()
 {
+	//bullet1.update(frameTime); //update bullet frames
+
 	ship1.update(frameTime); //update ship frames
 	if (input->isKeyDown(ESC_KEY))
 	{

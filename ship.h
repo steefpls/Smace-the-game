@@ -45,7 +45,8 @@ namespace shipNS
 	static bool CAN_DASH = false;
 	static float BOOST_AMT = 400; //pixels per second
 
-
+	//Arbritrary values
+	static float DAMAGE_MULTIPLIER = 1.0;
 }
 
 // inherits from Entity class
