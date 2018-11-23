@@ -11,6 +11,34 @@ Wall::Wall() : Entity()
 	spriteData.x = wallNS::X;
 	spriteData.y = wallNS::Y;
 
-
 	collisionType = entityNS::BOX;
+}
+
+//=============================================================================
+// Initialize the Wall.
+// Post: returns true if successful, false if failed
+//=============================================================================
+bool Wall::initialize(Game *gamePtr, int width, int height, int ncols,
+	TextureManager *textureM)
+{
+	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
+}
+
+//=============================================================================
+// draw the wall
+//=============================================================================
+void Wall::draw()
+{
+	Image::draw();              // draw ship
+}
+
+//=============================================================================
+// update
+// typically called once per frame
+// frameTime is used to regulate the speed of movement and animation
+//=============================================================================
+void Wall::update(float frameTime)
+{
+	Entity::update(frameTime);
+
 }
