@@ -27,12 +27,13 @@
 //-----------------------------------------------
 
 //weapon types
-enum WEAPON {TORPEDO, SHIP};
+enum WEAPON {BULLET, TORPEDO, SHIP, WALL};
 
 // graphic images
 const char NEBULA_IMAGE[] = "pictures\\orion.jpg";  // photo source NASA/courtesy of nasaimages.org 
 const char PLANET_IMAGE[] = "pictures\\planet.png"; // picture of planet
 const char SHIP_IMAGE[] = "pictures\\ship.png";   // spaceship
+const char WALL_IMAGE[] = "pictures\\wall.png";   // wall
 
 
 //keybinds

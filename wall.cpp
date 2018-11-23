@@ -11,7 +11,7 @@ Wall::Wall() : Entity()
 	spriteData.x = wallNS::X;
 	spriteData.y = wallNS::Y;
 
-	collisionType = entityNS::BOX;
+	collisionType = entityNS::ROTATED_BOX;
 }
 
 //=============================================================================
@@ -29,7 +29,7 @@ bool Wall::initialize(Game *gamePtr, int width, int height, int ncols,
 //=============================================================================
 void Wall::draw()
 {
-	Image::draw();              // draw ship
+	Image::draw();              // draw wall
 }
 
 //=============================================================================

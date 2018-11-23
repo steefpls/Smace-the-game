@@ -11,8 +11,8 @@ Ship::Ship() : Entity()
 	spriteData.y = shipNS::Y;
 	spriteData.rect.bottom = shipNS::HEIGHT;    // rectangle to select parts of an image
 	spriteData.rect.right = shipNS::WIDTH;
-	velocity.x = 0;                             // velocity X
-	velocity.y = 0;                             // velocity Y
+	velocity.x = shipNS::X_SPEED;                             // velocity X
+	velocity.y = shipNS::Y_SPEED;                             // velocity Y
 	frameDelay = shipNS::SHIP_ANIMATION_DELAY;
 	startFrame = shipNS::SHIP1_START_FRAME;     // first frame of ship animation
 	endFrame = shipNS::SHIP1_END_FRAME;     // last frame of ship animation
@@ -115,80 +115,80 @@ void Ship::update(float frameTime)
 
 		if (input->isKeyDown(ship1Up)) //If the W key is held
 		{
-			shipNS::X_SPEED += sin(spriteData.angle ) * shipNS::X_ACC * frameTime ;		
-			shipNS::Y_SPEED -= cos(spriteData.angle ) * shipNS::Y_ACC * frameTime ;		//Sets the ship X and Y speed based on angle
+			velocity.x += sin(spriteData.angle ) * shipNS::X_ACC * frameTime ;
+			velocity.y -= cos(spriteData.angle ) * shipNS::Y_ACC * frameTime ;		//Sets the ship X and Y speed based on angle
 		}
 
 		if (input->isKeyDown(ship1Down)) //If the S key is held
 		{
-			shipNS::X_SPEED -= sin(spriteData.angle) * shipNS::X_ACC * frameTime;
-			shipNS::Y_SPEED += cos(spriteData.angle) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
+			velocity.x -= sin(spriteData.angle) * shipNS::X_ACC * frameTime;
+			velocity.y += cos(spriteData.angle) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
 		}
 
 
-	shipNS::X_SPEED = shipNS::X_SPEED - ((1 - shipNS::DRAG) *shipNS::X_SPEED) * frameTime;
-	shipNS::Y_SPEED = shipNS::Y_SPEED - ((1 - shipNS::DRAG) *shipNS::Y_SPEED) * frameTime;   //Implementation of "Air" Resistance
+		velocity.x = velocity.x - ((1 - shipNS::DRAG) *velocity.x) * frameTime;
+		velocity.y = velocity.y - ((1 - shipNS::DRAG) *velocity.y) * frameTime;   //Implementation of "Air" Resistance
 
 
 	// ============================================= Bounce off walls/Wall collision ==========================================================
 	// X BASED COLLISION
 	if (spriteData.x > GAME_WIDTH - (shipNS::WIDTH * shipNS::SHIP_SCALE) + 1)    // if hit right screen edge
 	{
-		if (shipNS::Y_SPEED > 0)	//Add random speed based on spin
+		if (velocity.y > 0)	//Add random speed based on spin
 		{
-			shipNS::ROTATION_RATE += 300 * (shipNS::X_SPEED / 400);		//add rotation based on X movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE += 300 * (velocity.x / 400);		//add rotation based on X movement  (Random amount | Starting point)
 		}
 		else
 		{
-			shipNS::ROTATION_RATE -= 300 * (shipNS::X_SPEED / 400);		//add random rotation based on X movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE -= 300 * (velocity.x / 400);		//add random rotation based on X movement  (Random amount | Starting point)
 		}
 
 		spriteData.x = GAME_WIDTH - shipNS::WIDTH;    // position at right screen edge
-		shipNS::X_SPEED = (-shipNS::X_SPEED) * shipNS::DAMAGE_MULTIPLIER;                   // reverse X direction, Add knockback
+		velocity.x = (-velocity.x) * shipNS::DAMAGE_MULTIPLIER;                   // reverse X direction, Add knockback
 
 	}
 
 	else if (spriteData.x < 0)                    // else if hit left screen edge
 	{
-		if (shipNS::Y_SPEED > 0)	//Add random speed based on spin
+		if (velocity.y > 0)	//Add random speed based on spin
 		{
-			shipNS::ROTATION_RATE += 300 * (shipNS::X_SPEED / 400);		//add rotation based on X movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE += 300 * (velocity.x / 400);		//add rotation based on X movement  (Random amount | Starting point)
 		}
 		else
 		{
-			shipNS::ROTATION_RATE -= 300 * (shipNS::X_SPEED / 400);		//add rotation based on X movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE -= 300 * (velocity.x / 400);		//add rotation based on X movement  (Random amount | Starting point)
 		}
 		spriteData.x = 0;                           // position at left screen edge
-		shipNS::X_SPEED = (-shipNS::X_SPEED) * shipNS::DAMAGE_MULTIPLIER;                   // reverse X direction and add knockback
+		velocity.x = (-velocity.x) * shipNS::DAMAGE_MULTIPLIER;                   // reverse X direction and add knockback
 	}
 
 
 	// Y BASED COLLISION
 	if (spriteData.y > GAME_HEIGHT - shipNS::HEIGHT * shipNS::SHIP_SCALE)  // if hit bottom screen edge
 	{
-		if (shipNS::X_SPEED > 0)	//Add random speed based on spin
+		if (velocity.x > 0)	//Add random speed based on spin
 		{
-			shipNS::ROTATION_RATE -= 300 * (shipNS::Y_SPEED / 400);		//add rotation based on Y movement  
+			shipNS::ROTATION_RATE -= 300 * (velocity.y / 400);		//add rotation based on Y movement  
 		}
 		else
 		{
-			shipNS::ROTATION_RATE += 300 * (shipNS::Y_SPEED / 400);		//add rotation based on Y movement  
+			shipNS::ROTATION_RATE += 300 * (velocity.y / 400);		//add rotation based on Y movement  
 		}
 		spriteData.y = GAME_HEIGHT - shipNS::HEIGHT;  // position at bottom screen edge
-		shipNS::Y_SPEED = (-shipNS::Y_SPEED) * shipNS::DAMAGE_MULTIPLIER;                   // reverse Y direction and add knockback
+		velocity.y = (-velocity.y) * shipNS::DAMAGE_MULTIPLIER;                   // reverse Y direction and add knockback
 	}
 	else if (spriteData.y < 0)                    // else if hit top screen edge
 	{
-		if (shipNS::X_SPEED > 0)	//Add random speed based on spin
+		if (velocity.x > 0)	//Add random speed based on spin
 		{
-			shipNS::ROTATION_RATE -= 300 * (shipNS::Y_SPEED / 400);		//add rotation based on Y movement
+			shipNS::ROTATION_RATE -= 300 * (velocity.y / 400);		//add rotation based on Y movement
 		}
 		else
 		{
-			shipNS::ROTATION_RATE += 300 * (shipNS::Y_SPEED / 400);		//add rotation based on Y movement 
+			shipNS::ROTATION_RATE += 300 * (velocity.y / 400);		//add rotation based on Y movement 
 		}
 		spriteData.y = 0;                           // position at top screen edge
-		shipNS::Y_SPEED = (-shipNS::Y_SPEED) * shipNS::DAMAGE_MULTIPLIER;                   // reverse Y direction and add knockback
+		velocity.y = (-velocity.y) * shipNS::DAMAGE_MULTIPLIER;                   // reverse Y direction and add knockback
 	}
 
 	if (shieldOn)
@@ -210,16 +210,16 @@ void Ship::update(float frameTime)
 
 	if (input->isKeyDown(SPACE) && shipNS::DASH_TIMER<=0)
 	{
-		shipNS::X_SPEED += sin(spriteData.angle) * shipNS::BOOST_AMT ;
-		shipNS::Y_SPEED -= cos(spriteData.angle) * shipNS::BOOST_AMT ;
+		velocity.x += sin(spriteData.angle) * shipNS::BOOST_AMT ;
+		velocity.y -= cos(spriteData.angle) * shipNS::BOOST_AMT ;
 		shipNS::DASH_TIMER = shipNS::MAX_DASH_TIMER;
 		
 	}
 
 
 	//SHIP LOCATION UPDATEb
-	spriteData.x += (shipNS::X_SPEED * spriteData.scale * frameTime); // Update Ship X location
-	spriteData.y += (shipNS::Y_SPEED * spriteData.scale * frameTime); // Update Ship Y location
+	spriteData.x += (velocity.x * spriteData.scale * frameTime); // Update Ship X location
+	spriteData.y += (velocity.y * spriteData.scale * frameTime); // Update Ship Y location
 
 }
 

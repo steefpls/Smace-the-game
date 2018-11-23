@@ -117,6 +117,14 @@
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="pictures\orion.jpg" />
+    <Image Include="pictures\planet.png" />
+    <Image Include="pictures\rockets_PNG13274.png" />
+    <Image Include="pictures\ship.png" />
+    <Image Include="pictures\ship2.png" />
+    <Image Include="pictures\wall.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

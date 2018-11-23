@@ -7,6 +7,7 @@
 #include "textureManager.h"
 #include "image.h"
 #include "ship.h"
+#include "wall.h"
 //#include "bullet1.h"
 
 
@@ -20,11 +21,14 @@ private:
 	TextureManager nebulaTexture;   // nebula texture
 	TextureManager planetTexture;   // planet texture
 	TextureManager shipTexture;		// ship texture
+	TextureManager wallTexture;		// wall texture
 
 	Image   planet;                 // planet image
-	Image   nebula;                 // nebula imaged
-	Ship * ship1 = NULL;
-	Ship	ship1;					// ship image
+	Image   nebula;                 // nebula image
+
+	//Ship * ship1 = NULL;
+	Ship	ship1;					// ship object
+	Wall	wall1;					// wall object
 
 	//Bullet	bullet1;				// bullet image
 

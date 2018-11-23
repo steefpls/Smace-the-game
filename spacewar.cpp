@@ -41,7 +41,20 @@ void Spacewar::initialize(HWND hwnd)
 	ship1.setFrames(shipNS::SHIP1_START_FRAME, shipNS::SHIP1_END_FRAME);
 	ship1.setCurrentFrame(shipNS::SHIP1_START_FRAME);
 	ship1.setX(GAME_WIDTH / 4);
-	ship1.setY(GAME_HEIGHT);
+	ship1.setY(GAME_HEIGHT /4);
+
+	//Wall texture
+	if (!wallTexture.initialize(graphics, WALL_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
+	
+	//wall
+	if (!wall1.initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall"));
+	wall1.setFrames(wallNS::WALL1_START_FRAME, wallNS::WALL1_END_FRAME);
+	wall1.setCurrentFrame(wallNS::WALL1_START_FRAME);
+	wall1.setX(3* GAME_WIDTH / 4);
+	wall1.setY(GAME_HEIGHT / 4);
+
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
 
 	// nebula
@@ -87,6 +100,7 @@ void Spacewar::update()
 	//bullet1.update(frameTime); //update bullet frames
 
 	ship1.update(frameTime); //update ship frames
+	wall1.update(frameTime);
 	if (input->isKeyDown(ESC_KEY))
 	{
 	
@@ -100,6 +114,12 @@ void Spacewar::update()
 //=============================================================================
 void Spacewar::collisions()
 {
+	VECTOR2 collisionVector;
+	if (ship1.collidesWith(wall1, collisionVector)) 
+	{
+		ship1.bounce(collisionVector, wall1);
+		ship1.damage(WALL);
+	}
 	//// if collision between ships
 	//if (ship1.collidesWith(ship2, collisionVector))
 	//{
@@ -131,6 +151,7 @@ void Spacewar::render()
 	planet.draw();                          // add the planet to the scene
 
 	ship1.draw();							// add the ship to the scene
+	wall1.draw();
 	//bullet1.draw();				
 	graphics->spriteEnd();                  // end drawing sprites
 }

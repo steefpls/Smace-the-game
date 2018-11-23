@@ -8,11 +8,18 @@
 namespace wallNS
 {
 	//Location Handling
-	const int WIDTH = 32;					//image width
-	const int HEIGHT = 32;					//image height
+	const int WIDTH = 64;					//image width
+	const int HEIGHT = 64;					//image height
 	static int X = GAME_WIDTH / 2 - WIDTH / 2;   // location on screen
 	static int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
-	const int TEXTURE_COLS = 2;			//texture has 2 columns
+	
+	//Texture handling
+	const int TEXTURE_COLS = 1;			//texture has 1 columns
+	const int WALL1_START_FRAME = 0;      // ship1 starts at frame 0
+	const int WALL1_END_FRAME = 0;        // ship1 animation frames 0,1,2,3
+
+	const int COLLISION_RADIUS = 60 / 2;
+	static float HP = 1000.0f;				//wall hp
 }
 
 class Wall : public Entity 
