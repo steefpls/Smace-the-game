@@ -99,7 +99,6 @@ void Spacewar::update()
 //=============================================================================
 void Spacewar::collisions()
 {
-
 	//// if collision between ships
 	//if (ship1.collidesWith(ship2, collisionVector))
 	//{
@@ -160,3 +159,5 @@ void Spacewar::resetAll()
     Game::resetAll();
     return;
 }
+
+//for (i = 0; i < wall list amount; i++) { wall[i].CollidesWith
