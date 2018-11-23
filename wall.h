@@ -18,6 +18,7 @@ namespace wallNS
 	const int WALL1_START_FRAME = 0;      // ship1 starts at frame 0
 	const int WALL1_END_FRAME = 0;        // ship1 animation frames 0,1,2,3
 
+	const float MASS = 1.0e14f;
 	const int COLLISION_RADIUS = 60 / 2;
 	static float HP = 1000.0f;				//wall hp
 }

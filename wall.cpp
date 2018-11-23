@@ -8,9 +8,10 @@ Wall::Wall() : Entity()
 {
 	spriteData.width = wallNS::WIDTH;	//size of wall
 	spriteData.height = wallNS::HEIGHT;
+	radius = wallNS::WIDTH / 2;
 	spriteData.x = wallNS::X;
 	spriteData.y = wallNS::Y;
-
+	mass = wallNS::MASS;
 	collisionType = entityNS::ROTATED_BOX;
 }
 
