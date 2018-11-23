@@ -15,8 +15,8 @@ namespace shipNS
 
 	//2d Rotation
 	static float ROTATION_RATE = 0.0f;		    // degrees per second
-	static float ROTATION_ACC_RATE = 250.0f  ;   //degrees per second per second
-	static float ROTATION_DRAG = 200.0f ;	//degrees drag per second
+	static float ROTATION_ACC_RATE = 350.0f  ;   //degrees per second per second
+	static float ROTATION_DRAG = 400.0f ;	//degrees drag per second
 	static float MAX_ROTATION_RATE = 240.0f ;	 // degrees per second
 
 	//2d Movement
@@ -37,12 +37,15 @@ namespace shipNS
 	const int   SHIELD_START_FRAME = 24;    // shield start frame
 	const int   SHIELD_END_FRAME = 27;      // shield end frame
 	const float SHIELD_ANIMATION_DELAY = 0.1f; // time between frames
+	static float SHIP_SCALE = 1;			//ship scale
 
 	//Timers
 	const float MAX_DASH_TIMER = 3.0f;
 	static float DASH_TIMER = 1.0f;
 	static bool CAN_DASH = false;
 	static float BOOST_AMT = 400; //pixels per second
+
+
 }
 
 // inherits from Entity class

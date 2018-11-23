@@ -132,15 +132,15 @@ void Ship::update(float frameTime)
 
 	// ============================================= Bounce off walls/Wall collision ==========================================================
 	// X BASED COLLISION
-	if (spriteData.x > GAME_WIDTH - shipNS::WIDTH + 1)    // if hit right screen edge
+	if (spriteData.x > GAME_WIDTH - (shipNS::WIDTH * shipNS::SHIP_SCALE) + 1)    // if hit right screen edge
 	{
 		if (shipNS::Y_SPEED > 0)	//Add random speed based on spin
 		{
-			shipNS::ROTATION_RATE -= rand() % 250 + 50;		//add random rotation based on Y movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE += 300 * (shipNS::X_SPEED / 400);		//add rotation based on X movement  (Random amount | Starting point)
 		}
 		else
 		{
-			shipNS::ROTATION_RATE += rand() % 250 + 50;		//add random rotation based on Y movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE -= 300 * (shipNS::X_SPEED / 400);		//add random rotation based on X movement  (Random amount | Starting point)
 		}
 
 		spriteData.x = GAME_WIDTH - shipNS::WIDTH;    // position at right screen edge
@@ -152,11 +152,11 @@ void Ship::update(float frameTime)
 	{
 		if (shipNS::Y_SPEED > 0)	//Add random speed based on spin
 		{
-			shipNS::ROTATION_RATE += rand() % 250 + 50;		//add random rotation based on Y movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE -= 300 * (shipNS::X_SPEED / 400);		//add rotation based on X movement  (Random amount | Starting point)
 		}
 		else
 		{
-			shipNS::ROTATION_RATE -= rand() % 250 + 50;		//add random rotation based on Y movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE += 300 * (shipNS::X_SPEED / 400);		//add rotation based on X movement  (Random amount | Starting point)
 		}
 		spriteData.x = 0;                           // position at left screen edge
 		shipNS::X_SPEED = -shipNS::X_SPEED;                   // reverse X direction
@@ -164,15 +164,15 @@ void Ship::update(float frameTime)
 
 
 	// Y BASED COLLISION
-	if (spriteData.y > GAME_HEIGHT - shipNS::HEIGHT)  // if hit bottom screen edge
+	if (spriteData.y > GAME_HEIGHT - shipNS::HEIGHT * shipNS::SHIP_SCALE)  // if hit bottom screen edge
 	{
 		if (shipNS::X_SPEED > 0)	//Add random speed based on spin
 		{
-			shipNS::ROTATION_RATE += rand() % 250 + 50;		//add random rotation based on X movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE -= 300 * (shipNS::Y_SPEED / 400);		//add rotation based on Y movement  
 		}
 		else
 		{
-			shipNS::ROTATION_RATE -= rand() % 250 + 50;		//add random rotation based on X movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE += 300 * (shipNS::Y_SPEED / 400);		//add rotation based on Y movement  
 		}
 		spriteData.y = GAME_HEIGHT - shipNS::HEIGHT;  // position at bottom screen edge
 		shipNS::Y_SPEED = -shipNS::Y_SPEED;                   // reverse Y direction
@@ -181,11 +181,11 @@ void Ship::update(float frameTime)
 	{
 		if (shipNS::X_SPEED > 0)	//Add random speed based on spin
 		{
-			shipNS::ROTATION_RATE -= rand() % 250 + 50;		//add random rotation based on Y movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE -= 300 * (shipNS::Y_SPEED / 400);		//add rotation based on Y movement
 		}
 		else
 		{
-			shipNS::ROTATION_RATE += rand() % 250 + 50;		//add random rotation based on Y movement  (Random amount | Starting point)
+			shipNS::ROTATION_RATE += 300 * (shipNS::Y_SPEED / 400);		//add rotation based on Y movement 
 		}
 		spriteData.y = 0;                           // position at top screen edge
 		shipNS::Y_SPEED = -shipNS::Y_SPEED;                   // reverse Y direction
