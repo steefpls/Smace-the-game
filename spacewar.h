@@ -22,9 +22,10 @@ private:
 	TextureManager shipTexture;		// ship texture
 
 	Image   planet;                 // planet image
-	Image   nebula;                 // nebula image
-
+	Image   nebula;                 // nebula imaged
+	Ship * ship1 = NULL;
 	Ship	ship1;					// ship image
+
 	//Bullet	bullet1;				// bullet image
 
 public:

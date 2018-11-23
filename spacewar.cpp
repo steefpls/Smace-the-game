@@ -41,7 +41,7 @@ void Spacewar::initialize(HWND hwnd)
 	ship1.setFrames(shipNS::SHIP1_START_FRAME, shipNS::SHIP1_END_FRAME);
 	ship1.setCurrentFrame(shipNS::SHIP1_START_FRAME);
 	ship1.setX(GAME_WIDTH / 4);
-	ship1.setY(GAME_HEIGHT / 4);
+	ship1.setY(GAME_HEIGHT);
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
 
 	// nebula
@@ -89,6 +89,7 @@ void Spacewar::update()
 	ship1.update(frameTime); //update ship frames
 	if (input->isKeyDown(ESC_KEY))
 	{
+	
 		PostQuitMessage(0);
 	}
 	
