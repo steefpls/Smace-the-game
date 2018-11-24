@@ -12,6 +12,7 @@ Wall::Wall() : Entity()
 	spriteData.x = wallNS::X;
 	spriteData.y = wallNS::Y;
 	mass = wallNS::MASS;
+	active = wallNS::ACTIVE;
 	collisionType = entityNS::ROTATED_BOX;
 }
 

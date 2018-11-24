@@ -101,6 +101,8 @@ void Spacewar::update()
 
 	ship1.update(frameTime); //update ship frames
 	wall1.update(frameTime);
+	//collide with right wall
+
 	if (input->isKeyDown(ESC_KEY))
 	{
 	
@@ -112,19 +114,20 @@ void Spacewar::update()
 //=============================================================================
 // Handle collisions
 //=============================================================================
+
 void Spacewar::collisions()
 {
 	VECTOR2 collisionVector;
 	if (ship1.collidesWith(wall1, collisionVector)) 
 	{
 		//collide with right wall
-		if (ship1.getX()+shipNS::WIDTH > (wall1.getX()))
+		if (ship1.getX() + shipNS::WIDTH > (wall1.getX()))
 		{
 			ship1.setX(wall1.getX());
 		}
 
 		//collide with left wall
-		else if (ship1.getX() < wall1.getX()+wallNS::WIDTH)
+		else if (ship1.getX() < wall1.getX() + wallNS::WIDTH)
 		{
 			ship1.setX(wall1.getX() + wallNS::WIDTH);
 		}
