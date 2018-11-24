@@ -117,8 +117,17 @@ void Spacewar::collisions()
 	VECTOR2 collisionVector;
 	if (ship1.collidesWith(wall1, collisionVector)) 
 	{
-		//ship1.bounce(collisionVector, wall1);
-		ship1.damage(WALL);
+		//collide with right wall
+		if (ship1.getX()+shipNS::WIDTH > (wall1.getX()))
+		{
+			ship1.setX(wall1.getX());
+		}
+
+		//collide with left wall
+		else if (ship1.getX() < wall1.getX()+wallNS::WIDTH)
+		{
+			ship1.setX(wall1.getX() + wallNS::WIDTH);
+		}
 	}
 	//// if collision between ships
 	//if (ship1.collidesWith(ship2, collisionVector))
