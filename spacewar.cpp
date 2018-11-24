@@ -48,13 +48,16 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
 	
 	//wall
-	if (!wall1.initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall"));
-	wall1.setFrames(wallNS::WALL1_START_FRAME, wallNS::WALL1_END_FRAME);
-	wall1.setCurrentFrame(wallNS::WALL1_START_FRAME);
-	wall1.setX(3* GAME_WIDTH / 4);
-	wall1.setY(GAME_HEIGHT / 4);
-
+	for (int i = 0; i <= (1920 / wallNS::WIDTH); i++)
+	{
+		if (!wall1->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall"));
+		wall1->setFrames(wallNS::WALL1_START_FRAME, wallNS::WALL1_END_FRAME);
+		wall1->setCurrentFrame(wallNS::WALL1_START_FRAME);
+		wall1->setX(i*wallNS::WIDTH);
+		wall1->setY(wallNS::HEIGHT);
+	}
+	
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
 
 	// nebula
@@ -100,7 +103,7 @@ void Spacewar::update()
 	//bullet1.update(frameTime); //update bullet frames
 
 	ship1.update(frameTime); //update ship frames
-	wall1.update(frameTime);
+	wall1->update(frameTime);
 	//collide with right wall
 
 	if (input->isKeyDown(ESC_KEY))
@@ -118,20 +121,20 @@ void Spacewar::update()
 void Spacewar::collisions()
 {
 	VECTOR2 collisionVector;
-	if (ship1.collidesWith(wall1, collisionVector)) 
-	{
-		//collide with right wall
-		if (ship1.getX() + shipNS::WIDTH > (wall1.getX()))
-		{
-			ship1.setX(wall1.getX());
-		}
+	//if (ship1.collidesWith(wall1, collisionVector)) 
+	//{
+	//	//collide with right wall
+	//	if (ship1.getX() + shipNS::WIDTH > (wall1.getX()))
+	//	{
+	//		ship1.setX(wall1.getX());
+	//	}
 
-		//collide with left wall
-		else if (ship1.getX() < wall1.getX() + wallNS::WIDTH)
-		{
-			ship1.setX(wall1.getX() + wallNS::WIDTH);
-		}
-	}
+	//	//collide with left wall
+	//	else if (ship1.getX() < wall1.getX() + wallNS::WIDTH)
+	//	{
+	//		ship1.setX(wall1.getX() + wallNS::WIDTH);
+	//	}
+	//}
 	//// if collision between ships
 	//if (ship1.collidesWith(ship2, collisionVector))
 	//{
@@ -163,7 +166,7 @@ void Spacewar::render()
 	planet.draw();                          // add the planet to the scene
 
 	ship1.draw();							// add the ship to the scene
-	wall1.draw();
+	wall1->draw();
 	//bullet1.draw();				
 	graphics->spriteEnd();                  // end drawing sprites
 }

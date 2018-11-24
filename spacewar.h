@@ -28,7 +28,7 @@ private:
 
 	//Ship * ship1 = NULL;
 	Ship	ship1;					// ship object
-	Wall	wall1;					// wall object
+	Wall	* wall1;					// wall object
 
 	//Bullet	bullet1;				// bullet image
 
