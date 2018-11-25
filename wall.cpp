@@ -8,10 +8,12 @@ Wall::Wall() : Entity()
 {
 	spriteData.width = wallNS::WIDTH;	//size of wall
 	spriteData.height = wallNS::HEIGHT;
+	radius = wallNS::WIDTH/2;
 	spriteData.x = wallNS::X;
 	spriteData.y = wallNS::Y;
-
-	collisionType = entityNS::BOX;
+	mass = wallNS::MASS;
+	active = wallNS::ACTIVE;
+	collisionType = entityNS::ROTATED_BOX;
 }
 
 //=============================================================================
@@ -29,7 +31,7 @@ bool Wall::initialize(Game *gamePtr, int width, int height, int ncols,
 //=============================================================================
 void Wall::draw()
 {
-	Image::draw();              // draw ship
+	Image::draw();              // draw wall
 }
 
 //=============================================================================
