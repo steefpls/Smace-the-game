@@ -34,14 +34,21 @@ void Spacewar::initialize(HWND hwnd)
 	//ship1Textures
 	if (!shipTexture.initialize(graphics, SHIP_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1 texture"));
-
-	// ship
-	if (!ship1.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &shipTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1"));
-	ship1.setFrames(shipNS::SHIP1_START_FRAME, shipNS::SHIP1_END_FRAME);
-	ship1.setCurrentFrame(shipNS::SHIP1_START_FRAME);
-	ship1.setX(GAME_WIDTH / 4);
-	ship1.setY(GAME_HEIGHT);
+	if (input->isKeyDown(SPACE))
+	{
+		ship1 = new Ship();
+		ship2 = new Ship();
+	}
+	if (ship1 != NULL)
+	{
+		// ship
+		if (!ship1->initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &shipTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1"));
+		ship1->setFrames(shipNS::SHIP1_START_FRAME, shipNS::SHIP1_END_FRAME);
+		ship1->setCurrentFrame(shipNS::SHIP1_START_FRAME);
+		ship1->setX(GAME_WIDTH / 4);
+		ship1->setY(GAME_HEIGHT);
+	}
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
 
 	// nebula
@@ -86,12 +93,14 @@ void Spacewar::update()
 {
 	//bullet1.update(frameTime); //update bullet frames
 
-	ship1.update(frameTime); //update ship frames
+	//ship1.update(frameTime); //update ship frames
 	if (input->isKeyDown(ESC_KEY))
 	{
-	
+		
 		PostQuitMessage(0);
 	}
+	
+	ship1->update(frameTime);
 	
 }
 
@@ -130,7 +139,7 @@ void Spacewar::render()
 	nebula.draw();                          // add the orion nebula to the scene
 	planet.draw();                          // add the planet to the scene
 
-	ship1.draw();							// add the ship to the scene
+	ship1->draw();							// add the ship to the scene
 	//bullet1.draw();				
 	graphics->spriteEnd();                  // end drawing sprites
 }

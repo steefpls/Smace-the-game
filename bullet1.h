@@ -3,6 +3,7 @@
 #define _BULLET1_H                 // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
+#include "ship.h"
 #include "entity.h"
 #include "constants.h"
 
@@ -41,7 +42,7 @@ namespace bullet1NS
 class Bullet : public Entity
 {
 private:
-
+	Ship	ship;
 	Image   bullet;
 public:
 	// constructor

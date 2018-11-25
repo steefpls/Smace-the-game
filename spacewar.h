@@ -24,7 +24,8 @@ private:
 	Image   planet;                 // planet image
 	Image   nebula;                 // nebula imaged
 	Ship * ship1 = NULL;
-	Ship	ship1;					// ship image
+	Ship * ship2 = NULL;
+//	Ship	ship1;					// ship image
 
 	//Bullet	bullet1;				// bullet image
 
