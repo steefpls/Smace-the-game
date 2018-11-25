@@ -81,6 +81,8 @@ bool Entity::collidesWith(Entity &ent, VECTOR2 &collisionVector)
 	if (collisionType == entityNS::BOX && ent.getCollisionType() == entityNS::BOX)
 		return collideBox(ent, collisionVector);
 	// All other combinations use separating axis test
+	if (collisionType == entityNS::ROTATED_BOX&&ent.getCollisionType() == entityNS::ROTATED_BOX)
+		return collideRotatedBox(ent, collisionVector);
 	// If neither entity uses CIRCLE collision
 	if (collisionType != entityNS::CIRCLE && ent.getCollisionType() != entityNS::CIRCLE)
 		return collideRotatedBox(ent, collisionVector);
