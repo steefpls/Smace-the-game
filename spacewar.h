@@ -11,7 +11,8 @@
 #include "missile.h"
 //#include "bullet1.h"
 
-
+#include <iostream>
+#include <vector>
 //=============================================================================
 // Create game class
 //=============================================================================
@@ -30,7 +31,8 @@ private:
 
 	//Ship * ship1 = NULL;
 	Ship	ship1;					// ship object
-	Wall	wall1;					// wall object
+	Wall	*wall1 = new Wall;					// wall object
+	std::vector<Wall *> wallList1;
 	Missile missile1;				// missile object
 
 	//Bullet	bullet1;				// bullet image

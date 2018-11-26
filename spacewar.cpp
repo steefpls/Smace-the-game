@@ -49,12 +49,16 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
 	
 	//wall
-	if (!wall1.initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall"));
-	wall1.setFrames(wallNS::WALL1_START_FRAME, wallNS::WALL1_END_FRAME);
-	wall1.setCurrentFrame(wallNS::WALL1_START_FRAME);
-	wall1.setX(GAME_WIDTH/4);
-	wall1.setY(500);
+	for (int i = 0; i < GAME_WIDTH / wallNS::WIDTH; i++)
+	{
+		if (!wall1->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall"));
+		wall1->setFrames(wallNS::WALL1_START_FRAME, wallNS::WALL1_END_FRAME);
+		wall1->setCurrentFrame(wallNS::WALL1_START_FRAME);
+		//wall1->setX(i*wallNS::WIDTH);
+		//wall1->setY(0);
+		wallList1.push_back(wall1);
+	}
 
 	//missile texture
 	if (!missileTexture.initialize(graphics, MISSILE_IMAGE))
@@ -114,7 +118,10 @@ void Spacewar::update()
 	//bullet1.update(frameTime); //update bullet frames
 
 	ship1.update(frameTime);	//update ship frames
-	wall1.update(frameTime);	//update wall frames
+	for each (Wall * wall1 in wallList1) 
+	{
+		wall1->update(frameTime);	//update wall frames
+	}
 	missile1.update(frameTime);	//update missile frames
 								
 
@@ -134,10 +141,14 @@ void Spacewar::collisions()
 {
 	VECTOR2 collisionVector;
 
-	if (ship1.collidesWith(wall1, collisionVector))				//If ship collides with wall,
+	for each(Wall*wall1 in wallList1)
 	{
-		ship1.setVelocity(ship1.getVelocity() + ship1.getVelocity()*10*frameTime);
+		if (ship1.collidesWith(*wall1, collisionVector))
+		{
+			ship1.setY(200);
+		}
 	}
+	
 
 	//// if collision between ships
 	//if (ship1.collidesWith(ship2, collisionVector))
@@ -170,9 +181,15 @@ void Spacewar::render()
 	planet.draw();                          // add the planet to the scene
 
 	ship1.draw();							// add the ship to the scene
-	wall1.draw();
 	missile1.draw();
-
+	int n = 0;
+	for each (Wall * wall1 in wallList1)
+	{
+		wall1->setX(n*wallNS::WIDTH);
+		wall1->setY(0);
+		wall1->draw();
+		n++;
+	}
 	//bullet1.draw();				
 	graphics->spriteEnd();                  // end drawing sprites
 }
