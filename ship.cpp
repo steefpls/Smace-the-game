@@ -1,4 +1,5 @@
 #include "ship.h"
+using namespace shipNS;
 
 //=============================================================================
 // default constructor
