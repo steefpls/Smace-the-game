@@ -1,5 +1,6 @@
-
 #include "spaceWar.h"
+#include "ship.h"
+#include "entity.h"
 
 //=============================================================================
 // Constructor
@@ -122,9 +123,26 @@ void Spacewar::collisions()
 
 	if (ship1.collidesWith(wall1, collisionVector))
 	{
-		//collide with left side of wall
-		ship1.bounce(collisionVector, wall1);
+		double AngleBetween = wall1.anglebetween(ship1); 
+
+		if (AngleBetween >= 315 && AngleBetween < 45)
+		{
+			ship1.setVelocity(-ship1.getVelocity());
+		}
+		else if (AngleBetween >= 45 && AngleBetween < 135)
+		{
+			ship1.setX(0);
+		}
+		else if (AngleBetween >= 135 && AngleBetween < 225)
+		{
+
+		}
+		else (AngleBetween >= 225 && AngleBetween < 315)
+		{
+
+		}
 	}
+
 	//// if collision between ships
 	//if (ship1.collidesWith(ship2, collisionVector))
 	//{

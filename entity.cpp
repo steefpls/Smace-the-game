@@ -405,3 +405,12 @@ void Entity::bounce(VECTOR2 &collisionVector, Entity &ent)
 	else
 		deltaV += ((massRatio * cUVdotVdiff) * cUV);
 }
+
+double Entity::anglebetween(Entity &ent2)
+{
+	double xdiff = ent2.getCenterX() - getCenterX();
+	double ydiff = ent2.getCenterY() - getCenterY();
+	return atan(ydiff/xdiff);
+}
+
+

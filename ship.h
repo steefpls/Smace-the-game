@@ -55,6 +55,7 @@ class Ship : public Entity
 private:
 	bool    shieldOn;
 	Image   shield;
+	
 public:
 	// constructor
 	Ship();
@@ -65,5 +66,7 @@ public:
 		TextureManager *textureM);
 	void update(float frameTime);
 	void damage(WEAPON);
+
+
 };
 #endif
