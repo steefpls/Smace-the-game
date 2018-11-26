@@ -20,7 +20,7 @@ namespace wallNS
 
 	const float MASS = 1.0e14f;
 	static bool ACTIVE = true;
-	const int COLLISION_RADIUS = 60 / 2;
+	//const int COLLISION_RADIUS = 60 / 2;
 	static float HP = 1000.0f;				//wall hp
 }
 

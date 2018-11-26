@@ -100,9 +100,9 @@ void Spacewar::update()
 {
 	//bullet1.update(frameTime); //update bullet frames
 
-	ship1.update(frameTime); //update ship frames
-	wall1.update(frameTime);
-	//collide with right wall
+	ship1.update(frameTime);	//update ship frames
+	wall1.update(frameTime);	//update wall frames
+								
 
 	if (input->isKeyDown(ESC_KEY))
 	{
@@ -119,6 +119,7 @@ void Spacewar::update()
 void Spacewar::collisions()
 {
 	VECTOR2 collisionVector;
+
 	if (ship1.collidesWith(wall1, collisionVector))
 	{
 		//collide with left side of wall

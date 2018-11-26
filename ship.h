@@ -15,7 +15,7 @@ namespace shipNS
 
 	//2d Rotation
 	static float ROTATION_RATE = 0.0f;		    // degrees per second
-	static float ROTATION_ACC_RATE = 350.0f  ;   //degrees per second per second
+	static float ROTATION_ACC_RATE = 450.0f  ;   //degrees per second per second
 	static float ROTATION_DRAG = 400.0f ;	//degrees drag per second
 	static float MAX_ROTATION_RATE = 240.0f ;	 // degrees per second
 
