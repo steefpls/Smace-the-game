@@ -28,9 +28,9 @@ namespace missileNS
 	const float MASS = 300.0f;              // mass
 
 	//Textures
-	const int   TEXTURE_COLS = 2;           // texture has 2 columns
+	const int   TEXTURE_COLS = 1;           // texture has 2 columns
 	const int   MISSILE_START_FRAME = 0;      // ship1 starts at frame 0
-	const int   MISSILE_END_FRAME = 3;        // ship1 animation frames 0,1,2,3
+	const int   MISSILE_END_FRAME = 0;        // ship1 animation frames 0,1,2,3
 	//const int   SHIP2_START_FRAME = 8;      // ship2 starts at frame 8
 	//const int   SHIP2_END_FRAME = 11;       // ship2 animation frames 8,9,10,11
 	const float MISSILE_ANIMATION_DELAY = 0.2f;    // time between frames
@@ -53,7 +53,8 @@ namespace missileNS
 class Missile : public Entity
 {
 private:
-
+	//bool    shieldOn;
+	//Image   shield;
 public:
 	// constructor
 	Missile();
@@ -65,4 +66,4 @@ public:
 	void update(float frameTime);
 	//void damage(WEAPON);
 };
-#endif
+#endif _MISSILE_H
