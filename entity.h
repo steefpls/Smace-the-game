@@ -147,7 +147,7 @@ public:
 
 	// Entity bounces after collision with other Entity
 	void bounce(VECTOR2 &collisionVector, Entity &ent);
-	double anglebetween (Entity &ent1, Entity &ent2);
+	
 
 };
 #endif
