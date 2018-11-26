@@ -8,12 +8,16 @@ Wall::Wall() : Entity()
 {
 	spriteData.width = wallNS::WIDTH;	//size of wall
 	spriteData.height = wallNS::HEIGHT;
-	radius = wallNS::WIDTH/2;
+	//radius = wallNS::WIDTH;
 	spriteData.x = wallNS::X;
 	spriteData.y = wallNS::Y;
 	mass = wallNS::MASS;
 	active = wallNS::ACTIVE;
 	collisionType = entityNS::ROTATED_BOX;
+	edge.left = -wallNS::WIDTH / 2;
+	edge.right = wallNS::WIDTH / 2;
+	edge.top = -wallNS::HEIGHT / 2;
+	edge.bottom = wallNS::HEIGHT / 2;
 }
 
 //=============================================================================

@@ -17,10 +17,14 @@ Ship::Ship() : Entity()
 	startFrame = shipNS::SHIP1_START_FRAME;     // first frame of ship animation
 	endFrame = shipNS::SHIP1_END_FRAME;     // last frame of ship animation
 	currentFrame = startFrame;
-	radius = shipNS::WIDTH / 2.0;
+	//radius = shipNS::WIDTH / 2.0;
 	shieldOn = false;
 	mass = shipNS::MASS;
 	collisionType = entityNS::ROTATED_BOX;
+	edge.left = -shipNS::WIDTH / 2;
+	edge.right = shipNS::WIDTH / 2;
+	edge.top = -shipNS::HEIGHT / 2;
+	edge.bottom = shipNS::HEIGHT / 2;
 }
 
 //=============================================================================
