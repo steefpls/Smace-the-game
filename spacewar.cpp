@@ -150,7 +150,7 @@ void Spacewar::collisions()
 		{
 
 		}
-		else (AngleBetween >= 225 && AngleBetween < 315)
+		else if (AngleBetween >= 225 && AngleBetween < 315)
 		{
 
 		}
