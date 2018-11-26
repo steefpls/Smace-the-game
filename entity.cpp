@@ -406,7 +406,7 @@ void Entity::bounce(VECTOR2 &collisionVector, Entity &ent)
 		deltaV += ((massRatio * cUVdotVdiff) * cUV);
 }
 
-double anglebetween(Entity &ent1, Entity &ent2)
+double Entity::anglebetween(Entity &ent1, Entity &ent2)
 {
 	double Xdiff = ent2.getCenterX() - ent1.getCenterX();
 	double Ydiff = ent2.getCenterY() - ent1.getCenterY();

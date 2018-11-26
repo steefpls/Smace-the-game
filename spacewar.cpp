@@ -136,17 +136,17 @@ void Spacewar::collisions()
 
 	if (ship1.collidesWith(wall1, collisionVector))
 	{
-		double AngleBetween = wall1.anglebetween(wall1, ship1); 
+		int AngleInBetween = wall1.anglebetween(wall1, ship1); 
 
-		if (AngleBetween >= 315 && AngleBetween < 45)
+		if (AngleInBetween >= 315 && AngleInBetween < 45)
 		{
 			ship1.setX(0);
 		}
-		else if (AngleBetween >= 45 && AngleBetween < 135)
+		else if (AngleInBetween >= 45 && AngleInBetween < 135)
 		{
 			ship1.setX(0);
 		}
-		else if (AngleBetween >= 135 && AngleBetween < 225)
+		else if (AngleInBetween >= 135 && AngleInBetween < 225)
 		{
 
 		}
