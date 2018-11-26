@@ -54,7 +54,19 @@ void Spacewar::initialize(HWND hwnd)
 	wall1.setFrames(wallNS::WALL1_START_FRAME, wallNS::WALL1_END_FRAME);
 	wall1.setCurrentFrame(wallNS::WALL1_START_FRAME);
 	wall1.setX(GAME_WIDTH/4);
-	wall1.setY(100);
+	wall1.setY(500);
+
+	//missile texture
+	if (!missileTexture.initialize(graphics, MISSILE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing missile texture"));
+
+	//missile
+	if (!missile1.initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing missile"));
+	missile1.setFrames(missileNS::MISSILE_START_FRAME, missileNS::MISSILE_END_FRAME);
+	missile1.setCurrentFrame(missileNS::MISSILE_START_FRAME);
+	missile1.setX(GAME_WIDTH / 6);
+	missile1.setY(600);
 	
 	
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
@@ -103,6 +115,7 @@ void Spacewar::update()
 
 	ship1.update(frameTime);	//update ship frames
 	wall1.update(frameTime);	//update wall frames
+	missile1.update(frameTime);	//update missile frames
 								
 
 	if (input->isKeyDown(ESC_KEY))
@@ -175,7 +188,8 @@ void Spacewar::render()
 
 	ship1.draw();							// add the ship to the scene
 	wall1.draw();
-	
+	missile1.draw();
+
 	//bullet1.draw();				
 	graphics->spriteEnd();                  // end drawing sprites
 }

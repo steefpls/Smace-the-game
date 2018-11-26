@@ -34,7 +34,7 @@ const char NEBULA_IMAGE[] = "pictures\\orion.jpg";  // photo source NASA/courtes
 const char PLANET_IMAGE[] = "pictures\\planet.png"; // picture of planet
 const char SHIP_IMAGE[] = "pictures\\ship.png";   // spaceship
 const char WALL_IMAGE[] = "pictures\\wall.png";   // wall
-const char MISSILE_IMAGE[] = "pictures\\rockets_PNG13274.png"; //rocket
+const char MISSILE_IMAGE[] = "pictures\\rockets_PNG13274.png";	//missile
 
 
 //keybinds
