@@ -61,11 +61,6 @@ void Spacewar::initialize(HWND hwnd)
 		
 	}
 
-	wallList1.push_back(new Wall());
-	wallList1[wallList1.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
-	wallList1[wallList1.size() - 1]->setX(GAME_WIDTH/3);
-	wallList1[wallList1.size() - 1]->setY(GAME_HEIGHT/2);
-
 	//missile texture
 	if (!missileTexture.initialize(graphics, MISSILE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing missile texture"));
@@ -173,6 +168,30 @@ void Spacewar::collisions()
 				ship1.leftrightrotatebounce();
 			}
 			
+		}
+	}
+
+	for each(Wall*w in wallListBottom)
+	{
+		if (ship1.collidesWith(*w, collisionVector))
+		{
+			ship1.setY(200);
+		}
+	}
+
+	for each (Wall * w in wallListLeft)
+	{
+		if (ship1.collidesWith(*w, collisionVector))
+		{
+			ship1.setX(200);
+		}
+	}
+
+	for each (Wall * w in wallListRight)
+	{
+		if (ship1.collidesWith(*w, collisionVector))
+		{
+			ship1.setX(200);
 		}
 	}
 	
