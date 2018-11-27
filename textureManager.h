@@ -8,6 +8,7 @@
 class TextureManager
 {
 	// TextureManager properties
+
 private:
 	UINT       width;       // width of texture in pixels
 	UINT       height;      // height of texture in pixels

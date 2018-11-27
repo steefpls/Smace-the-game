@@ -148,6 +148,17 @@ public:
 	// Entity bounces after collision with other Entity
 	void bounce(VECTOR2 &collisionVector, Entity &ent);
 	
+	int squarebounce(Entity &ent);
+
+	double anglebetween(Entity &ent);
+
+
+	//Velocity handling
+	double getVelocityX();
+	double getVelocityY();
+	void setVelocityX(float velocity);
+	void setVelocityY(float velocity);
+
 
 };
 #endif

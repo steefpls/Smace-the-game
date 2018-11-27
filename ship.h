@@ -16,12 +16,12 @@ namespace shipNS
 	//2d Rotation
 	static float ROTATION_RATE = 0.0f;		    // degrees per second
 	static float ROTATION_ACC_RATE = 450.0f  ;   //degrees per second per second
-	static float ROTATION_DRAG = 400.0f ;	//degrees drag per second
+	static float ROTATION_DRAG = 800.0f ;	//degrees drag per second
 	static float MAX_ROTATION_RATE = 240.0f ;	 // degrees per second
 
 	//2d Movement
-	static float X_SPEED = 0.0f;                // pixels per second
-	static float Y_SPEED = 0.0f;                // pixels per second
+	static float X_SPEED = 0.0f;            // pixels per second
+	static float Y_SPEED = 0.0f;            // pixels per second
 	static float X_ACC = 400.0f;			//pixels per second per second
 	static float Y_ACC = 400.0f;			//pixels per second per second
 	static float DRAG = 98 / 100;			//air resistance (IK its in space but stfu)
@@ -65,8 +65,10 @@ public:
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
 		TextureManager *textureM);
 	void update(float frameTime);
+	void topbottomrotatebounce();
+	void leftrightrotatebounce();
+	
 	void damage(WEAPON);
-
 
 };
 #endif

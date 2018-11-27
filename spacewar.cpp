@@ -53,11 +53,18 @@ void Spacewar::initialize(HWND hwnd)
 	{
 		
 		wallList1.push_back(new Wall());
-		wallList1[i]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
-		wallList1[i]->setX(i*wallNS::WIDTH);
-		wallList1[i]->setY(0);
-
+		
+		wallList1[wallList1.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
+		wallList1[wallList1.size() - 1]->setX(i*wallNS::WIDTH);
+		wallList1[wallList1.size() - 1]->setY(0);
+		
+		
 	}
+
+	wallList1.push_back(new Wall());
+	wallList1[wallList1.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
+	wallList1[wallList1.size() - 1]->setX(GAME_WIDTH/3);
+	wallList1[wallList1.size() - 1]->setY(GAME_HEIGHT/2);
 
 	//missile texture
 	if (!missileTexture.initialize(graphics, MISSILE_IMAGE))
@@ -139,11 +146,20 @@ void Spacewar::collisions()
 {
 	VECTOR2 collisionVector;
 
-	for each(Wall*w in wallList1)
+	for each(Wall*w in wallList1)						//For every wall:
 	{
-		if (ship1.collidesWith(*w, collisionVector))
+		if (ship1.collidesWith(*w, collisionVector))	//If ship collides with wall
 		{
-			ship1.setY(200);
+			int check = (w->squarebounce(ship1));
+			if (check == 1 || check ==3)
+			{
+				ship1.topbottomrotatebounce();
+			}
+			else if (check == 2 || check == 4)
+			{
+				ship1.leftrightrotatebounce();
+			}
+			
 		}
 	}
 	

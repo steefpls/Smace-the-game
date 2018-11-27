@@ -158,7 +158,7 @@ bool Entity::collideBox(Entity &ent, VECTOR2 &collisionVector)
 // Rotated Box collision detection method
 // Called by collision()
 // Post: returns true if collision, false otherwise
-//       sets collisionVector if collision
+//       sets collisionVector if collisionw
 // Uses Separating Axis Test to detect collision. 
 // The separating axis test:
 //   Two boxes are not colliding if their projections onto a line do not overlap.
@@ -382,7 +382,7 @@ void Entity::damage(int weapon)
 {}
 
 //=============================================================================
-// Entity bounces after collision with another entity
+// Entity bounces after collision with a sphere collision box
 //=============================================================================
 void Entity::bounce(VECTOR2 &collisionVector, Entity &ent)
 {
@@ -404,4 +404,96 @@ void Entity::bounce(VECTOR2 &collisionVector, Entity &ent)
 	}
 	else
 		deltaV += ((massRatio * cUVdotVdiff) * cUV);
+}
+
+//=============================================================================
+// Entity bounces after collision with a static square collision box
+//=============================================================================
+int Entity::squarebounce(Entity &ent1)
+{
+	double angbet = anglebetween(ent1);
+
+	if (angbet >= 315 || angbet < 45)				//Top Wall
+	{
+		if (ent1.getVelocityY() > 0)				//If ship is moving down
+		{
+			ent1.setVelocityY(-(ent1.getVelocityY())); //Reverse Y Velocity
+			return 1;
+		}
+		else
+		{
+			ent1.setVelocityY(ent1.getVelocityY() - (4));	//Else if stuck in wall, Force it out
+		}
+	}
+	else if (angbet >= 45 && angbet < 135)				//Right Wall
+	{
+		if (ent1.getVelocityX() < 0)				//If ship is moving left
+		{
+			ent1.setVelocityX(-(ent1.getVelocityX())); //Reverse X Velocity
+			return 2;
+		}
+		else
+		{
+			ent1.setVelocityX(ent1.getVelocityX() + (4));	//Else if stuck in wall, Force it riht
+		}
+	}
+	else if (angbet >= 135 && angbet < 225)				//Bottom Wall
+	{
+		if (ent1.getVelocityY() < 0)				//If ship is moving up
+		{
+			ent1.setVelocityY(-(ent1.getVelocityY())); //Reverse Y Velocity
+			return 3;
+		}
+		else
+		{
+			ent1.setVelocityY(ent1.getVelocityY() +4);	//Else if stuck in wall, Force it out
+		}
+	}
+	else															//left wall
+	{
+		if (ent1.getVelocityX() > 0)				//If ship is moving right
+		{
+			ent1.setVelocityX(-(ent1.getVelocityX())); //Reverse X Velocity
+			return 4;
+		}
+		else
+		{
+			ent1.setVelocityX(ent1.getVelocityX() - (4));	//Else if stuck in wall, Force it left
+		}
+	}
+}
+
+double Entity::anglebetween(Entity &ent2)	//Returns in degrees
+{
+	double Xdiff = ent2.getCenterX() - getCenterX();
+	double Ydiff = ent2.getCenterY() - getCenterY();
+
+	if (ent2.getCenterX() > getCenterX())			//if the object is on the right:
+	{
+		return 90 + (atan(Ydiff / Xdiff) / (2 * PI) * 360);			//Return result in degrees, refer to steven why +90
+	}
+	else
+	{
+		return 270 + (atan(Ydiff / Xdiff) / (2 * PI) * 360);		//Return result in degrees, refer to steven why +270
+	}
+}
+
+//=============================================================================
+// Get Velocities
+//=============================================================================
+double Entity::getVelocityX()
+{
+	return velocity.x;
+}
+double Entity::getVelocityY()
+{
+	return velocity.y;
+}
+void Entity::setVelocityX(float v)
+{
+	velocity.x = v;
+}
+void Entity::setVelocityY(float v)
+{
+	velocity.y = v;
 }

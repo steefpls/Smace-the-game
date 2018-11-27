@@ -17,6 +17,9 @@ Ship::Ship() : Entity()
 	startFrame = shipNS::SHIP1_START_FRAME;     // first frame of ship animation
 	endFrame = shipNS::SHIP1_END_FRAME;     // last frame of ship animation
 	currentFrame = startFrame;
+	
+
+
 	//radius = shipNS::WIDTH / 2.0;
 	shieldOn = false;
 	mass = shipNS::MASS;
@@ -95,21 +98,21 @@ void Ship::update(float frameTime)
 	
 	//================================================= Ship Rotation Drag Handling =====================================
 
-	if (!input->isKeyDown(ship1Left) && !input->isKeyDown(ship1Right))			//If A or D is not being pressed
+	if (!input->isKeyDown(ship1Left) && shipNS::ROTATION_RATE < -shipNS::ROTATION_DRAG * frameTime)			//If A is not being pressed and ship is rotating counter clockwise
 	{
-		if (shipNS::ROTATION_RATE < -shipNS::ROTATION_DRAG * frameTime)			//if ship is rotating counter clockwise
-		{
+		
+		
 			shipNS::ROTATION_RATE += shipNS::ROTATION_DRAG * frameTime;			//Add clockwise drag
-		}
 
-		else if (shipNS::ROTATION_RATE > shipNS::ROTATION_DRAG * frameTime)			//if ship is rotating clockwise
-		{
-			shipNS::ROTATION_RATE -= shipNS::ROTATION_DRAG * frameTime;			//Add counter clockwise drag
-		}
-		else
-		{
-			shipNS::ROTATION_RATE = 0.0f;										//If speed is less than drag, set speed to 0
-		}
+		
+	}
+	else if (!input->isKeyDown(ship1Right) && shipNS::ROTATION_RATE > shipNS::ROTATION_DRAG * frameTime)	//if D is not being pressed and ship is rotating clockwise
+	{
+		shipNS::ROTATION_RATE -= shipNS::ROTATION_DRAG * frameTime;			//Add counter clockwise drag
+	}
+	else if (!input->isKeyDown(ship1Left) && !input->isKeyDown(ship1Right) &&  shipNS::ROTATION_RATE < shipNS::ROTATION_DRAG * frameTime && shipNS::ROTATION_RATE > -shipNS::ROTATION_DRAG * frameTime)
+	{
+		shipNS::ROTATION_RATE = 0.0f;										//If speed is less than drag, set speed to 0
 	}
 
 
@@ -221,7 +224,8 @@ void Ship::update(float frameTime)
 	}
 
 
-	//SHIP LOCATION UPDATEb
+	//SHIP LOCATION UPDATE
+	
 	spriteData.x += (velocity.x * spriteData.scale * frameTime); // Update Ship X location
 	spriteData.y += (velocity.y * spriteData.scale * frameTime); // Update Ship Y location
 
@@ -233,4 +237,28 @@ void Ship::update(float frameTime)
 void Ship::damage(WEAPON weapon)
 {
 	shieldOn = true;
+}
+
+void Ship::topbottomrotatebounce()	//rotation when hitting top and bottom walls
+{
+	if (velocity.x > 0)	
+	{
+		shipNS::ROTATION_RATE += 300 * (velocity.y / 200);	 
+	}
+	else
+	{
+		shipNS::ROTATION_RATE -= 300 * (velocity.y / 200);
+	}
+	
+}
+void Ship::leftrightrotatebounce()	//rotation when hitting left and right walls 
+{
+	if (velocity.y > 0)	
+	{
+		shipNS::ROTATION_RATE -= 300 * (velocity.x / 200);
+	}
+	else
+	{
+		shipNS::ROTATION_RATE += 300 * (velocity.x / 200);
+	}
 }

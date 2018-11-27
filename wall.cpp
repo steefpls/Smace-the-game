@@ -18,6 +18,7 @@ Wall::Wall() : Entity()
 	edge.right = wallNS::WIDTH / 2;
 	edge.top = -wallNS::HEIGHT / 2;
 	edge.bottom = wallNS::HEIGHT / 2;
+	hp = wallNS::HP;
 }
 
 //=============================================================================
@@ -46,5 +47,6 @@ void Wall::draw()
 void Wall::update(float frameTime)
 {
 	Entity::update(frameTime);
-
+	
 }
+
