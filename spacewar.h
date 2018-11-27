@@ -12,6 +12,7 @@
 //#include "bullet1.h"
 
 #include <iostream>
+#include <list>
 #include <vector>
 //=============================================================================
 // Create game class

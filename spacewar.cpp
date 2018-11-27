@@ -51,13 +51,12 @@ void Spacewar::initialize(HWND hwnd)
 	//wall
 	for (int i = 0; i < GAME_WIDTH / wallNS::WIDTH; i++)
 	{
-		if (!wall1->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture))
-			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall"));
-		wall1->setFrames(wallNS::WALL1_START_FRAME, wallNS::WALL1_END_FRAME);
-		wall1->setCurrentFrame(wallNS::WALL1_START_FRAME);
-		//wall1->setX(i*wallNS::WIDTH);
-		//wall1->setY(0);
-		wallList1.push_back(wall1);
+		
+		wallList1.push_back(new Wall());
+		wallList1[i]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
+		wallList1[i]->setX(i*wallNS::WIDTH);
+		wallList1[i]->setY(0);
+
 	}
 
 	//missile texture
@@ -127,7 +126,6 @@ void Spacewar::update()
 
 	if (input->isKeyDown(ESC_KEY))
 	{
-	
 		PostQuitMessage(0);
 	}
 	
@@ -141,9 +139,9 @@ void Spacewar::collisions()
 {
 	VECTOR2 collisionVector;
 
-	for each(Wall*wall1 in wallList1)
+	for each(Wall*w in wallList1)
 	{
-		if (ship1.collidesWith(*wall1, collisionVector))
+		if (ship1.collidesWith(*w, collisionVector))
 		{
 			ship1.setY(200);
 		}
@@ -183,11 +181,10 @@ void Spacewar::render()
 	ship1.draw();							// add the ship to the scene
 	missile1.draw();
 	int n = 0;
-	for each (Wall * wall1 in wallList1)
+
+	for each (Wall * w in wallList1)
 	{
-		wall1->setX(n*wallNS::WIDTH);
-		wall1->setY(0);
-		wall1->draw();
+		w->draw();
 		n++;
 	}
 	//bullet1.draw();				
