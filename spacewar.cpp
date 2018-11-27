@@ -51,12 +51,30 @@ void Spacewar::initialize(HWND hwnd)
 	//wall
 	for (int i = 0; i < GAME_WIDTH / wallNS::WIDTH; i++)
 	{
-		
-		wallList1.push_back(new Wall());
-		wallList1[i]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
-		wallList1[i]->setX(i*wallNS::WIDTH);
-		wallList1[i]->setY(0);
+		//top walls
+		wallListTop.push_back(new Wall());
+		wallListTop[i]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
+		wallListTop[i]->setX(i*wallNS::WIDTH);
+		wallListTop[i]->setY(0);
+		//bottom walls
+		wallListBottom.push_back(new Wall());
+		wallListBottom[i]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
+		wallListBottom[i]->setX(i*wallNS::WIDTH);
+		wallListBottom[i]->setY(GAME_HEIGHT-wallNS::HEIGHT);
+	}
 
+	for (int i = 0; i < (GAME_HEIGHT - wallNS::HEIGHT) / wallNS::HEIGHT; i++)
+	{
+		//top walls
+		wallListLeft.push_back(new Wall());
+		wallListLeft[i]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
+		wallListLeft[i]->setX(0);
+		wallListLeft[i]->setY((i + 1)*wallNS::HEIGHT);
+		//bottom walls
+		wallListRight.push_back(new Wall());
+		wallListRight[i]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
+		wallListRight[i]->setX(GAME_WIDTH-wallNS::WIDTH);
+		wallListRight[i]->setY((i + 1)*wallNS::HEIGHT);
 	}
 
 	//missile texture
@@ -117,10 +135,23 @@ void Spacewar::update()
 	//bullet1.update(frameTime); //update bullet frames
 
 	ship1.update(frameTime);	//update ship frames
-	for each (Wall * wall1 in wallList1) 
+	for each (Wall * w in wallListTop) 
 	{
-		wall1->update(frameTime);	//update wall frames
+		w->update(frameTime);	//update top wall frames
 	}
+	for each (Wall * w in wallListBottom)
+	{
+		w->update(frameTime);	//update bottom wall frames
+	}
+	for each (Wall * w in wallListLeft)
+	{
+		w->update(frameTime);	//update left wall frames
+	}
+	for each (Wall * w in wallListRight)
+	{
+		w->update(frameTime);	//update right wall frames
+	}
+
 	missile1.update(frameTime);	//update missile frames
 								
 
@@ -139,11 +170,35 @@ void Spacewar::collisions()
 {
 	VECTOR2 collisionVector;
 
-	for each(Wall*w in wallList1)
+	for each(Wall*w in wallListTop)
 	{
 		if (ship1.collidesWith(*w, collisionVector))
 		{
 			ship1.setY(200);
+		}
+	}
+
+	for each(Wall*w in wallListBottom)
+	{
+		if (ship1.collidesWith(*w, collisionVector))
+		{
+			ship1.setY(200);
+		}
+	}
+
+	for each (Wall * w in wallListLeft)
+	{
+		if (ship1.collidesWith(*w, collisionVector))
+		{
+			ship1.setX(200);
+		}
+	}
+
+	for each (Wall * w in wallListRight)
+	{
+		if (ship1.collidesWith(*w, collisionVector))
+		{
+			ship1.setX(200);
 		}
 	}
 	
@@ -180,12 +235,25 @@ void Spacewar::render()
 
 	ship1.draw();							// add the ship to the scene
 	missile1.draw();
-	int n = 0;
 
-	for each (Wall * w in wallList1)
+	for each (Wall * w in wallListTop)
 	{
 		w->draw();
-		n++;
+	}
+
+	for each (Wall *w in wallListBottom)
+	{
+		w->draw();
+	}
+
+	for each (Wall *w in wallListLeft)
+	{
+		w->draw();
+	}
+
+	for each (Wall *w in wallListRight)
+	{
+		w->draw();
 	}
 	//bullet1.draw();				
 	graphics->spriteEnd();                  // end drawing sprites
