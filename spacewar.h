@@ -32,8 +32,12 @@ private:
 
 	//Ship * ship1 = NULL;
 	Ship	ship1;					// ship object
-	Wall	*wall1 = new Wall;					// wall object
-	std::vector<Wall *> wallList1;
+	//Wall	*wall = new Wall;					// wall object
+	std::vector<Wall *> wallListTop;
+	std::vector<Wall *> wallListBottom;
+	std::vector<Wall *> wallListLeft;
+	std::vector<Wall *> wallListRight;
+	
 	Missile missile1;				// missile object
 
 	//Bullet	bullet1;				// bullet image

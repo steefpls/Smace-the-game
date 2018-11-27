@@ -124,10 +124,23 @@ void Spacewar::update()
 	//bullet1.update(frameTime); //update bullet frames
 
 	ship1.update(frameTime);	//update ship frames
-	for each (Wall * wall1 in wallList1) 
+	for each (Wall * w in wallListTop) 
 	{
-		wall1->update(frameTime);	//update wall frames
+		w->update(frameTime);	//update top wall frames
 	}
+	for each (Wall * w in wallListBottom)
+	{
+		w->update(frameTime);	//update bottom wall frames
+	}
+	for each (Wall * w in wallListLeft)
+	{
+		w->update(frameTime);	//update left wall frames
+	}
+	for each (Wall * w in wallListRight)
+	{
+		w->update(frameTime);	//update right wall frames
+	}
+
 	missile1.update(frameTime);	//update missile frames
 								
 
@@ -196,12 +209,25 @@ void Spacewar::render()
 
 	ship1.draw();							// add the ship to the scene
 	missile1.draw();
-	int n = 0;
 
-	for each (Wall * w in wallList1)
+	for each (Wall * w in wallListTop)
 	{
 		w->draw();
-		n++;
+	}
+
+	for each (Wall *w in wallListBottom)
+	{
+		w->draw();
+	}
+
+	for each (Wall *w in wallListLeft)
+	{
+		w->draw();
+	}
+
+	for each (Wall *w in wallListRight)
+	{
+		w->draw();
 	}
 	//bullet1.draw();				
 	graphics->spriteEnd();                  // end drawing sprites
