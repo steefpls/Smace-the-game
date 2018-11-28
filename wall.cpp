@@ -48,9 +48,17 @@ void Wall::draw()
 void Wall::update(float frameTime)
 {
 	Entity::update(frameTime);
-	if (hp < 100 || hp >= 80)
+	if (hp <= 75 && hp > 50)
 	{
-
+		setFrames(1,1);
+	}
+	else if (hp <= 50 && hp > 25)
+	{
+		setFrames(2, 2);
+	}
+	else if (hp <= 25 && hp > 0)
+	{
+		setFrames(3, 3);
 	}
 	if (hp <= 0)
 	{
