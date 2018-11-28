@@ -32,7 +32,10 @@ protected:
 	HRESULT hr;             // standard return type
 	bool active;			//The current state of this entity. Only active entities may collide
 	bool rotatedBoxReady;	//True when rotated collision box is ready
-	float hp;
+	double hp;				//current hp
+	double maxhp;			//maxhp
+	double hppercentage;	//hp percentage
+
 
 	// --- The following functions are protected because they are not intended to be
 	// --- called from outside the class.

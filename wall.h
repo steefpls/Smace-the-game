@@ -14,7 +14,7 @@ namespace wallNS
 	static int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
 	
 	//Texture handling
-	const int TEXTURE_COLS = 4;			//texture has 1 columns
+	const int TEXTURE_COLS = 2;			//texture has 1 columns
 	const int WALL1_START_FRAME = 0;      // ship1 starts at frame 0
 	const int WALL1_END_FRAME = 0;        // ship1 animation frames 0,1,2,3
 
@@ -22,7 +22,10 @@ namespace wallNS
 	static bool ACTIVE = true;
 	static float SCALE = 1;
 	//const int COLLISION_RADIUS = 60 / 2;
-	static double HP = 1000.0;				//wall hp
+	
+	const double MAX_HP = 1000.0;			//wall maxhp
+	static double HP = MAX_HP;				//wall hp
+	static double HP_PERCENTAGE = (HP / MAX_HP) * 100.0;
 }
 
 class Wall : public Entity 

@@ -19,7 +19,9 @@ Wall::Wall() : Entity()
 	edge.right = wallNS::WIDTH / 2;
 	edge.top = -wallNS::HEIGHT / 2;
 	edge.bottom = wallNS::HEIGHT / 2;
+	maxhp = wallNS::MAX_HP;
 	hp = wallNS::HP;
+	hppercentage = wallNS::HP_PERCENTAGE;
 }
 
 //=============================================================================
@@ -47,22 +49,29 @@ void Wall::draw()
 //=============================================================================
 void Wall::update(float frameTime)
 {
+	
+
+
 	Entity::update(frameTime);
-	if (hp <= 75 && hp > 50)
+
+	hppercentage = (hp / maxhp) * 100;
+	if (hppercentage > 75)
 	{
-		setFrames(1,1);
+		setCurrentFrame(0);
 	}
-	else if (hp <= 50 && hp > 25)
+
+	else if (hppercentage <= 75 && hppercentage > 50)
 	{
-		setFrames(2, 2);
+		setCurrentFrame(1);
 	}
-	else if (hp <= 25 && hp > 0)
+	else if (hppercentage <= 50 && hppercentage > 25)
 	{
-		setFrames(3, 3);
+		setCurrentFrame(2);
 	}
-	if (hp <= 0)
+	else
 	{
-		
+		setCurrentFrame(3);
 	}
+	
 }
 
