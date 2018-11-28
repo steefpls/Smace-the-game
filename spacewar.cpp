@@ -49,33 +49,33 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
 	
 	//the walls on the top and bottom sides of the screen
-	for (int i = 0; i < GAME_WIDTH / wallNS::WIDTH; i++)
+	for (int i = 0; i < GAME_WIDTH / (wallNS::WIDTH*wallNS::SCALE); i++)
 	{	
 		wallListTop.push_back(new Wall());
 		wallListBottom.push_back(new Wall());
 		
 		wallListTop[wallListTop.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
-		wallListTop[wallListTop.size() - 1]->setX(i*wallNS::WIDTH);
+		wallListTop[wallListTop.size() - 1]->setX(i*(wallNS::WIDTH*wallNS::SCALE));
 		wallListTop[wallListTop.size() - 1]->setY(0);
 
 		wallListBottom[wallListBottom.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
-		wallListBottom[wallListBottom.size() - 1]->setX(i*wallNS::WIDTH);
-		wallListBottom[wallListBottom.size() - 1]->setY(GAME_HEIGHT-wallNS::WIDTH);
+		wallListBottom[wallListBottom.size() - 1]->setX(i*(wallNS::WIDTH*wallNS::SCALE));
+		wallListBottom[wallListBottom.size() - 1]->setY(GAME_HEIGHT- (wallNS::HEIGHT*wallNS::SCALE));
 	}
 
 	//the walls on the left and right side of the screen
-	for (int i = 0; i < (GAME_HEIGHT-wallNS::HEIGHT) / wallNS::HEIGHT; i++)
+	for (int i = 0; i < (GAME_HEIGHT-wallNS::HEIGHT) / (wallNS::HEIGHT*wallNS::SCALE); i++)
 	{
 		wallListLeft.push_back(new Wall());
 		wallListRight.push_back(new Wall());
 
 		wallListLeft[wallListLeft.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
 		wallListLeft[wallListLeft.size() - 1]->setX(0);
-		wallListLeft[wallListLeft.size() - 1]->setY((i + 1)*wallNS::HEIGHT);
+		wallListLeft[wallListLeft.size() - 1]->setY((i + 1)*(wallNS::HEIGHT*wallNS::SCALE));
 
 		wallListRight[wallListRight.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
-		wallListRight[wallListRight.size() - 1]->setX(GAME_WIDTH-wallNS::WIDTH);
-		wallListRight[wallListRight.size() - 1]->setY((i + 1)*wallNS::HEIGHT);
+		wallListRight[wallListRight.size() - 1]->setX(GAME_WIDTH-(wallNS::WIDTH*wallNS::SCALE));
+		wallListRight[wallListRight.size() - 1]->setY((i + 1)*(wallNS::HEIGHT*wallNS::SCALE));
 	}
 
 	wallListList.push_back(wallListTop);		//wallListList[3] = wallListTop
@@ -183,7 +183,7 @@ void Spacewar::collisions()
 				{
 					ship1.leftrightrotatebounce();
 				}
-
+				//wallListList[i][j]->hp
 				wallListList[i].erase(wallListList[i].begin() + j);
 			}
 		}
@@ -218,7 +218,6 @@ void Spacewar::render()
 
 	nebula.draw();                          // add the orion nebula to the scene
 	planet.draw();                          // add the planet to the scene
-
 	ship1.draw();							// add the ship to the scene
 	missile1.draw();
 

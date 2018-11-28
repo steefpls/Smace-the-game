@@ -8,8 +8,8 @@
 namespace wallNS
 {
 	//Location Handling
-	const int WIDTH = 64;					//image width
-	const int HEIGHT = 64;					//image height
+	const int WIDTH = 60;					//image width
+	const int HEIGHT = 60;					//image height
 	static int X = GAME_WIDTH / 2 - WIDTH / 2;   // location on screen
 	static int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
 	
@@ -20,13 +20,14 @@ namespace wallNS
 
 	const float MASS = 1.0e14f;
 	static bool ACTIVE = true;
+	static float SCALE = 1;
 	//const int COLLISION_RADIUS = 60 / 2;
 	static float HP = 1000.0f;				//wall hp
 }
 
 class Wall : public Entity 
 {
-private:
+protected:
 	int hp;
 
 public:

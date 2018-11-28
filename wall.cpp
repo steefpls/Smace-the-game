@@ -6,6 +6,7 @@
 
 Wall::Wall() : Entity() 
 {
+	spriteData.scale = wallNS::SCALE;
 	spriteData.width = wallNS::WIDTH;	//size of wall
 	spriteData.height = wallNS::HEIGHT;
 	//radius = wallNS::WIDTH;

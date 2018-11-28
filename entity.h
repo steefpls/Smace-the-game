@@ -32,6 +32,7 @@ protected:
 	HRESULT hr;             // standard return type
 	bool active;			//The current state of this entity. Only active entities may collide
 	bool rotatedBoxReady;	//True when rotated collision box is ready
+	float hp;
 
 	// --- The following functions are protected because they are not intended to be
 	// --- called from outside the class.
@@ -161,6 +162,7 @@ public:
 	void setVelocityX(float velocity);
 	void setVelocityY(float velocity);
 
-
+	float getHP();
+	float setHP(float hp);
 };
 #endif

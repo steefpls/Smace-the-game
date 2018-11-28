@@ -6,6 +6,7 @@ using namespace missileNS;
 //=============================================================================
 Missile::Missile() : Entity()
 {
+	spriteData.scale = SCALE;
 	spriteData.width = WIDTH;           // size of Ship1
 	spriteData.height = HEIGHT;
 	spriteData.x = X;                   // location on screen

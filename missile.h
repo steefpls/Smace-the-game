@@ -8,8 +8,8 @@
 namespace missileNS
 {
 	//Location handling
-	const int WIDTH = 32;                   // image width
-	const int HEIGHT = 32;                  // image height
+	const int WIDTH = 300;                   // image width
+	const int HEIGHT = 1599;                  // image height
 	static int X = GAME_WIDTH / 2 - WIDTH / 2;   // location on screen
 	static int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
 
@@ -37,7 +37,7 @@ namespace missileNS
 	//const int   SHIELD_START_FRAME = 24;    // shield start frame
 	//const int   SHIELD_END_FRAME = 27;      // shield end frame
 	//const float SHIELD_ANIMATION_DELAY = 0.1f; // time between frames
-	static float SHIP_SCALE = 1;			//ship scale
+	static float SCALE = 0.05;			//ship scale
 
 	//Timers
 	const float MAX_DASH_TIMER = 3.0f;

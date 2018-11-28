@@ -5,6 +5,7 @@
 //=============================================================================
 Ship::Ship() : Entity()
 {
+	spriteData.scale = shipNS::SCALE;
 	spriteData.width = shipNS::WIDTH;           // size of Ship1
 	spriteData.height = shipNS::HEIGHT;
 	spriteData.x = shipNS::X;                   // location on screen
@@ -18,16 +19,14 @@ Ship::Ship() : Entity()
 	endFrame = shipNS::SHIP1_END_FRAME;     // last frame of ship animation
 	currentFrame = startFrame;
 	
-
-
 	//radius = shipNS::WIDTH / 2.0;
 	shieldOn = false;
 	mass = shipNS::MASS;
 	collisionType = entityNS::ROTATED_BOX;
-	edge.left = -shipNS::WIDTH / 2;
-	edge.right = shipNS::WIDTH / 2;
-	edge.top = -shipNS::HEIGHT / 2;
-	edge.bottom = shipNS::HEIGHT / 2;
+	edge.left = -spriteData.width / 2;
+	edge.right = spriteData.width / 2;
+	edge.top = -spriteData.height / 2;
+	edge.bottom = spriteData.height / 2;
 }
 
 //=============================================================================
@@ -139,7 +138,7 @@ void Ship::update(float frameTime)
 
 	// ============================================= Bounce off walls/Wall collision ==========================================================
 	// X BASED COLLISION
-	if (spriteData.x > GAME_WIDTH - (shipNS::WIDTH * shipNS::SHIP_SCALE) + 1)    // if hit right screen edge
+	if (spriteData.x > GAME_WIDTH - (spriteData.width) + 1)    // if hit right screen edge
 	{
 		if (velocity.y > 0)	//Add random speed based on spin
 		{
@@ -171,7 +170,7 @@ void Ship::update(float frameTime)
 
 
 	// Y BASED COLLISION
-	if (spriteData.y > GAME_HEIGHT - shipNS::HEIGHT * shipNS::SHIP_SCALE)  // if hit bottom screen edge
+	if (spriteData.y > GAME_HEIGHT - spriteData.height)  // if hit bottom screen edge
 	{
 		if (velocity.x > 0)	//Add random speed based on spin
 		{
@@ -226,8 +225,8 @@ void Ship::update(float frameTime)
 
 	//SHIP LOCATION UPDATE
 	
-	spriteData.x += (velocity.x * spriteData.scale * frameTime); // Update Ship X location
-	spriteData.y += (velocity.y * spriteData.scale * frameTime); // Update Ship Y location
+	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
+	spriteData.y += (velocity.y  * frameTime); // Update Ship Y location
 
 }
 
