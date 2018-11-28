@@ -148,10 +148,10 @@ public:
 	// Entity bounces after collision with other Entity
 	void bounce(VECTOR2 &collisionVector, Entity &ent);
 	
+
+	//for ship collision with wall
 	int squarebounce(Entity &ent);
-
 	double anglebetween(Entity &ent);
-
 	void topbottomrotatebounce();
 	void leftrightrotatebounce();
 

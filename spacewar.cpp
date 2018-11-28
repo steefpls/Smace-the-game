@@ -168,13 +168,13 @@ void Spacewar::collisions()
 {
 	VECTOR2 collisionVector;
 
-	for each (std::vector<Wall*> list in wallListList)
+	for (int i = 0; i<(wallListList.size());i++)
 	{
-		for each(Wall* w in list)
+		for (int j =0; j<(wallListList[i].size());j++)
 		{
-			if (ship1.collidesWith(*w, collisionVector))	//If ship collides with wall
+			if (ship1.collidesWith(*wallListList[i][j] , collisionVector))	//If ship collides with wall
 			{
-				int check = (w->squarebounce(ship1));
+				int check = (wallListList[i][j]->squarebounce(ship1));
 				if (check == 1 || check == 3)
 				{
 					ship1.topbottomrotatebounce();
@@ -183,6 +183,8 @@ void Spacewar::collisions()
 				{
 					ship1.leftrightrotatebounce();
 				}
+
+				wallListList[i].erase(wallListList[i].begin() + j);
 			}
 		}
 	}
@@ -220,11 +222,11 @@ void Spacewar::render()
 	ship1.draw();							// add the ship to the scene
 	missile1.draw();
 
-	for each (std::vector<Wall*> list in wallListList)
+	for (int i = 0; i<(wallListList.size());i++)
 	{
-		for each(Wall* w in list)
+		for(int j = 0; j<(wallListList[i].size());j++)
 		{
-			w->draw();
+			wallListList[i][j]->draw();
 		}
 	}
 
