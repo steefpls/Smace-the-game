@@ -64,6 +64,7 @@ public:
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
 		TextureManager *textureM);
 	void update(float frameTime);
+	bool getdel();
 	//void damage(WEAPON);
 };
 #endif _MISSILE_H

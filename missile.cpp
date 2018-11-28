@@ -46,6 +46,11 @@ void Missile::draw()
 	Image::draw();              // draw missile
 }
 
+bool Missile::getdel()
+{
+	return false;
+}
+
 //=============================================================================
 // update
 // typically called once per frame
