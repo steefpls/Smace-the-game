@@ -48,6 +48,9 @@ void Wall::draw()
 void Wall::update(float frameTime)
 {
 	Entity::update(frameTime);
-	
+	if (hp < 100 || hp >= 80)
+	{
+
+	}
 }
 

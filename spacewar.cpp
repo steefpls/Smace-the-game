@@ -183,8 +183,11 @@ void Spacewar::collisions()
 				{
 					ship1.leftrightrotatebounce();
 				}
-				//wallListList[i][j]->hp
-				wallListList[i].erase(wallListList[i].begin() + j);
+				wallListList[i][j]->setHP(wallListList[i][j]->getHP() - (ship1.getVelocityX() * 10));
+				if (wallListList[i][j]->getHP() <= 0)
+				{
+					wallListList[i].erase(wallListList[i].begin() + j);
+				}
 			}
 		}
 	}

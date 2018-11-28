@@ -163,6 +163,6 @@ public:
 	void setVelocityY(float velocity);
 
 	float getHP();
-	float setHP(float hp);
+	void setHP(float hpVal);
 };
 #endif

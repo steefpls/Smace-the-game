@@ -28,7 +28,7 @@ namespace wallNS
 class Wall : public Entity 
 {
 protected:
-	int hp;
+	//int hp;
 
 public:
 	//constructor
