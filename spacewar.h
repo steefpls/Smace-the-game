@@ -32,11 +32,11 @@ private:
 
 	//Ship * ship1 = NULL;
 	Ship	ship1;					// ship object
-	//Wall	*wall = new Wall;					// wall object
-	std::vector<Wall *> wallListTop;
-	std::vector<Wall *> wallListBottom;
-	std::vector<Wall *> wallListLeft;
-	std::vector<Wall *> wallListRight;
+	std::vector<Wall *> wallListTop;	//list of top walls
+	std::vector<Wall *> wallListBottom;	//list of bottom walls
+	std::vector<Wall *> wallListLeft;	//list of left walls
+	std::vector<Wall *> wallListRight;	//list of right walls
+	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists
 	
 	Missile missile1;				// missile object
 

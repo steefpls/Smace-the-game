@@ -48,18 +48,40 @@ void Spacewar::initialize(HWND hwnd)
 	if (!wallTexture.initialize(graphics, WALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
 	
-	//wall
+	//the walls on the top and bottom sides of the screen
 	for (int i = 0; i < GAME_WIDTH / wallNS::WIDTH; i++)
-	{
+	{	
+		wallListTop.push_back(new Wall());
+		wallListBottom.push_back(new Wall());
 		
-		wallList1.push_back(new Wall());
-		
-		wallList1[wallList1.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
-		wallList1[wallList1.size() - 1]->setX(i*wallNS::WIDTH);
-		wallList1[wallList1.size() - 1]->setY(0);
-		
-		
+		wallListTop[wallListTop.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
+		wallListTop[wallListTop.size() - 1]->setX(i*wallNS::WIDTH);
+		wallListTop[wallListTop.size() - 1]->setY(0);
+
+		wallListBottom[wallListBottom.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
+		wallListBottom[wallListBottom.size() - 1]->setX(i*wallNS::WIDTH);
+		wallListBottom[wallListBottom.size() - 1]->setY(GAME_HEIGHT-wallNS::WIDTH);
 	}
+
+	//the walls on the left and right side of the screen
+	for (int i = 0; i < (GAME_HEIGHT-wallNS::HEIGHT) / wallNS::HEIGHT; i++)
+	{
+		wallListLeft.push_back(new Wall());
+		wallListRight.push_back(new Wall());
+
+		wallListLeft[wallListLeft.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
+		wallListLeft[wallListLeft.size() - 1]->setX(0);
+		wallListLeft[wallListLeft.size() - 1]->setY((i + 1)*wallNS::HEIGHT);
+
+		wallListRight[wallListRight.size() - 1]->initialize(this, wallNS::WIDTH, wallNS::HEIGHT, wallNS::TEXTURE_COLS, &wallTexture);
+		wallListRight[wallListRight.size() - 1]->setX(GAME_WIDTH-wallNS::WIDTH);
+		wallListRight[wallListRight.size() - 1]->setY((i + 1)*wallNS::HEIGHT);
+	}
+
+	wallListList.push_back(wallListTop);		//wallListList[3] = wallListTop
+	wallListList.push_back(wallListBottom);		//wallListList[2] = wallListBottom
+	wallListList.push_back(wallListLeft);		//wallListList[1] = wallListLeft
+	wallListList.push_back(wallListRight);		//wallListList[0] = wallListRight
 
 	//missile texture
 	if (!missileTexture.initialize(graphics, MISSILE_IMAGE))
@@ -119,21 +141,13 @@ void Spacewar::update()
 	//bullet1.update(frameTime); //update bullet frames
 
 	ship1.update(frameTime);	//update ship frames
-	for each (Wall * w in wallListTop) 
+
+	for each (std::vector<Wall*> list in wallListList)
 	{
-		w->update(frameTime);	//update top wall frames
-	}
-	for each (Wall * w in wallListBottom)
-	{
-		w->update(frameTime);	//update bottom wall frames
-	}
-	for each (Wall * w in wallListLeft)
-	{
-		w->update(frameTime);	//update left wall frames
-	}
-	for each (Wall * w in wallListRight)
-	{
-		w->update(frameTime);	//update right wall frames
+		for each(Wall* w in list)
+		{
+			w->update(frameTime);	//update top wall frames
+		}
 	}
 
 	missile1.update(frameTime);	//update missile frames
@@ -154,47 +168,24 @@ void Spacewar::collisions()
 {
 	VECTOR2 collisionVector;
 
-	for each(Wall*w in wallList1)						//For every wall:
+	for each (std::vector<Wall*> list in wallListList)
 	{
-		if (ship1.collidesWith(*w, collisionVector))	//If ship collides with wall
+		for each(Wall* w in list)
 		{
-			int check = (w->squarebounce(ship1));
-			if (check == 1 || check ==3)
+			if (ship1.collidesWith(*w, collisionVector))	//If ship collides with wall
 			{
-				ship1.topbottomrotatebounce();
+				int check = (w->squarebounce(ship1));
+				if (check == 1 || check == 3)
+				{
+					ship1.topbottomrotatebounce();
+				}
+				else if (check == 2 || check == 4)
+				{
+					ship1.leftrightrotatebounce();
+				}
 			}
-			else if (check == 2 || check == 4)
-			{
-				ship1.leftrightrotatebounce();
-			}
-			
 		}
 	}
-
-	for each(Wall*w in wallListBottom)
-	{
-		if (ship1.collidesWith(*w, collisionVector))
-		{
-			ship1.setY(200);
-		}
-	}
-
-	for each (Wall * w in wallListLeft)
-	{
-		if (ship1.collidesWith(*w, collisionVector))
-		{
-			ship1.setX(200);
-		}
-	}
-
-	for each (Wall * w in wallListRight)
-	{
-		if (ship1.collidesWith(*w, collisionVector))
-		{
-			ship1.setX(200);
-		}
-	}
-	
 
 	//// if collision between ships
 	//if (ship1.collidesWith(ship2, collisionVector))
@@ -229,25 +220,14 @@ void Spacewar::render()
 	ship1.draw();							// add the ship to the scene
 	missile1.draw();
 
-	for each (Wall * w in wallListTop)
+	for each (std::vector<Wall*> list in wallListList)
 	{
-		w->draw();
+		for each(Wall* w in list)
+		{
+			w->draw();
+		}
 	}
 
-	for each (Wall *w in wallListBottom)
-	{
-		w->draw();
-	}
-
-	for each (Wall *w in wallListLeft)
-	{
-		w->draw();
-	}
-
-	for each (Wall *w in wallListRight)
-	{
-		w->draw();
-	}
 	//bullet1.draw();				
 	graphics->spriteEnd();                  // end drawing sprites
 }

@@ -152,6 +152,8 @@ public:
 
 	double anglebetween(Entity &ent);
 
+	void topbottomrotatebounce();
+	void leftrightrotatebounce();
 
 	//Velocity handling
 	double getVelocityX();

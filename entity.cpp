@@ -497,3 +497,7 @@ void Entity::setVelocityY(float v)
 {
 	velocity.y = v;
 }
+
+
+void Entity::topbottomrotatebounce() {}
+void Entity::leftrightrotatebounce() {}
