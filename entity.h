@@ -162,7 +162,7 @@ public:
 	void setVelocityX(float velocity);
 	void setVelocityY(float velocity);
 
-	float getHP();
-	void setHP(float hpVal);
+	double getHP();
+	void setHP(double hpVal);
 };
 #endif

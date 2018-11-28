@@ -52,5 +52,9 @@ void Wall::update(float frameTime)
 	{
 
 	}
+	if (hp <= 0)
+	{
+		
+	}
 }
 

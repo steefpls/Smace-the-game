@@ -175,15 +175,19 @@ void Spacewar::collisions()
 			if (ship1.collidesWith(*wallListList[i][j] , collisionVector))	//If ship collides with wall
 			{
 				int check = (wallListList[i][j]->squarebounce(ship1));
+				
 				if (check == 1 || check == 3)
 				{
+					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship1.getVelocityY()));
 					ship1.topbottomrotatebounce();
 				}
 				else if (check == 2 || check == 4)
 				{
+					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship1.getVelocityX()));
 					ship1.leftrightrotatebounce();
 				}
-				wallListList[i][j]->setHP(wallListList[i][j]->getHP() - (ship1.getVelocityX() * 10));
+				
+
 				if (wallListList[i][j]->getHP() <= 0)
 				{
 					wallListList[i].erase(wallListList[i].begin() + j);

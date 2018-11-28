@@ -501,11 +501,11 @@ void Entity::setVelocityY(float v)
 void Entity::topbottomrotatebounce() {}
 void Entity::leftrightrotatebounce() {}
 
-float Entity::getHP()
+double Entity::getHP()
 {
 	return hp;
 }
-void Entity::setHP(float hpVal) 
+void Entity::setHP(double hpVal) 
 {
 	hp = hpVal;
 }

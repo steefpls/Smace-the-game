@@ -22,7 +22,7 @@ namespace wallNS
 	static bool ACTIVE = true;
 	static float SCALE = 1;
 	//const int COLLISION_RADIUS = 60 / 2;
-	static float HP = 1000.0f;				//wall hp
+	static double HP = 1000.0;				//wall hp
 }
 
 class Wall : public Entity 
