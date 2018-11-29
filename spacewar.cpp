@@ -156,11 +156,11 @@ void Spacewar::update()
 
 	ship1.update(frameTime);	//update ship frames
 
-	for each (std::vector<Wall*> list in wallListList)
+	for(int i = 0; i<wallListList.size();i++)
 	{
-		for each(Wall* w in list)
+		for(int j =0; j<wallListList[i].size();j++)
 		{
-			w->update(frameTime);	//update top wall frames
+			wallListList[i][j]->update(frameTime);	//update top wall frames
 		}
 	}
 
