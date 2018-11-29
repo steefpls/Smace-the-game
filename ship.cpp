@@ -210,8 +210,8 @@ void Ship::update(float frameTime)
 	//MISSILES
 	if (input->isKeyDown(SHIFT_KEY))
 	{
-		shootMissile();
-		drawMissile(spriteData.x,spriteData.y);
+		//shootMissile();
+		//drawMissile(spriteData.x,spriteData.y);
 	}
 
 	//================================================= SHIP DASH TIMER =================================================
@@ -268,31 +268,31 @@ void Ship::leftrightrotatebounce()	//rotation when hitting left and right walls
 		shipNS::ROTATION_RATE += 300 * (velocity.x / 200);
 	}
 }
-void Ship::shootMissile()
-{
-	Missile *missile = new Missile();
-	VECTOR2 start(spriteData.x, spriteData.y);
-
-	missile->setX(start.x + (missileNS::WIDTH / missileNS::SCALE));
-	missile->setY(start.y + (missileNS::HEIGHT / missileNS::SCALE));
-}
-
-void Ship::drawMissile(float x, float y)
-{
-	for (vector<Missile*>::iterator it = missileList.begin(); it != missileList.end();) 
-	{
-		if ((*it)->getdel() == true)
-		{
-			SAFE_DELETE(*it);
-			it = missileList.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
-	for each(Missile * m in missileList)
-	{
-		m->draw();
-	}
-}
+//void Ship::shootMissile()
+//{
+//	Missile *missile = new Missile();
+//	VECTOR2 start(spriteData.x, spriteData.y);
+//
+//	missile->setX(start.x + (missileNS::WIDTH / missileNS::SCALE));
+//	missile->setY(start.y + (missileNS::HEIGHT / missileNS::SCALE));
+//}
+//
+//void Ship::drawMissile(float x, float y)
+//{
+//	for (vector<Missile*>::iterator it = missileList.begin(); it != missileList.end();) 
+//	{
+//		if ((*it)->getdel() == true)
+//		{
+//			SAFE_DELETE(*it);
+//			it = missileList.erase(it);
+//		}
+//		else
+//		{
+//			++it;
+//		}
+//	}
+//	for each(Missile * m in missileList)
+//	{
+//		m->draw();
+//	}
+//}

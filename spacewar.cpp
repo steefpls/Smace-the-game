@@ -196,6 +196,12 @@ void Spacewar::collisions()
 		}
 	}
 
+	if (ship1.collidesWith(missile1, collisionVector))
+	{
+		ship1.setX(600);
+		ship1.setY(600);
+	}
+
 	//// if collision between ships
 	//if (ship1.collidesWith(ship2, collisionVector))
 	//{

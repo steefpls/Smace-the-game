@@ -7,7 +7,6 @@
 using namespace std;
 #include <iostream>
 #include <vector>
-#include "missile.cpp"
 
 namespace shipNS
 {
@@ -59,7 +58,7 @@ class Ship : public Entity
 private:
 	bool    shieldOn;
 	Image   shield;
-	vector<Missile*> missileList;
+	//vector<Missile*> missileList;
 
 public:
 	// constructor
@@ -72,8 +71,8 @@ public:
 	void update(float frameTime);
 	void topbottomrotatebounce();
 	void leftrightrotatebounce();
-	void shootMissile();
-	void drawMissile(float x, float y);
+	//void shootMissile();
+	//void drawMissile(float x, float y);
 	void damage(WEAPON);
 
 };
