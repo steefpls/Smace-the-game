@@ -26,6 +26,7 @@ private:
 	TextureManager shipTexture;		// ship texture
 	TextureManager wallTexture;		// wall texture
 	TextureManager missileTexture;	//missile texture
+	TextureManager explosionTexture;	//explosion texture
 
 	Image   planet;                 // planet image
 	Image   nebula;                 // nebula image

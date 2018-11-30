@@ -108,6 +108,10 @@ void Spacewar::initialize(HWND hwnd)
 	missile1.setCurrentFrame(missileNS::MISSILE_START_FRAME);
 	missile1.setX(GAME_WIDTH / 6);
 	missile1.setY(600);
+
+	//explosion texture
+	if (!explosionTexture.initialize(graphics, EXPLOSION_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing explosion texture"));
 	
 	
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
@@ -171,7 +175,6 @@ void Spacewar::update()
 	{
 		PostQuitMessage(0);
 	}
-	
 }
 
 //=============================================================================

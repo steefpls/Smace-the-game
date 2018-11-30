@@ -51,6 +51,9 @@
     <ClCompile Include="missile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="explosion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -89,6 +92,9 @@
     <ClInclude Include="missile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="explosion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
@@ -110,6 +116,9 @@
       <Filter>pictures</Filter>
     </Image>
     <Image Include="pictures\wall.png">
+      <Filter>pictures</Filter>
+    </Image>
+    <Image Include="pictures\explosion.jpg">
       <Filter>pictures</Filter>
     </Image>
   </ItemGroup>
