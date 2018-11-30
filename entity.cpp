@@ -373,13 +373,13 @@ bool Entity::outsideRect(RECT rect)
 	return false;
 }
 
-//=============================================================================
-// damage
-// This entity has been damaged by a weapon.
-// Override this function in the inheriting class.
-//=============================================================================
-void Entity::damage(int weapon)
-{}
+////=============================================================================
+//// damage
+//// This entity has been damaged by a weapon.
+//// Override this function in the inheriting class.
+////=============================================================================
+//void Entity::damage(int weapon)
+//{}
 
 //=============================================================================
 // Entity bounces after collision with a sphere collision box
@@ -508,4 +508,16 @@ double Entity::getHP()
 void Entity::setHP(double hpVal) 
 {
 	hp = hpVal;
+}
+
+//=============================================================================
+// Get and Set Damage
+//=============================================================================
+double Entity::getDamage()
+{
+	return damage;
+}
+void Entity::setDamage(double d)
+{
+	damage = d;
 }

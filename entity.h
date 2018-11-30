@@ -36,6 +36,8 @@ protected:
 	double maxhp;			//maxhp
 	double hppercentage;	//hp percentage
 
+	double damage;			//damage multiplier
+
 
 	// --- The following functions are protected because they are not intended to be
 	// --- called from outside the class.
@@ -147,11 +149,13 @@ public:
 	virtual bool collidesWith(Entity &ent, VECTOR2 &collisionVector);
 
 	// Damage this Entity with weapon.
-	virtual void damage(int weapon);
+	//virtual void damage(int weapon);
 
 	// Entity bounces after collision with other Entity
 	void bounce(VECTOR2 &collisionVector, Entity &ent);
 	
+	double getDamage();
+	void setDamage(double damage);
 
 	//for ship collision with wall
 	int squarebounce(Entity &ent);

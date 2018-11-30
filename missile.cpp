@@ -93,7 +93,7 @@ void Missile::update(float frameTime)
 
 	//================================================= Ship Rotation Drag Handling =====================================
 
-	if (!input->isKeyDown(ship1Left) && !input->isKeyDown(ship1Right))			//If A or D is not being pressed
+	if (!input->isKeyDown(player1Left) && !input->isKeyDown(player1Right))			//If A or D is not being pressed
 	{
 		if (missileNS::ROTATION_RATE < -missileNS::ROTATION_DRAG * frameTime)			//if ship is rotating counter clockwise
 		{

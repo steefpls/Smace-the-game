@@ -73,7 +73,7 @@ public:
 	void leftrightrotatebounce();
 	//void shootMissile();
 	//void drawMissile(float x, float y);
-	void damage(WEAPON);
+	//double damage;
 
 };
 #endif

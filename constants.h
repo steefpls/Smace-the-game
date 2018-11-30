@@ -38,12 +38,15 @@ const char MISSILE_IMAGE[] = "pictures\\rockets_PNG13274.png";	//missile
 const char EXPLOSION_IMAGE[] = "pictures\\explosion.jpg";	//explosion
 
 //keybinds
-const char ship1Right = 'D';
-const char ship1Left = 'A';
-const char ship1Up = 'W';
-const char ship1Down = 'S';
+const char player1Right = 'D';
+const char player1Left = 'A';
+const char player1Up = 'W';
+const char player1Down = 'S';
 
-
+const char player2Right = VK_RIGHT;
+const char player2Left = VK_LEFT;
+const char player2Up = VK_UP;
+const char player2Down = VK_DOWN;
 
 // window
 const char CLASS_NAME[] = "Spacewar";

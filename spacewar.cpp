@@ -209,14 +209,15 @@ void Spacewar::collisions()
 				{
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship1.getVelocityY()));
 					ship1.topbottomrotatebounce();
+					ship1.setDamage(ship1.getDamage() + 0.1);
 				}
 				else if (check == 2 || check == 4)
 				{
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship1.getVelocityX()));
 					ship1.leftrightrotatebounce();
+					ship1.setDamage(ship1.getDamage() + 0.1);
 				}
 				
-
 				if (wallListList[i][j]->getHP() <= 0)
 				{
 					wallListList[i].erase(wallListList[i].begin() + j);

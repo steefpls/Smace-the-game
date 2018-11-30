@@ -18,6 +18,7 @@ Ship::Ship() : Entity()
 	startFrame = shipNS::SHIP1_START_FRAME;     // first frame of ship animation
 	endFrame = shipNS::SHIP1_END_FRAME;     // last frame of ship animation
 	currentFrame = startFrame;
+	damage = shipNS::DAMAGE_MULTIPLIER;
 	
 	//radius = shipNS::WIDTH / 2.0;
 	shieldOn = false;
@@ -81,7 +82,7 @@ void Ship::update(float frameTime)
 
 	if (shipNS::ROTATION_RATE < shipNS::MAX_ROTATION_RATE) //if ship is rotating at a speed less than the MAX_ROTATION_RATE
 	{
-		if (input->isKeyDown(ship1Right)) //and the D key is held
+		if (input->isKeyDown(player1Right)) //and the D key is held
 		{
 			shipNS::ROTATION_RATE += shipNS::ROTATION_ACC_RATE * frameTime;	//Add rotation speed
 		}
@@ -89,7 +90,7 @@ void Ship::update(float frameTime)
 
 	if (shipNS::ROTATION_RATE > -shipNS::MAX_ROTATION_RATE) //if ship is rotating at a speed less than the MAX_ROTATION_RATE
 	{
-		if (input->isKeyDown(ship1Left)) //And the A key is held
+		if (input->isKeyDown(player1Left)) //And the A key is held
 		{
 			shipNS::ROTATION_RATE -= shipNS::ROTATION_ACC_RATE * frameTime; //Add rotation speed
 		}
@@ -97,7 +98,7 @@ void Ship::update(float frameTime)
 	
 	//================================================= Ship Rotation Drag Handling =====================================
 
-	if (!input->isKeyDown(ship1Left) && shipNS::ROTATION_RATE < -shipNS::ROTATION_DRAG * frameTime)			//If A is not being pressed and ship is rotating counter clockwise
+	if (!input->isKeyDown(player1Left) && shipNS::ROTATION_RATE < -shipNS::ROTATION_DRAG * frameTime)			//If A is not being pressed and ship is rotating counter clockwise
 	{
 		
 		
@@ -105,11 +106,11 @@ void Ship::update(float frameTime)
 
 		
 	}
-	else if (!input->isKeyDown(ship1Right) && shipNS::ROTATION_RATE > shipNS::ROTATION_DRAG * frameTime)	//if D is not being pressed and ship is rotating clockwise
+	else if (!input->isKeyDown(player1Right) && shipNS::ROTATION_RATE > shipNS::ROTATION_DRAG * frameTime)	//if D is not being pressed and ship is rotating clockwise
 	{
 		shipNS::ROTATION_RATE -= shipNS::ROTATION_DRAG * frameTime;			//Add counter clockwise drag
 	}
-	else if (!input->isKeyDown(ship1Left) && !input->isKeyDown(ship1Right) &&  shipNS::ROTATION_RATE < shipNS::ROTATION_DRAG * frameTime && shipNS::ROTATION_RATE > -shipNS::ROTATION_DRAG * frameTime)
+	else if (!input->isKeyDown(player1Left) && !input->isKeyDown(player1Right) &&  shipNS::ROTATION_RATE < shipNS::ROTATION_DRAG * frameTime && shipNS::ROTATION_RATE > -shipNS::ROTATION_DRAG * frameTime)
 	{
 		shipNS::ROTATION_RATE = 0.0f;										//If speed is less than drag, set speed to 0
 	}
@@ -119,13 +120,13 @@ void Ship::update(float frameTime)
 	
 	//===================================== SHIP MOVEMENT =============================================
 
-		if (input->isKeyDown(ship1Up)) //If the W key is held
+		if (input->isKeyDown(player1Up)) //If the W key is held
 		{
 			velocity.x += sin(spriteData.angle ) * shipNS::X_ACC * frameTime ;
 			velocity.y -= cos(spriteData.angle ) * shipNS::Y_ACC * frameTime ;		//Sets the ship X and Y speed based on angle
 		}
 
-		if (input->isKeyDown(ship1Down)) //If the S key is held
+		if (input->isKeyDown(player1Down)) //If the S key is held
 		{
 			velocity.x -= sin(spriteData.angle) * shipNS::X_ACC * frameTime;
 			velocity.y += cos(spriteData.angle) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
@@ -240,20 +241,20 @@ void Ship::update(float frameTime)
 //=============================================================================
 // damage
 //=============================================================================
-void Ship::damage(WEAPON weapon)
-{
-	shieldOn = true;
-}
+//void Ship::damage(WEAPON weapon)
+//{
+//	shieldOn = true;
+//}
 
 void Ship::topbottomrotatebounce()	//rotation when hitting top and bottom walls
 {
 	if (velocity.x > 0)	
 	{
-		shipNS::ROTATION_RATE += 300 * (velocity.y / 200);	 
+		shipNS::ROTATION_RATE += damage * 300 * (velocity.y / 200);	 
 	}
 	else
 	{
-		shipNS::ROTATION_RATE -= 300 * (velocity.y / 200);
+		shipNS::ROTATION_RATE -= damage * 300 * (velocity.y / 200);
 	}
 	
 }
@@ -261,38 +262,10 @@ void Ship::leftrightrotatebounce()	//rotation when hitting left and right walls
 {
 	if (velocity.y > 0)	
 	{
-		shipNS::ROTATION_RATE -= 300 * (velocity.x / 200);
+		shipNS::ROTATION_RATE -= damage * 300 * (velocity.x / 200);
 	}
 	else
 	{
-		shipNS::ROTATION_RATE += 300 * (velocity.x / 200);
+		shipNS::ROTATION_RATE += damage * 300 * (velocity.x / 200);
 	}
 }
-//void Ship::shootMissile()
-//{
-//	Missile *missile = new Missile();
-//	VECTOR2 start(spriteData.x, spriteData.y);
-//
-//	missile->setX(start.x + (missileNS::WIDTH / missileNS::SCALE));
-//	missile->setY(start.y + (missileNS::HEIGHT / missileNS::SCALE));
-//}
-//
-//void Ship::drawMissile(float x, float y)
-//{
-//	for (vector<Missile*>::iterator it = missileList.begin(); it != missileList.end();) 
-//	{
-//		if ((*it)->getdel() == true)
-//		{
-//			SAFE_DELETE(*it);
-//			it = missileList.erase(it);
-//		}
-//		else
-//		{
-//			++it;
-//		}
-//	}
-//	for each(Missile * m in missileList)
-//	{
-//		m->draw();
-//	}
-//}
