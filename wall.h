@@ -23,7 +23,7 @@ namespace wallNS
 	static float SCALE = 1;
 	//const int COLLISION_RADIUS = 60 / 2;
 	
-	const double MAX_HP = 1000.0;			//wall maxhp
+	const double MAX_HP = 500000.0;			//wall maxhp
 	static double HP = MAX_HP;				//wall hp
 	static double HP_PERCENTAGE = (HP / MAX_HP) * 100.0;
 }
