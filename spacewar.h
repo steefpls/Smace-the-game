@@ -40,7 +40,7 @@ private:
 	std::vector<Wall *> wallListRight;	//list of right walls
 	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists
 	
-	std::vector<Missile *> missileList;				// missile object
+	Missile missile1;				// missile object
 	Explosion explosion1;
 
 	//Bullet	bullet1;				// bullet image

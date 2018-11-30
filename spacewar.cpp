@@ -102,12 +102,12 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing missile texture"));
 
 	//missile
-	//if (!missile1.initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture))
-	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing missile"));
-	//missile1.setFrames(missileNS::MISSILE_START_FRAME, missileNS::MISSILE_END_FRAME);
-	//missile1.setCurrentFrame(missileNS::MISSILE_START_FRAME);
-	//missile1.setX(GAME_WIDTH / 6);
-	//missile1.setY(600);
+	if (!missile1.initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing missile"));
+	missile1.setFrames(missileNS::MISSILE_START_FRAME, missileNS::MISSILE_END_FRAME);
+	missile1.setCurrentFrame(missileNS::MISSILE_START_FRAME);
+	missile1.setX(GAME_WIDTH / 6);
+	missile1.setY(600);
 
 	//explosion texture
 	if (!explosionTexture.initialize(graphics, EXPLOSION_IMAGE))
@@ -168,13 +168,8 @@ void Spacewar::update()
 		}
 	}
 
-	if (input->isKeyDown(SPACE))
-	{
-		missileList.push_back(new Missile);
-		missileList[missileList.size()-1]->initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture);
-		missileList[missileList.size() - 1]->setX(ship1.getX());
-		missileList[missileList.size() - 1]->setX(ship1.getY());
-	}			
+	missile1.update(frameTime);	//update missile frames
+								
 
 	if (input->isKeyDown(ESC_KEY))
 	{
@@ -217,11 +212,12 @@ void Spacewar::collisions()
 			}
 		}
 	}
-	//if (ship1.collidesWith(missile1, collisionVector))
-	//{
-	//	ship1.setX(600);
-	//	ship1.setY(600);
-	//}
+
+	if (ship1.collidesWith(missile1, collisionVector))
+	{
+		ship1.setX(600);
+		ship1.setY(600);
+	}
 
 	//// if collision between ships
 	//if (ship1.collidesWith(ship2, collisionVector))
@@ -253,11 +249,7 @@ void Spacewar::render()
 	nebula.draw();                          // add the orion nebula to the scene
 	planet.draw();                          // add the planet to the scene
 	ship1.draw();							// add the ship to the scene
-	
-	for (int i = 0; i < (missileList.size()); i++)
-	{
-		missileList[i]->draw();
-	}
+	missile1.draw();
 
 	for (int i = 0; i<(wallListList.size());i++)
 	{
