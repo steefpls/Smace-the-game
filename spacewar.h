@@ -8,7 +8,7 @@
 #include "image.h"
 #include "ship.h"
 #include "wall.h"
-#include "missile.h"
+//#include "missile.h"
 #include "explosion.h"
 //#include "bullet1.h"
 
@@ -41,7 +41,6 @@ private:
 	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists
 	
 	//Missile missile1;				// missile object
-	std::vector<Missile *> missileList;
 	Explosion explosion1;
 
 	//Bullet	bullet1;				// bullet image

@@ -4,6 +4,7 @@
 
 #include "entity.h"
 #include "constants.h"
+#include "missile.h"
 using namespace std;
 #include <iostream>
 #include <vector>
@@ -71,6 +72,7 @@ public:
 	void update(float frameTime);
 	void topbottomrotatebounce();
 	void leftrightrotatebounce();
+	std::vector<Missile *> missileList;
 	//void shootMissile();
 	//void drawMissile(float x, float y);
 	//double damage;

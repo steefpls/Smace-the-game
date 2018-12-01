@@ -1,5 +1,4 @@
-#include "spaceWar.h"
-#include "ship.h"
+#include "spacewar.h"
 #include "entity.h"
 
 //=============================================================================
@@ -170,14 +169,14 @@ void Spacewar::update()
 
 	if (input->isKeyDown(SHIFT_KEY))
 	{
-		missileList.push_back(new Missile);
-		missileList[missileList.size() - 1]->initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture);
-		missileList[missileList.size() - 1]->setX(ship1.getX());
-		missileList[missileList.size() - 1]->setY(ship1.getY());
+		ship1.missileList.push_back(new Missile);
+		ship1.missileList[ship1.missileList.size() - 1]->initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture);
+		ship1.missileList[ship1.missileList.size() - 1]->setX(ship1.getX());
+		ship1.missileList[ship1.missileList.size() - 1]->setY(ship1.getY());
 	}
-	for (int i = 0; i < missileList.size(); i++)
+	for (int i = 0; i < ship1.missileList.size(); i++)
 	{
-		missileList[i]->update(frameTime);
+		ship1.missileList[i]->update(frameTime);
 	}
 
 	//missile1.update(frameTime);	//update missile frames
@@ -272,9 +271,9 @@ void Spacewar::render()
 		}
 	}
 
-	for (int i = 0; i < missileList.size(); i++)
+	for (int i = 0; i < ship1.missileList.size(); i++)
 	{
-		missileList[i]->draw();
+		ship1.missileList[i]->draw();
 	}
 
 	//bullet1.draw();				
