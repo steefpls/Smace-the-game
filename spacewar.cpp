@@ -174,6 +174,9 @@ void Spacewar::update()
 		ship1.missileList[ship1.missileList.size() - 1]->setX(ship1.getX());
 		ship1.missileList[ship1.missileList.size() - 1]->setY(ship1.getY());
 
+		ship1.missileList[ship1.missileList.size() - 1]->setDegrees(ship1.getDegrees());
+		ship1.missileList[ship1.missileList.size() - 1]->setVelocityX(ship1.getVelocityX());
+		ship1.missileList[ship1.missileList.size() - 1]->setVelocityY(ship1.getVelocityY());
 		missileTimer = 0;
 	}
 	if (missileTimer < 200)
