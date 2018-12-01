@@ -93,22 +93,22 @@ void Missile::update(float frameTime)
 
 	//================================================= Ship Rotation Drag Handling =====================================
 
-	if (!input->isKeyDown(player1Left) && !input->isKeyDown(player1Right))			//If A or D is not being pressed
-	{
-		if (missileNS::ROTATION_RATE < -missileNS::ROTATION_DRAG * frameTime)			//if ship is rotating counter clockwise
-		{
-			missileNS::ROTATION_RATE += missileNS::ROTATION_DRAG * frameTime;			//Add clockwise drag
-		}
+	//if (!input->isKeyDown(player1Left) && !input->isKeyDown(player1Right))			//If A or D is not being pressed
+	//{
+	//	if (missileNS::ROTATION_RATE < -missileNS::ROTATION_DRAG * frameTime)			//if ship is rotating counter clockwise
+	//	{
+	//		missileNS::ROTATION_RATE += missileNS::ROTATION_DRAG * frameTime;			//Add clockwise drag
+	//	}
 
-		else if (missileNS::ROTATION_RATE > missileNS::ROTATION_DRAG * frameTime)			//if ship is rotating clockwise
-		{
-			missileNS::ROTATION_RATE -= missileNS::ROTATION_DRAG * frameTime;			//Add counter clockwise drag
-		}
-		else
-		{
-			missileNS::ROTATION_RATE = 0.0f;										//If speed is less than drag, set speed to 0
-		}
-	}
+	//	else if (missileNS::ROTATION_RATE > missileNS::ROTATION_DRAG * frameTime)			//if ship is rotating clockwise
+	//	{
+	//		missileNS::ROTATION_RATE -= missileNS::ROTATION_DRAG * frameTime;			//Add counter clockwise drag
+	//	}
+	//	else
+	//	{
+	//		missileNS::ROTATION_RATE = 0.0f;										//If speed is less than drag, set speed to 0
+	//	}
+	//}
 
 
 	spriteData.angle = (spriteData.angle + ROTATION_RATE / 360 * 2 * PI * frameTime); // Final update ship rotation
@@ -128,8 +128,8 @@ void Missile::update(float frameTime)
 	//}
 
 
-	velocity.x = velocity.x - ((1 - DRAG) *velocity.x) * frameTime;
-	velocity.y = velocity.y - ((1 - DRAG) *velocity.y) * frameTime;   //Implementation of "Air" Resistance
+	velocity.x += velocity.x /*+ ((1 - DRAG) *velocity.x)*/ * frameTime;
+	velocity.y += velocity.y /*+ ((1 - DRAG) *velocity.y) */* frameTime;   //Implementation of "Air" Resistance
 
 
 // ============================================= Bounce off walls/Wall collision ==========================================================

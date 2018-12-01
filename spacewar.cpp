@@ -88,7 +88,7 @@ void Spacewar::initialize(HWND hwnd)
 		wallListRight[wallListRight.size() - 1]->setX(GAME_WIDTH - (wallNS::WIDTH*wallNS::SCALE));
 		wallListRight[wallListRight.size() - 1]->setY((i + 1)*(wallNS::HEIGHT*wallNS::SCALE));
 
-		wallListRight[wallListRight.size() - 1]->setRadians(wallListRight[wallListRight.size() - 1]->getRadians() + ((3*PI)/2));
+wallListRight[wallListRight.size() - 1]->setRadians(wallListRight[wallListRight.size() - 1]->getRadians() + ((3 * PI) / 2));
 	}
 
 	wallListList.push_back(wallListTop);		//wallListList[3] = wallListTop
@@ -111,8 +111,8 @@ void Spacewar::initialize(HWND hwnd)
 	//explosion texture
 	if (!explosionTexture.initialize(graphics, EXPLOSION_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing explosion texture"));
-	
-	
+
+
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
 
 	// nebula
@@ -124,7 +124,7 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing planet"));
 
 	//Scale Nebula to fullscreen
-	nebula.setScale(GAME_WIDTH/nebula.getWidth() );
+	nebula.setScale(GAME_WIDTH / nebula.getWidth());
 
 	// place planet in center of screen
 	planet.setX(GAME_WIDTH*0.5f - planet.getWidth()*0.5f);
@@ -147,7 +147,7 @@ void Spacewar::initialize(HWND hwnd)
 	//ship.setX(GAME_WIDTH*0.33f - ship.getWidth()*0.5f);
 	//ship.setY(GAME_HEIGHT*0.5f - ship.getHeight()*0.5f);
 
-    return;
+	return;
 }
 
 //=============================================================================
@@ -159,15 +159,15 @@ void Spacewar::update()
 
 	ship1.update(frameTime);	//update ship frames
 
-	for(int i = 0; i<wallListList.size();i++)
+	for (int i = 0; i < wallListList.size(); i++)
 	{
-		for(int j =0; j<wallListList[i].size();j++)
+		for (int j = 0; j < wallListList[i].size(); j++)
 		{
 			wallListList[i][j]->update(frameTime);	//update top wall frames
 		}
 	}
 
-	if (input->isKeyDown(SHIFT_KEY) && missileTimer>=200)
+	if (input->isKeyDown(SHIFT_KEY) && missileTimer >= 200)
 	{
 		ship1.missileList.push_back(new Missile);
 		ship1.missileList[ship1.missileList.size() - 1]->initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture);
@@ -179,6 +179,7 @@ void Spacewar::update()
 		ship1.missileList[ship1.missileList.size() - 1]->setVelocityY(ship1.getVelocityY());
 		missileTimer = 0;
 	}
+
 	if (missileTimer < 200)
 	{
 		missileTimer += 1;
@@ -186,6 +187,10 @@ void Spacewar::update()
 
 	for (int i = 0; i < ship1.missileList.size(); i++)
 	{
+		if (ship1.missileList[i]->getX() > (GAME_WIDTH - (missileNS::WIDTH * missileNS::SCALE) + 1))
+		{
+			ship1.missileList.erase(ship1.missileList.begin() + i);
+		}
 		ship1.missileList[i]->update(frameTime);
 	}
 
