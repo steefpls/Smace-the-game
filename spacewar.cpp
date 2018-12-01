@@ -167,13 +167,20 @@ void Spacewar::update()
 		}
 	}
 
-	if (input->isKeyDown(SHIFT_KEY))
+	if (input->isKeyDown(SHIFT_KEY) && missileTimer>=200)
 	{
 		ship1.missileList.push_back(new Missile);
 		ship1.missileList[ship1.missileList.size() - 1]->initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture);
 		ship1.missileList[ship1.missileList.size() - 1]->setX(ship1.getX());
 		ship1.missileList[ship1.missileList.size() - 1]->setY(ship1.getY());
+
+		missileTimer = 0;
 	}
+	if (missileTimer < 200)
+	{
+		missileTimer += 1;
+	}
+
 	for (int i = 0; i < ship1.missileList.size(); i++)
 	{
 		ship1.missileList[i]->update(frameTime);
