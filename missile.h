@@ -20,8 +20,8 @@ namespace missileNS
 	static float MAX_ROTATION_RATE = 240.0f;	 // degrees per second
 
 	//2d Movement
-	static float X_SPEED = 0.0f;                // pixels per second
-	static float Y_SPEED = 0.0f;                // pixels per second
+	static float X_SPEED = 100.0f;                // pixels per second
+	static float Y_SPEED = 100.0f;                // pixels per second
 	static float X_ACC = 400.0f;			//pixels per second per second
 	static float Y_ACC = 400.0f;			//pixels per second per second
 	static float DRAG = 98 / 100;			//air resistance (IK its in space but stfu)
