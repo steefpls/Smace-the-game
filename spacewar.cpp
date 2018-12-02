@@ -175,8 +175,8 @@ void Spacewar::update()
 		ship1.missileList[ship1.missileList.size() - 1]->setY(ship1.getY());
 
 		ship1.missileList[ship1.missileList.size() - 1]->setDegrees(ship1.getDegrees());
-		ship1.missileList[ship1.missileList.size() - 1]->setVelocityX(missileNS::X_SPEED*sin(ship1.getRadians())*frameTime);
-		ship1.missileList[ship1.missileList.size() - 1]->setVelocityY(missileNS::Y_SPEED*cos(ship1.getRadians())*frameTime);
+		ship1.missileList[ship1.missileList.size() - 1]->setVelocityX(missileNS::X_SPEED);
+		ship1.missileList[ship1.missileList.size() - 1]->setVelocityY(missileNS::Y_SPEED);
 		missileTimer = 0;
 	}
 
@@ -190,7 +190,8 @@ void Spacewar::update()
 		ship1.missileList[i]->update(frameTime);
 		if (ship1.missileList[i]->getX() > (GAME_WIDTH - (missileNS::WIDTH * missileNS::SCALE) + 1))
 		{
-			ship1.missileList.erase(ship1.missileList.begin() + i);
+			SAFE_DELETE(ship1.missileList[i]);
+			ship1.missileList.erase(ship1.missileList.begin() + i);			
 		}
 	}
 
