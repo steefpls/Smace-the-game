@@ -9,6 +9,7 @@
 #include "ship.h"
 #include "wall.h"
 #include "explosion.h"
+#include "mine.h"
 
 #include <iostream>
 #include <list>
@@ -28,6 +29,9 @@ private:
 	TextureManager missileTexture;	//missile texture
 	TextureManager explosionTexture;	//explosion texture
 	TextureManager bulletTexture;	//bullet texture
+	TextureManager mineTexture;	//mine texture
+	TextureManager blackholeTexture;	//black hole texture
+	TextureManager rectTexture;	//big black rectangle and smaller blue one texture
 
 	Image   planet;                 // planet image
 	Image   nebula;                 // nebula image
@@ -40,6 +44,7 @@ private:
 	std::vector<Wall *> wallListLeft;	//list of left walls
 	std::vector<Wall *> wallListRight;	//list of right walls
 	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists
+	Mine mine1;
 	
 	//Missile missile1;				// missile object
 	Explosion explosion1;

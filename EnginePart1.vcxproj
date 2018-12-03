@@ -95,6 +95,7 @@
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="mine.cpp" />
     <ClCompile Include="missile.cpp" />
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="spacewar.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="graphics.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="mine.h" />
     <ClInclude Include="missile.h" />
     <ClInclude Include="ship.h" />
     <ClInclude Include="spacewar.h" />
@@ -123,8 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Desktop\giphy.gif" />
+    <Image Include="pictures\bigblackrect.png" />
     <Image Include="pictures\Bullet123.png" />
     <Image Include="pictures\explosion.jpg" />
+    <Image Include="pictures\mine.png" />
     <Image Include="pictures\orion.jpg" />
     <Image Include="pictures\planet.png" />
     <Image Include="pictures\rockets_PNG13274.png" />

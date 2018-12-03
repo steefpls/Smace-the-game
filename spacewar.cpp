@@ -130,6 +130,17 @@ void Spacewar::initialize(HWND hwnd)
 	if (!bulletTexture.initialize(graphics, BULLET_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing bullet texture"));
 
+	//mine texture
+	if (!mineTexture.initialize(graphics, MINE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing mine texture"));
+
+	//mine1
+	if (!mine1.initialize(this,mineNS::WIDTH,mineNS::HEIGHT,mineNS::TEXTURE_COLS,&mineTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing mine1"));
+	mine1.setFrames(mineNS::MINE_START_FRAME, mineNS::MINE_END_FRAME);
+	mine1.setX(GAME_WIDTH / 3);
+	mine1.setY(GAME_HEIGHT / 3);
+
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
 
 	// nebula
@@ -160,6 +171,7 @@ void Spacewar::update()
 	ship1.update(frameTime);	//update ship frames
 	ship2.update(frameTime);
 	explosion1.update(frameTime);
+	mine1.update(frameTime);
 
 	for (int i = 0; i < wallListList.size(); i++)
 	{
@@ -350,6 +362,7 @@ void Spacewar::render()
 	ship1.draw();							// add the ship to the scene
 	ship2.draw();							// add the cooler ship to the scene
 	explosion1.draw();
+	mine1.draw();
 
 	// draw walls
 	for (int i = 0; i<(wallListList.size());i++)
