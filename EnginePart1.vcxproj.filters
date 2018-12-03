@@ -121,5 +121,8 @@
     <Image Include="pictures\explosion.jpg">
       <Filter>pictures</Filter>
     </Image>
+    <Image Include="pictures\Bullet123.png">
+      <Filter>pictures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
