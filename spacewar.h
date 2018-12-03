@@ -24,7 +24,8 @@ private:
 	// game items
 	TextureManager nebulaTexture;   // nebula texture
 	TextureManager planetTexture;   // planet texture
-	TextureManager shipTexture;		// ship texture
+	TextureManager ship1Texture;		// ship texture
+	TextureManager ship2Texture;		// cooler ship texture
 	TextureManager wallTexture;		// wall texture
 	TextureManager missileTexture;	//missile texture
 	TextureManager explosionTexture;	//explosion texture
@@ -34,6 +35,7 @@ private:
 
 	//Ship * ship1 = NULL;
 	Ship	ship1;					// ship object
+	Ship	ship2;
 	std::vector<Wall *> wallListTop;	//list of top walls
 	std::vector<Wall *> wallListBottom;	//list of bottom walls
 	std::vector<Wall *> wallListLeft;	//list of left walls

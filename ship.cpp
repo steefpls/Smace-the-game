@@ -80,43 +80,39 @@ void Ship::update(float frameTime)
 
 	//----------------------------------------------------------- Handling max rotation rate ---------------------------------------------
 
-	if (shipNS::ROTATION_RATE < shipNS::MAX_ROTATION_RATE) //if ship is rotating at a speed less than the MAX_ROTATION_RATE
+	if (RotationRate < MaxRotationRate) //if ship is rotating at a speed less than the MAX_ROTATION_RATE
 	{
 		if (input->isKeyDown(player1Right)) //and the D key is held
 		{
-			shipNS::ROTATION_RATE += shipNS::ROTATION_ACC_RATE * frameTime;	//Add rotation speed
+			RotationRate += RotationAccRate * frameTime;	//Add rotation speed
 		}
 	}
 
-	if (shipNS::ROTATION_RATE > -shipNS::MAX_ROTATION_RATE) //if ship is rotating at a speed less than the MAX_ROTATION_RATE
+	if (RotationRate > -MaxRotationRate) //if ship is rotating at a speed less than the MAX_ROTATION_RATE
 	{
 		if (input->isKeyDown(player1Left)) //And the A key is held
 		{
-			shipNS::ROTATION_RATE -= shipNS::ROTATION_ACC_RATE * frameTime; //Add rotation speed
+			RotationRate -= RotationAccRate * frameTime; //Add rotation speed
 		}
 	}
 	
 	//================================================= Ship Rotation Drag Handling =====================================
 
-	if (!input->isKeyDown(player1Left) && shipNS::ROTATION_RATE < -shipNS::ROTATION_DRAG * frameTime)			//If A is not being pressed and ship is rotating counter clockwise
+	if (!input->isKeyDown(player1Left) && RotationRate < -RotationDrag * frameTime)			//If A is not being pressed and ship is rotating counter clockwise
 	{
-		
-		
-			shipNS::ROTATION_RATE += shipNS::ROTATION_DRAG * frameTime;			//Add clockwise drag
-
-		
+			RotationRate += RotationDrag * frameTime;			//Add clockwise drag
 	}
-	else if (!input->isKeyDown(player1Right) && shipNS::ROTATION_RATE > shipNS::ROTATION_DRAG * frameTime)	//if D is not being pressed and ship is rotating clockwise
+	else if (!input->isKeyDown(player1Right) && RotationRate > RotationDrag * frameTime)	//if D is not being pressed and ship is rotating clockwise
 	{
-		shipNS::ROTATION_RATE -= shipNS::ROTATION_DRAG * frameTime;			//Add counter clockwise drag
+		RotationRate -= RotationDrag * frameTime;			//Add counter clockwise drag
 	}
-	else if (!input->isKeyDown(player1Left) && !input->isKeyDown(player1Right) &&  shipNS::ROTATION_RATE < shipNS::ROTATION_DRAG * frameTime && shipNS::ROTATION_RATE > -shipNS::ROTATION_DRAG * frameTime)
+	else if (!input->isKeyDown(player1Left) && !input->isKeyDown(player1Right) &&  RotationRate < RotationDrag * frameTime && RotationRate > -RotationDrag * frameTime)
 	{
-		shipNS::ROTATION_RATE = 0.0f;										//If speed is less than drag, set speed to 0
+		RotationRate = 0.0f;										//If speed is less than drag, set speed to 0
 	}
 
 
-	spriteData.angle=(spriteData.angle + shipNS::ROTATION_RATE / 360 * 2 * PI * frameTime); // Final update ship rotation
+	spriteData.angle=(spriteData.angle + RotationRate / 360 * 2 * PI * frameTime); // Final update ship rotation
 	
 	//===================================== SHIP MOVEMENT =============================================
 
@@ -267,11 +263,11 @@ void Ship::topbottomrotatebounce()	//rotation when hitting top and bottom walls
 {
 	if (velocity.x > 0)	
 	{
-		shipNS::ROTATION_RATE += damage * 300 * (velocity.y / 200);	 
+		RotationRate += damage * 300 * (velocity.y / 200);	 
 	}
 	else
 	{
-		shipNS::ROTATION_RATE -= damage * 300 * (velocity.y / 200);
+		RotationRate -= damage * 300 * (velocity.y / 200);
 	}
 	
 }
@@ -279,11 +275,11 @@ void Ship::leftrightrotatebounce()	//rotation when hitting left and right walls
 {
 	if (velocity.y > 0)	
 	{
-		shipNS::ROTATION_RATE -= damage * 300 * (velocity.x / 200);
+		RotationRate -= damage * 300 * (velocity.x / 200);
 	}
 	else
 	{
-		shipNS::ROTATION_RATE += damage * 300 * (velocity.x / 200);
+		RotationRate += damage * 300 * (velocity.x / 200);
 	}
 }
 

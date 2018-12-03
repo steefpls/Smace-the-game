@@ -32,16 +32,17 @@ enum WEAPON {BULLET, TORPEDO, SHIP, WALL};
 // graphic images
 const char NEBULA_IMAGE[] = "pictures\\orion.jpg";  // photo source NASA/courtesy of nasaimages.org 
 const char PLANET_IMAGE[] = "pictures\\planet.png"; // picture of planet
-const char SHIP_IMAGE[] = "pictures\\ship.png";   // spaceship
+const char SHIP1_IMAGE[] = "pictures\\ship.png";   // spaceship
+const char SHIP2_IMAGE[] = "pictures\\ship2.png";  //cooler spaceship
 const char WALL_IMAGE[] = "pictures\\wall.png";   // wall
 const char MISSILE_IMAGE[] = "pictures\\rockets_PNG13274.png";	//missile
 const char EXPLOSION_IMAGE[] = "pictures\\explosion.jpg";	//explosion
 
-//keybinds
-const char player1Right = 'D';
-const char player1Left = 'A';
-const char player1Up = 'W';
-const char player1Down = 'S';
+////keybinds
+//const char player1Right = 'D';
+//const char player1Left = 'A';
+//const char player1Up = 'W';
+//const char player1Down = 'S';
 
 const char player2Right = VK_RIGHT;
 const char player2Left = VK_LEFT;
