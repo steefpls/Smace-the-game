@@ -15,6 +15,7 @@ Missile::Missile() : Entity()
 	spriteData.rect.right = WIDTH;
 	velocity.x = X_SPEED;                             // velocity X
 	velocity.y = Y_SPEED;                             // velocity Y
+	maxvel = MAX_VELOCITY;							// Max Velocity
 	frameDelay = MISSILE_ANIMATION_DELAY;
 	startFrame = MISSILE_START_FRAME;     // first frame of ship animation
 	endFrame = MISSILE_END_FRAME;     // last frame of ship animation
@@ -80,27 +81,13 @@ void Missile::update(float frameTime)
 
 
 
-	spriteData.angle = (spriteData.angle + ROTATION_RATE / 360 * 2 * PI * frameTime); // Final update ship rotation
+	spriteData.angle = (spriteData.angle + ROTATION_RATE / 360 * 2 * PI * frameTime); // Final update missile rotation
 
-	//===================================== SHIP MOVEMENT =============================================
-
-	//if (input->isKeyDown(ship1Up)) //If the W key is held
-	//{
-	//	velocity.x += sin(spriteData.angle) * X_ACC * frameTime;
-	//	velocity.y -= cos(spriteData.angle) * Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
-	//}
-
-	//if (input->isKeyDown(ship1Down)) //If the S key is held
-	//{
-	//	velocity.x -= sin(spriteData.angle) * shipNS::X_ACC * frameTime;
-	//	velocity.y += cos(spriteData.angle) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
-	//}
-
-	
-
-	velocity.x += sin(spriteData.angle) * X_ACC * frameTime;
-	velocity.y -= cos(spriteData.angle) * Y_ACC * frameTime;   //Implementation of "Air" Resistance
-
+	if (abs(sin(spriteData.angle)*velocity.x)<= abs(sin(spriteData.angle)*maxvel) && abs(cos(spriteData.angle)*velocity.y) <= abs(cos(spriteData.angle)*maxvel))
+	{
+		velocity.x += sin(spriteData.angle) * X_ACC * frameTime;
+		velocity.y -= cos(spriteData.angle) * Y_ACC * frameTime;   //Position update
+	}
 
 
 

@@ -44,7 +44,7 @@ namespace shipNS
 	static float SCALE = 1.4;			//ship scale
 
 	//Timers
-	const float MAX_DASH_TIMER = 3.0f;
+	const float MAX_DASH_TIMER = 2.0f;
 	static float DASH_TIMER = 1.0f;
 	static bool CAN_DASH = false;
 	static float BOOST_AMT = 400; //pixels per second

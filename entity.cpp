@@ -13,6 +13,7 @@ Entity::Entity() : Image()
 	mass = 1.0;
 	velocity.x = 0.0;
 	velocity.y = 0.0;
+	maxvel = 0.0;
 	deltaV.x = 0.0;
 	deltaV.y = 0.0;
 	active = true;                  // the entity is active
