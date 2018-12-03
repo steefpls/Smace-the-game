@@ -151,13 +151,7 @@ void Ship::update(float frameTime)
 		shipNS::DASH_TIMER -= 1.0f * frameTime; //Timer goes down by 1 per second
 	}
 
-	if (input->isKeyDown(SHIFT_KEY) && shipNS::DASH_TIMER<=0)
-	{
-		velocity.x += sin(spriteData.angle) * shipNS::BOOST_AMT ;
-		velocity.y -= cos(spriteData.angle) * shipNS::BOOST_AMT ;
-		shipNS::DASH_TIMER = shipNS::MAX_DASH_TIMER;
-		
-	}
+
 
 	if (shipNS::MISSILE_TIMER > 0)
 	{
@@ -242,5 +236,30 @@ void Ship::leftrightrotatebounce()	//rotation when hitting left and right walls
 	else
 	{
 		RotationRate += damage * 300 * (velocity.x / 200);
+	}
+}
+
+void Ship::dash()
+{
+	if (shipNS::DASH_TIMER <= 0)
+	{
+		velocity.x += sin(spriteData.angle) * shipNS::BOOST_AMT;
+		velocity.y -= cos(spriteData.angle) * shipNS::BOOST_AMT;
+		shipNS::DASH_TIMER = shipNS::MAX_DASH_TIMER;
+
+	}
+}
+
+void Ship::boost(bool b)
+{
+	if (b)
+	{
+		shipNS::X_ACC = shipNS::BOOSTED_X;
+		shipNS::Y_ACC = shipNS::BOOSTED_Y;
+	}
+	else
+	{
+		shipNS::X_ACC = shipNS::ORIGINAL_X;
+		shipNS::Y_ACC = shipNS::ORIGINAL_Y;
 	}
 }

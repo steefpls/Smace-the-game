@@ -46,6 +46,9 @@ private:
 	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists
 	Mine mine1;
 	
+	const char player1Primary = 'C';
+	const char player1Secondary = 'X';
+
 	//Missile missile1;				// missile object
 	Explosion explosion1;
 

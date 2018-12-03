@@ -182,14 +182,19 @@ void Spacewar::update()
 	}
 
 	//===========================================================================================================
-	//  MISSILES FOR SHIP 1
+	//  Inputs FOR SHIP 1
 	//===========================================================================================================
-	for (int i = 0; i < ship1.missileList.size(); i++)
+	for (int i = 0; i < ship1.missileList.size(); i++)									//Update all ship1 missile objects
 	{
 		ship1.missileList[i]->update(frameTime);
 	}
 
-	if (input->isKeyDown(SHIFT_KEY) && ship1.getmissiletimer()<0)
+	if (input->isKeyDown(SHIFT_KEY))													//if shift is pressed, ship 1 dashes
+	{
+		ship1.dash();
+	}
+
+	if (input->isKeyDown(player1Secondary) && ship1.getmissiletimer()<0)				//If player is pressing X, shoot missiles
 	{
 		ship1.spawnmissile();
 		ship1.missileList[ship1.missileList.size() - 1]->initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture);
@@ -211,21 +216,24 @@ void Spacewar::update()
 	}
 
 	//================================================================================================
-	// BULLETS FOR SHIP 2
+	// Inputs FOR SHIP 2
 	//=================================================================================================
-	for (int i = 0; i < ship2.bulletList.size(); i++)
+	for (int i = 0; i < ship2.bulletList.size(); i++)	//Update all ship2 bullets
 	{
 		ship2.bulletList[i]->update(frameTime);
 	}
 
-	if (input->isKeyDown(SPACE) && ship2.getbullettimer() < 0)
+	ship2.boost(input->isKeyDown(CTRL));				//Checking if boost button is pressed
+	
+
+	if (input->isKeyDown(SPACE) && ship2.getbullettimer() < 0)	//if Space is pressed, shoot bullets
 	{
 		ship2.spawnbullet();
 		ship2.bulletList[ship2.bulletList.size() - 1]->initialize(this, bulletNS::WIDTH, bulletNS::HEIGHT, bulletNS::TEXTURE_COLS, &bulletTexture);
 		ship2.setBulletXY();
 	}
 
-	for (int i = 0; i < ship2.bulletList.size(); i++)
+	for (int i = 0; i < ship2.bulletList.size(); i++)	//Bullet Deletion when exits boundaries
 	{
 		if (ship2.bulletList[i]->getX() > GAME_WIDTH || ship2.bulletList[i]->getX() < 0 - ship2.bulletList[i]->getHeight())
 		{
@@ -276,7 +284,7 @@ void Spacewar::collisions()
 				}
 				
 			}
-			for (int x = 0; x < (ship1.missileList.size()); x++)
+			for (int x = 0; x < (ship1.missileList.size()); x++)													//If ship collides with missile
 			{
 				if (ship1.missileList[x]->collidesWith(*wallListList[i][j], collisionVector))
 				{
@@ -286,6 +294,8 @@ void Spacewar::collisions()
 					
 				}
 			}
+
+			
 
 			if (wallListList[i][j]->getHP() <= 0)
 			{
@@ -313,6 +323,17 @@ void Spacewar::collisions()
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship2.getVelocityX()));
 					ship2.leftrightrotatebounce();
 					ship2.setDamage(ship2.getDamage() + 0.1);
+				}
+			}
+
+			for (int x = 0; x < (ship2.bulletList.size()); x++)
+			{
+				if (ship2.bulletList[x]->collidesWith(*wallListList[i][j], collisionVector))
+				{
+					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
+					SAFE_DELETE(ship2.bulletList[x]);
+					ship2.bulletList.erase(ship2.bulletList.begin() + x);
+					
 				}
 			}
 

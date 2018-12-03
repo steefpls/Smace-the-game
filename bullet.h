@@ -23,8 +23,8 @@ namespace bulletNS
 
 
 	//2d Movement
-	static float X_SPEED = 100.0f;                // pixels per second
-	static float Y_SPEED = 100.0f;                // pixels per second
+	static float X_SPEED = 500.0f;                // pixels per second
+	static float Y_SPEED = 500.0f;                // pixels per second
 	static float X_ACC = 40000.0f;			//pixels per second per second
 	static float Y_ACC = 40000.0f;			//pixels per second per second
 	static float DRAG = 98 / 100;			//air resistance (IK its in space but stfu)
@@ -39,7 +39,9 @@ namespace bulletNS
 
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
-	const float DAMAGE = 500.0f;
+	const float DAMAGE = 200.0f;
+	const int MAX_BOUNCES = 3;
+	static int BOUNCES = 0;
 }
 
 // inherits from Entity class
@@ -60,6 +62,7 @@ public:
 	bool getdel();
 	void setAngle(float a);
 	float getDamage();
+	
 
 	//void damage(WEAPON);
 };

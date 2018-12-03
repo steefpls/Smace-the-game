@@ -75,5 +75,9 @@ const UCHAR ALT_KEY      = VK_MENU;     // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
 const UCHAR SHIFT_KEY = VK_SHIFT;	//Shift key
 const UCHAR SPACE = VK_SPACE;			// Space Key
+const UCHAR CTRL = VK_CONTROL;			// Ctrl key
+
+
+
 
 #endif

@@ -28,8 +28,15 @@ namespace shipNS
 	//2d Movement
 	static float X_SPEED = 0.0f;            // pixels per second
 	static float Y_SPEED = 0.0f;            // pixels per second
-	static float X_ACC = 400.0f;			//pixels per second per second
-	static float Y_ACC = 400.0f;			//pixels per second per second
+	
+	const float ORIGINAL_X = 400.0f;
+	const float ORIGINAL_Y = 400.0f;		//Original acceleration
+
+	static float BOOSTED_X = 800.0f;
+	static float BOOSTED_Y = 800.0f;		//Boosted speed
+	static float X_ACC = ORIGINAL_X;			//pixels per second per second
+	static float Y_ACC = ORIGINAL_Y;			//pixels per second per second
+
 	static float DRAG = 98 / 100;			//air resistance (IK its in space but stfu)
 	const float MASS = 300.0f;              // mass
 
@@ -104,6 +111,9 @@ public:
 	char player1Left = 'A';
 	char player1Up = 'W';
 	char player1Down = 'S';
+	
+
+
 	//void shootMissile();
 	//void drawMissile(float x, float y);
 	//double damage;
@@ -113,5 +123,7 @@ public:
 	float RotationAccRate = shipNS::ROTATION_ACC_RATE;
 	float RotationDrag = shipNS::ROTATION_DRAG;
 
+	void dash();
+	void boost(bool b);
 };
 #endif

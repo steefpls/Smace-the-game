@@ -1,4 +1,5 @@
 #include "bullet.h"
+#include "wall.h"
 using namespace bulletNS;
 
 //=============================================================================
@@ -27,7 +28,7 @@ Bullet::Bullet() : Entity()
 	edge.right = WIDTH / 2;
 	edge.top = -HEIGHT / 2;
 	edge.bottom = HEIGHT / 2;
-
+	
 	damage = DAMAGE;
 }
 
@@ -78,16 +79,11 @@ void Bullet::update(float frameTime)
 	}
 
 	spriteData.angle = (spriteData.angle + ROTATION_RATE / 360 * 2 * PI * frameTime); // Final update missile rotation
-
-	if (abs(sin(spriteData.angle)*velocity.x) <= abs(sin(spriteData.angle)*maxvel) && abs(cos(spriteData.angle)*velocity.y) <= abs(cos(spriteData.angle)*maxvel))
-	{
-		velocity.x += sin(spriteData.angle) * X_ACC * frameTime;
-		velocity.y -= cos(spriteData.angle) * Y_ACC * frameTime;   //Position update
-	}
+	
 
 	//SHIP LOCATION UPDATEb
-	spriteData.x += (velocity.x * spriteData.scale * frameTime); // Update Ship X location
-	spriteData.y += (velocity.y * spriteData.scale * frameTime); // Update Ship Y location
+	spriteData.x += (velocity.x * sin(spriteData.angle) * frameTime); // Update Ship X location
+	spriteData.y += (velocity.y * -cos(spriteData.angle) * frameTime); // Update Ship Y location
 
 }
 void Bullet::setAngle(float a)
@@ -99,3 +95,4 @@ float Bullet::getDamage()
 {
 	return DAMAGE;
 }
+
