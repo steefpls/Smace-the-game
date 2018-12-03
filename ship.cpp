@@ -258,8 +258,8 @@ void Ship::spawnmissile()
 
 void Ship::setXY()
 {
-	missileList[missileList.size() - 1]->setX(getCenterX());
-	missileList[missileList.size() - 1]->setY(getCenterY());
+	missileList[missileList.size() - 1]->setX(getCenterX() - ((missileList[missileList.size() - 1]->getWidth())*(missileList[missileList.size() - 1]->getScale()) / 2));
+	missileList[missileList.size() - 1]->setY(getCenterY() - ((missileList[missileList.size() - 1]->getHeight())*(missileList[missileList.size() - 1]->getScale()) / 2));
 	missileList[missileList.size() - 1]->setAngle(spriteData.angle);
 }
 

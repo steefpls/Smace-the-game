@@ -38,6 +38,7 @@ Missile::Missile() : Entity()
 bool Missile::initialize(Game *gamePtr, int width, int height, int ncols,
 	TextureManager *textureM)
 {
+
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
