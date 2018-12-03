@@ -3,7 +3,9 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include "entity.h"
+
 #include "constants.h"
+
 
 namespace missileNS
 {
@@ -19,14 +21,15 @@ namespace missileNS
 	static float ROTATION_DRAG = 400.0f;	//degrees drag per second
 	static float MAX_ROTATION_RATE = 240.0f;	 // degrees per second
 
+	
 	//2d Movement
 	static float X_SPEED = 100.0f;                // pixels per second
 	static float Y_SPEED = 100.0f;                // pixels per second
-	static float X_ACC = 400.0f;			//pixels per second per second
-	static float Y_ACC = 400.0f;			//pixels per second per second
+	static float X_ACC = 40000.0f;			//pixels per second per second
+	static float Y_ACC = 40000.0f;			//pixels per second per second
 	static float DRAG = 98 / 100;			//air resistance (IK its in space but stfu)
 	const float MASS = 300.0f;              // mass
-
+	const float MAX_VELOCITY = 1000;
 	//Textures
 	const int   TEXTURE_COLS = 1;           // texture has 2 columns
 	const int   MISSILE_START_FRAME = 0;      // ship1 starts at frame 0
@@ -47,6 +50,7 @@ namespace missileNS
 
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
+	const float DAMAGE = 500.0f;
 }
 
 // inherits from Entity class
@@ -65,6 +69,9 @@ public:
 		TextureManager *textureM);
 	void update(float frameTime);
 	bool getdel();
+	void setAngle(float a);
+	float getDamage();
+
 	//void damage(WEAPON);
 };
 #endif _MISSILE_H

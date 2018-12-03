@@ -35,7 +35,7 @@ protected:
 	double hp;				//current hp
 	double maxhp;			//maxhp
 	double hppercentage;	//hp percentage
-
+	double randval;			//Random Degree variance
 	double damage;			//damage multiplier
 
 

@@ -60,7 +60,7 @@ public:
     void render();      // "
     void releaseAll();
     void resetAll();
-	int missileTimer = 200;
+	
 };
 
 #endif

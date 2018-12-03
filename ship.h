@@ -49,6 +49,10 @@ namespace shipNS
 	static bool CAN_DASH = false;
 	static float BOOST_AMT = 400; //pixels per second
 
+	const float MAX_MISSILE_TIMER = 3.0f;
+	static float MISSILE_TIMER = 1.0f;
+	static bool CAN_MISILE = false;
+
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
 }
@@ -73,6 +77,9 @@ public:
 	void topbottomrotatebounce();
 	void leftrightrotatebounce();
 	std::vector<Missile *> missileList;
+	void spawnmissile();
+	void setXY();
+	float getmissiletimer();
 	//void shootMissile();
 	//void drawMissile(float x, float y);
 	//double damage;

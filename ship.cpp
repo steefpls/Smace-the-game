@@ -219,7 +219,6 @@ void Ship::update(float frameTime)
 	if (shipNS::DASH_TIMER > 0)		//If timer is larger than 0
 	{
 		shipNS::DASH_TIMER -= 1.0f * frameTime; //Timer goes down by 1 per second
-		
 	}
 
 	if (input->isKeyDown(SPACE) && shipNS::DASH_TIMER<=0)
@@ -230,6 +229,10 @@ void Ship::update(float frameTime)
 		
 	}
 
+	if (shipNS::MISSILE_TIMER > 0)
+	{
+		shipNS::MISSILE_TIMER -= 1.0f * frameTime;
+	}
 
 	//SHIP LOCATION UPDATE
 	
@@ -245,6 +248,20 @@ void Ship::update(float frameTime)
 //{
 //	shieldOn = true;
 //}
+
+
+void Ship::spawnmissile()
+{
+	missileList.push_back (new Missile());
+	shipNS::MISSILE_TIMER = shipNS::MAX_MISSILE_TIMER;
+}
+
+void Ship::setXY()
+{
+	missileList[missileList.size() - 1]->setX(getCenterX());
+	missileList[missileList.size() - 1]->setY(getCenterY());
+	missileList[missileList.size() - 1]->setAngle(spriteData.angle);
+}
 
 void Ship::topbottomrotatebounce()	//rotation when hitting top and bottom walls
 {
@@ -268,4 +285,9 @@ void Ship::leftrightrotatebounce()	//rotation when hitting left and right walls
 	{
 		shipNS::ROTATION_RATE += damage * 300 * (velocity.x / 200);
 	}
+}
+
+float Ship::getmissiletimer()
+{
+	return shipNS::MISSILE_TIMER;
 }

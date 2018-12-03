@@ -100,13 +100,6 @@ wallListRight[wallListRight.size() - 1]->setRadians(wallListRight[wallListRight.
 	if (!missileTexture.initialize(graphics, MISSILE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing missile texture"));
 
-	//missile
-	//if (!missile1.initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture))
-	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing missile"));
-	//missile1.setFrames(missileNS::MISSILE_START_FRAME, missileNS::MISSILE_END_FRAME);
-	//missile1.setCurrentFrame(missileNS::MISSILE_START_FRAME);
-	//missile1.setX(GAME_WIDTH / 6);
-	//missile1.setY(600);
 
 	//explosion texture
 	if (!explosionTexture.initialize(graphics, EXPLOSION_IMAGE))
@@ -130,23 +123,6 @@ wallListRight[wallListRight.size() - 1]->setRadians(wallListRight[wallListRight.
 	planet.setX(GAME_WIDTH*0.5f - planet.getWidth()*0.5f);
 	planet.setY(GAME_HEIGHT*0.5f - planet.getHeight()*0.5f);
 
-	//// ship texture
-//if (!shipTexture.initialize(graphics, SHIP_IMAGE))
-//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship texture"));
-
-	//// ship
-	//if (!ship.initialize(graphics, SHIP_WIDTH, SHIP_HEIGHT, SHIP_COLS, &shipTexture))
-	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship"));
-
-	////Ship animation
-	//ship.setFrames(SHIP_START_FRAME, SHIP_END_FRAME);   // animation frames 
-	//ship.setCurrentFrame(SHIP_START_FRAME);             // starting frame
-	//ship.setFrameDelay(SHIP_ANIMATION_DELAY);
-
-	//// place ship in center left of screen
-	//ship.setX(GAME_WIDTH*0.33f - ship.getWidth()*0.5f);
-	//ship.setY(GAME_HEIGHT*0.5f - ship.getHeight()*0.5f);
-
 	return;
 }
 
@@ -167,35 +143,34 @@ void Spacewar::update()
 		}
 	}
 
-	if (input->isKeyDown(SHIFT_KEY) && missileTimer >= 200)
-	{
-		ship1.missileList.push_back(new Missile);
-		ship1.missileList[ship1.missileList.size() - 1]->initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture);
-		ship1.missileList[ship1.missileList.size() - 1]->setX(ship1.getX());
-		ship1.missileList[ship1.missileList.size() - 1]->setY(ship1.getY());
-
-		ship1.missileList[ship1.missileList.size() - 1]->setDegrees(ship1.getDegrees());
-		ship1.missileList[ship1.missileList.size() - 1]->setVelocityX(missileNS::X_SPEED);
-		ship1.missileList[ship1.missileList.size() - 1]->setVelocityY(missileNS::Y_SPEED);
-		missileTimer = 0;
-	}
-
-	if (missileTimer < 200)
-	{
-		missileTimer += 1;
-	}
-
 	for (int i = 0; i < ship1.missileList.size(); i++)
 	{
 		ship1.missileList[i]->update(frameTime);
-		if (ship1.missileList[i]->getX() > (GAME_WIDTH - (missileNS::WIDTH * missileNS::SCALE) + 1))
-		{
-			SAFE_DELETE(ship1.missileList[i]);
-			ship1.missileList.erase(ship1.missileList.begin() + i);			
-		}
 	}
 
-	//missile1.update(frameTime);	//update missile frames
+	
+	
+	if (input->isKeyDown(SHIFT_KEY) && ship1.getmissiletimer()<0)
+	{
+		ship1.spawnmissile();
+		ship1.missileList[ship1.missileList.size() - 1]->initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture);
+		ship1.setXY();
+		
+	}
+	
+	for (int i = 0; i < ship1.missileList.size(); i++)				//check if missile is out of bounds
+	{
+		if (ship1.missileList[i]->getX() > GAME_WIDTH || ship1.missileList[i]->getX() < 0 - ship1.missileList[i]->getHeight())
+		{
+			ship1.missileList.erase(ship1.missileList.begin() + i);
+			//Jedi pls implement safe delete here --------------------------------------------------------------------------------------------------------------------------
+		}
+		else if (ship1.missileList[i]->getY() > GAME_HEIGHT || ship1.missileList[i]->getY() < 0 - ship1.missileList[i]->getHeight())
+		{
+			ship1.missileList.erase(ship1.missileList.begin() + i);
+			//Jedi pls implement safe delete here --------------------------------------------------------------------------------------------------------------------------
+		}
+	}
 								
 
 	if (input->isKeyDown(ESC_KEY))
@@ -233,10 +208,22 @@ void Spacewar::collisions()
 					ship1.setDamage(ship1.getDamage() + 0.1);
 				}
 				
-				if (wallListList[i][j]->getHP() <= 0)
+				
+			}
+			for (int x = 0; x < (ship1.missileList.size()); x++)
+			{
+				if (ship1.missileList[x]->collidesWith(*wallListList[i][j], collisionVector))
 				{
-					wallListList[i].erase(wallListList[i].begin() + j);
+					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.missileList[x]->getDamage());
+					ship1.missileList.erase(ship1.missileList.begin() + x);
+					//Jedi pls implement safe delete here --------------------------------------------------------------------------------------------------------------------------
 				}
+			}
+
+			if (wallListList[i][j]->getHP() <= 0)
+			{
+				wallListList[i].erase(wallListList[i].begin() + j);
+				//Jedi pls implement safe delete here --------------------------------------------------------------------------------------------------------------------------
 			}
 		}
 	}
@@ -286,12 +273,13 @@ void Spacewar::render()
 			wallListList[i][j]->draw();
 		}
 	}
-
-	for (int i = 0; i < ship1.missileList.size(); i++)
+	if (ship1.missileList.size() > 0)
 	{
-		ship1.missileList[i]->draw();
+		for (int i = 0; i < ship1.missileList.size(); i++)
+		{
+			ship1.missileList[i]->draw();
+		}
 	}
-
 	//bullet1.draw();				
 	graphics->spriteEnd();                  // end drawing sprites
 }
