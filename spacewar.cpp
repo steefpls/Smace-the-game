@@ -150,7 +150,7 @@ void Spacewar::update()
 
 	
 	
-	if (input->isKeyDown(SHIFT_KEY) && ship1.getmissiletimer()<0)
+	if (input->isKeyDown(SPACE) && ship1.getmissiletimer()<0)
 	{
 		ship1.spawnmissile();
 		ship1.missileList[ship1.missileList.size() - 1]->initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture);
@@ -224,8 +224,9 @@ void Spacewar::collisions()
 
 			if (wallListList[i][j]->getHP() <= 0)
 			{
+				SAFE_DELETE(wallListList[i][j]);
 				wallListList[i].erase(wallListList[i].begin() + j);
-				//Jedi pls implement safe delete here --------------------------------------------------------------------------------------------------------------------------
+				
 			}
 		}
 	}
