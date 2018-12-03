@@ -175,13 +175,14 @@ void Spacewar::update()
 	{
 		if (ship1.missileList[i]->getX() > GAME_WIDTH || ship1.missileList[i]->getX() < 0 - ship1.missileList[i]->getHeight())
 		{
+			SAFE_DELETE(ship1.missileList[i]);
 			ship1.missileList.erase(ship1.missileList.begin() + i);
-			//Jedi pls implement safe delete here --------------------------------------------------------------------------------------------------------------------------
 		}
 		else if (ship1.missileList[i]->getY() > GAME_HEIGHT || ship1.missileList[i]->getY() < 0 - ship1.missileList[i]->getHeight())
 		{
+			SAFE_DELETE(ship1.missileList[i]);
 			ship1.missileList.erase(ship1.missileList.begin() + i);
-			//Jedi pls implement safe delete here --------------------------------------------------------------------------------------------------------------------------
+			
 		}
 	}
 								
@@ -230,7 +231,7 @@ void Spacewar::collisions()
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.missileList[x]->getDamage());
 					SAFE_DELETE(ship1.missileList[x]);
 					ship1.missileList.erase(ship1.missileList.begin() + x);
-					//Jedi pls implement safe delete here --------------------------------------------------------------------------------------------------------------------------
+					
 				}
 			}
 
@@ -238,7 +239,7 @@ void Spacewar::collisions()
 			{
 				SAFE_DELETE(wallListList[i][j]);
 				wallListList[i].erase(wallListList[i].begin() + j);
-				//Jedi pls implement safe delete here --------------------------------------------------------------------------------------------------------------------------
+				
 			}
 		}
 	}

@@ -120,6 +120,7 @@
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\Desktop\giphy.gif" />
     <Image Include="pictures\Bullet123.png" />
     <Image Include="pictures\explosion.jpg" />
     <Image Include="pictures\orion.jpg" />

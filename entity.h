@@ -25,6 +25,7 @@ protected:
 	VECTOR2 edge01, edge03;	//Edges used for projection
 	float edge01Min, edge01Max, edge03Min, edge03Max;	//min and max projections
 	VECTOR2 velocity;		//The velocity containing the current entity velocity
+	double maxvel;			//Max velocity
 	VECTOR2 deltaV;         // added to velocity during next call to update()
 	float mass;				//The mass of the entity
 	float   rr;             // Radius squared variable
@@ -37,6 +38,7 @@ protected:
 	double hppercentage;	//hp percentage
 	double randval;			//Random Degree variance
 	double damage;			//damage multiplier
+	
 
 
 	// --- The following functions are protected because they are not intended to be

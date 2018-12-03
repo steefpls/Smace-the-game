@@ -124,5 +124,8 @@
     <Image Include="pictures\Bullet123.png">
       <Filter>pictures</Filter>
     </Image>
+    <Image Include="..\..\..\Desktop\giphy.gif">
+      <Filter>pictures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
