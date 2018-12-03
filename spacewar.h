@@ -8,9 +8,7 @@
 #include "image.h"
 #include "ship.h"
 #include "wall.h"
-//#include "missile.h"
 #include "explosion.h"
-//#include "bullet1.h"
 
 #include <iostream>
 #include <list>
@@ -29,6 +27,7 @@ private:
 	TextureManager wallTexture;		// wall texture
 	TextureManager missileTexture;	//missile texture
 	TextureManager explosionTexture;	//explosion texture
+	TextureManager bulletTexture;	//bullet texture
 
 	Image   planet;                 // planet image
 	Image   nebula;                 // nebula image
@@ -44,8 +43,6 @@ private:
 	
 	//Missile missile1;				// missile object
 	Explosion explosion1;
-
-	//Bullet	bullet1;				// bullet image
 
 public:
     // Constructor

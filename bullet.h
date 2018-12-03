@@ -1,5 +1,5 @@
-#ifndef _MISSILE_H                 // Prevent multiple definitions if this 
-#define _MISSILE_H                 // file is included in more than one place
+#ifndef _BULLET_H                 // Prevent multiple definitions if this 
+#define _BULLET_H                 // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
 #include "entity.h"
@@ -7,11 +7,11 @@
 #include "constants.h"
 
 
-namespace missileNS
+namespace bulletNS
 {
 	//Location handling
-	const int WIDTH = 300;                   // image width
-	const int HEIGHT = 1599;                  // image height
+	const int WIDTH = 16;                   // image width
+	const int HEIGHT = 64;                  // image height
 	static int X = GAME_WIDTH / 2 - WIDTH / 2;   // location on screen
 	static int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
 
@@ -21,7 +21,7 @@ namespace missileNS
 	static float ROTATION_DRAG = 400.0f;	//degrees drag per second
 	static float MAX_ROTATION_RATE = 240.0f;	 // degrees per second
 
-	
+
 	//2d Movement
 	static float X_SPEED = 100.0f;                // pixels per second
 	static float Y_SPEED = 100.0f;                // pixels per second
@@ -32,10 +32,10 @@ namespace missileNS
 	const float MAX_VELOCITY = 40000.0f;		//max speed
 	//Textures
 	const int   TEXTURE_COLS = 1;           // texture has 2 columns
-	const int   MISSILE_START_FRAME = 0;      // ship1 starts at frame 0
-	const int   MISSILE_END_FRAME = 0;        // ship1 animation frames 0,1,2,3
-	const float MISSILE_ANIMATION_DELAY = 0.2f;    // time between frames
-	static float SCALE = 0.05;			//ship scale
+	const int   BULLET_START_FRAME = 0;      // ship1 starts at frame 0
+	const int   BULLET_END_FRAME = 0;        // ship1 animation frames 0,1,2,3
+	const float BULLET_ANIMATION_DELAY = 0.2f;    // time between frames
+	static float SCALE = 1;			//ship scale
 
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
@@ -43,14 +43,14 @@ namespace missileNS
 }
 
 // inherits from Entity class
-class Missile : public Entity
+class Bullet : public Entity
 {
 private:
 	//bool    shieldOn;
 	//Image   shield;
 public:
 	// constructor
-	Missile();
+	Bullet();
 
 	// inherited member functions
 	virtual void draw();
@@ -63,4 +63,4 @@ public:
 
 	//void damage(WEAPON);
 };
-#endif _MISSILE_H
+#endif _BULLET_H

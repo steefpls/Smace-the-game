@@ -37,6 +37,7 @@ const char SHIP2_IMAGE[] = "pictures\\ship2.png";  //cooler spaceship
 const char WALL_IMAGE[] = "pictures\\wall.png";   // wall
 const char MISSILE_IMAGE[] = "pictures\\rockets_PNG13274.png";	//missile
 const char EXPLOSION_IMAGE[] = "pictures\\explosion.jpg";	//explosion
+const char BULLET_IMAGE[] = "pictures\\Bullet123.png";	//bullet
 
 ////keybinds
 //const char player1Right = 'D';
@@ -44,10 +45,10 @@ const char EXPLOSION_IMAGE[] = "pictures\\explosion.jpg";	//explosion
 //const char player1Up = 'W';
 //const char player1Down = 'S';
 
-const char player2Right = VK_RIGHT;
-const char player2Left = VK_LEFT;
-const char player2Up = VK_UP;
-const char player2Down = VK_DOWN;
+//const char player2Right = VK_RIGHT;
+//const char player2Left = VK_LEFT;
+//const char player2Up = VK_UP;
+//const char player2Down = VK_DOWN;
 
 // window
 const char CLASS_NAME[] = "Spacewar";

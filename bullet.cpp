@@ -1,10 +1,10 @@
-#include "missile.h"
-using namespace missileNS;
+#include "bullet.h"
+using namespace bulletNS;
 
 //=============================================================================
 // default constructor
 //=============================================================================
-Missile::Missile() : Entity()
+Bullet::Bullet() : Entity()
 {
 	spriteData.scale = SCALE;
 	spriteData.width = WIDTH;           // size of Ship1
@@ -16,9 +16,9 @@ Missile::Missile() : Entity()
 	velocity.x = X_SPEED;                             // velocity X
 	velocity.y = Y_SPEED;                             // velocity Y
 	maxvel = MAX_VELOCITY;							// Max Velocity
-	frameDelay = MISSILE_ANIMATION_DELAY;
-	startFrame = MISSILE_START_FRAME;     // first frame of ship animation
-	endFrame = MISSILE_END_FRAME;     // last frame of ship animation
+	frameDelay = BULLET_ANIMATION_DELAY;
+	startFrame = BULLET_START_FRAME;     // first frame of ship animation
+	endFrame = BULLET_END_FRAME;     // last frame of ship animation
 	currentFrame = startFrame;
 	//radius = shipNS::WIDTH / 2.0;
 	mass = MASS;
@@ -28,7 +28,6 @@ Missile::Missile() : Entity()
 	edge.top = -HEIGHT / 2;
 	edge.bottom = HEIGHT / 2;
 
-	
 	damage = DAMAGE;
 }
 
@@ -36,7 +35,7 @@ Missile::Missile() : Entity()
 // Initialize the Ship.
 // Post: returns true if successful, false if failed
 //=============================================================================
-bool Missile::initialize(Game *gamePtr, int width, int height, int ncols,
+bool Bullet::initialize(Game *gamePtr, int width, int height, int ncols,
 	TextureManager *textureM)
 {
 
@@ -46,12 +45,12 @@ bool Missile::initialize(Game *gamePtr, int width, int height, int ncols,
 //=============================================================================
 // draw the ship
 //=============================================================================
-void Missile::draw()
+void Bullet::draw()
 {
 	Image::draw();              // draw missile
 }
 
-bool Missile::getdel()
+bool Bullet::getdel()
 {
 	return false;
 }
@@ -61,7 +60,7 @@ bool Missile::getdel()
 // typically called once per frame
 // frameTime is used to regulate the speed of movement and animation
 //=============================================================================
-void Missile::update(float frameTime)
+void Bullet::update(float frameTime)
 {
 	Entity::update(frameTime);
 
@@ -80,7 +79,7 @@ void Missile::update(float frameTime)
 
 	spriteData.angle = (spriteData.angle + ROTATION_RATE / 360 * 2 * PI * frameTime); // Final update missile rotation
 
-	if (abs(sin(spriteData.angle)*velocity.x)<= abs(sin(spriteData.angle)*maxvel) && abs(cos(spriteData.angle)*velocity.y) <= abs(cos(spriteData.angle)*maxvel))
+	if (abs(sin(spriteData.angle)*velocity.x) <= abs(sin(spriteData.angle)*maxvel) && abs(cos(spriteData.angle)*velocity.y) <= abs(cos(spriteData.angle)*maxvel))
 	{
 		velocity.x += sin(spriteData.angle) * X_ACC * frameTime;
 		velocity.y -= cos(spriteData.angle) * Y_ACC * frameTime;   //Position update
@@ -91,12 +90,12 @@ void Missile::update(float frameTime)
 	spriteData.y += (velocity.y * spriteData.scale * frameTime); // Update Ship Y location
 
 }
-void Missile::setAngle(float a)
+void Bullet::setAngle(float a)
 {
-	spriteData.angle = a+ ((rand() % 7 - 3)/360*2*PI);
+	spriteData.angle = a + ((rand() % 7 - 3) / 360 * 2 * PI);
 }
 
-float Missile::getDamage()
+float Bullet::getDamage()
 {
 	return DAMAGE;
 }

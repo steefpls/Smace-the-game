@@ -8,8 +8,8 @@
 namespace explosionNS
 {
 	//Location Handling
-	const int WIDTH = 70;					//image width
-	const int HEIGHT = 70;					//image height
+	const int WIDTH = 180;					//image width
+	const int HEIGHT = 180;					//image height
 	static float X = GAME_WIDTH / 2;
 	static float Y = GAME_HEIGHT / 2;
 
@@ -20,12 +20,8 @@ namespace explosionNS
 
 	//const float MASS = 1.0e14f;
 	static bool ACTIVE = true;
-	static float SCALE = 1;
+	static float SCALE = 0.5;
 	//const int COLLISION_RADIUS = 60 / 2;
-
-	const double MAX_HP = 1000.0;			//wall maxhp
-	static double HP = MAX_HP;				//wall hp
-	static double HP_PERCENTAGE = (HP / MAX_HP) * 100.0;
 }
 
 class Explosion : public Entity

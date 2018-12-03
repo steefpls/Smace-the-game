@@ -19,9 +19,9 @@ Explosion::Explosion() : Entity()
 	edge.right = explosionNS::WIDTH / 2;
 	edge.top = -explosionNS::HEIGHT / 2;
 	edge.bottom = explosionNS::HEIGHT / 2;*/
-	maxhp = explosionNS::MAX_HP;
-	hp = explosionNS::HP;
-	hppercentage = explosionNS::HP_PERCENTAGE;
+	//maxhp = explosionNS::MAX_HP;
+	//hp = explosionNS::HP;
+	//hppercentage = explosionNS::HP_PERCENTAGE;
 }
 
 //=============================================================================

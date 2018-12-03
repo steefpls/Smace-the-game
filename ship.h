@@ -5,6 +5,7 @@
 #include "entity.h"
 #include "constants.h"
 #include "missile.h"
+#include "bullet.h"
 using namespace std;
 #include <iostream>
 #include <vector>
@@ -54,6 +55,10 @@ namespace shipNS
 	static float MISSILE_TIMER = 1.0f;
 	static bool CAN_MISILE = false;
 
+	const float MAX_BULLET_TIMER = 1.0f;
+	static float BULLET_TIMER = 0.5f;
+	static bool CAN_BULET = false;
+
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
 
@@ -84,9 +89,16 @@ public:
 	void topbottomrotatebounce();
 	void leftrightrotatebounce();
 	std::vector<Missile *> missileList;
+	std::vector<Bullet *> bulletList;
+
+
 	void spawnmissile();
-	void setXY();
+	void spawnbullet();
+	void setMissileXY();
+	void setBulletXY();
 	float getmissiletimer();
+	float getbullettimer();
+
 	//keybinds
 	char player1Right = 'D';
 	char player1Left = 'A';

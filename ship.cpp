@@ -145,13 +145,6 @@ void Ship::update(float frameTime)
 		}
 	}
 
-	//MISSILES
-	if (input->isKeyDown(SHIFT_KEY))
-	{
-		//shootMissile();
-		//drawMissile(spriteData.x,spriteData.y);
-	}
-
 	//================================================= SHIP DASH TIMER =================================================
 	if (shipNS::DASH_TIMER > 0)		//If timer is larger than 0
 	{
@@ -169,6 +162,11 @@ void Ship::update(float frameTime)
 	if (shipNS::MISSILE_TIMER > 0)
 	{
 		shipNS::MISSILE_TIMER -= 1.0f * frameTime;
+	}
+
+	if (shipNS::BULLET_TIMER > 0)
+	{
+		shipNS::BULLET_TIMER -= 1.0f * frameTime;
 	}
 
 	//SHIP LOCATION UPDATE
@@ -193,11 +191,34 @@ void Ship::spawnmissile()
 	shipNS::MISSILE_TIMER = shipNS::MAX_MISSILE_TIMER;
 }
 
-void Ship::setXY()
+void Ship::spawnbullet()
+{
+	bulletList.push_back(new Bullet());
+	shipNS::BULLET_TIMER = shipNS::MAX_BULLET_TIMER;
+}
+
+void Ship::setMissileXY()
 {
 	missileList[missileList.size() - 1]->setX(getCenterX() - ((missileList[missileList.size() - 1]->getWidth())*(missileList[missileList.size() - 1]->getScale()) / 2));
 	missileList[missileList.size() - 1]->setY(getCenterY() - ((missileList[missileList.size() - 1]->getHeight())*(missileList[missileList.size() - 1]->getScale()) / 2));
 	missileList[missileList.size() - 1]->setAngle(spriteData.angle);
+}
+
+void Ship::setBulletXY()
+{
+	bulletList[bulletList.size() - 1]->setX(getCenterX() - ((bulletList[bulletList.size() - 1]->getWidth())*(bulletList[bulletList.size() - 1]->getScale()) / 2));
+	bulletList[bulletList.size() - 1]->setY(getCenterY() - ((bulletList[bulletList.size() - 1]->getHeight())*(bulletList[bulletList.size() - 1]->getScale()) / 2));
+	bulletList[bulletList.size() - 1]->setAngle(spriteData.angle);
+}
+
+float Ship::getmissiletimer()
+{
+	return shipNS::MISSILE_TIMER;
+}
+
+float Ship::getbullettimer()
+{
+	return shipNS::BULLET_TIMER;
 }
 
 void Ship::topbottomrotatebounce()	//rotation when hitting top and bottom walls
@@ -222,9 +243,4 @@ void Ship::leftrightrotatebounce()	//rotation when hitting left and right walls
 	{
 		RotationRate += damage * 300 * (velocity.x / 200);
 	}
-}
-
-float Ship::getmissiletimer()
-{
-	return shipNS::MISSILE_TIMER;
 }
