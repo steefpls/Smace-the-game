@@ -66,8 +66,8 @@ public:
 	void topbottombounce();
 	void leftrightbounce();
 	
-	float RotationRate;
-	int bounce;
+	//float RotationRate;
+	int bounceCounter;
 	
 
 	//void damage(WEAPON);
