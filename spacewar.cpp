@@ -307,6 +307,7 @@ void Spacewar::collisions()
 {
 	VECTOR2 collisionVector;
 
+	//WALL COLLISION
 	for (int i = 0; i<(wallListList.size());i++)
 	{
 		//for ship1
@@ -350,7 +351,7 @@ void Spacewar::collisions()
 						{
 							if (ship1.mineList[x]->getVelocityY() > 0)
 							{
-								wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
+								//wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
 								//ship1.mineList[x]->bounceCounter -= 1;
 								ship1.mineList[x]->setVelocityY(-ship1.mineList[x]->getVelocityY());
 							}
@@ -360,7 +361,7 @@ void Spacewar::collisions()
 						{
 							if (ship1.mineList[x]->getVelocityX() < 0)
 							{
-								wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
+								//wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
 								//ship1.mineList[x]->bounceCounter -= 1;
 								ship1.mineList[x]->setVelocityX(-ship1.mineList[x]->getVelocityX());
 							}
@@ -370,7 +371,7 @@ void Spacewar::collisions()
 						{
 							if (ship1.mineList[x]->getVelocityY() < 0)
 							{
-								wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
+								//wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
 								//ship1.mineList[x]->bounceCounter -= 1;
 								ship1.mineList[x]->setVelocityY(-ship1.mineList[x]->getVelocityY());
 							}
@@ -380,7 +381,7 @@ void Spacewar::collisions()
 						{
 							if (ship1.mineList[x]->getVelocityX() > 0)
 							{
-								wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
+								//wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
 								//ship1.mineList[x]->bounceCounter -= 1;
 								ship1.mineList[x]->setVelocityX(-ship1.mineList[x]->getVelocityX());
 							}
@@ -488,6 +489,20 @@ void Spacewar::collisions()
 		}
 	}
 
+	for (int i = 0; i < (ship1.mineList.size()); i++)
+	{
+		for (int j = 0; j < (ship2.bulletList.size()); j++)
+		{
+			if (ship2.bulletList[j]->collidesWith(*ship1.mineList[i], collisionVector))
+			{
+				SAFE_DELETE(ship1.mineList[i]);
+				ship1.mineList.erase(ship1.mineList.begin() + i);
+
+				ship2.bulletList[j]->bounceCounter -= 1;
+				break;
+			}
+		}
+	}
 	//if (ship1.collidesWith(missile1, collisionVector))
 	//{
 	//	ship1.setX(600);
