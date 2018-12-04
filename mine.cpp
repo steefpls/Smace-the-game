@@ -25,6 +25,7 @@ Mine::Mine() : Entity()
 	collisionType = entityNS::CIRCLE;
 	radius = WIDTH / 2;
 	damage = DAMAGE;
+	hp = HP;
 }
 
 //=============================================================================
