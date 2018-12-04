@@ -222,17 +222,19 @@ void Spacewar::update()
 	}
 
 	//MINE
-	for (int i = 0; i < ship1.mineList.size(); i++)									//Update all ship1 mine objects
-	{
-		ship1.mineList[i]->update(frameTime);
-	}
-
 	if (input->isKeyDown(player1Primary) && ship1.getminetimer() < 0)				//If player is pressing X, shoot mines
 	{
 		ship1.spawnmine();
 		ship1.mineList[ship1.mineList.size() - 1]->initialize(this, mineNS::WIDTH, mineNS::HEIGHT, mineNS::TEXTURE_COLS, &mineTexture);
 		ship1.setMineXY();
 	}
+
+	for (int i = 0; i < ship1.mineList.size(); i++)									//Update all ship1 mine objects
+	{
+		ship1.mineList[i]->update(frameTime);
+	}
+
+	
 
 	for (int i = 0; i < ship1.mineList.size(); i++)				//check if mine is out of bounds
 	{
