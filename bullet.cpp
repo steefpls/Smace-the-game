@@ -28,6 +28,8 @@ Bullet::Bullet() : Entity()
 	edge.right = WIDTH / 2;
 	edge.top = -HEIGHT / 2;
 	edge.bottom = HEIGHT / 2;
+	bounce = BOUNCES;
+	RotationRate = bulletNS::ROTATION_RATE;
 	
 	damage = DAMAGE;
 }
@@ -94,5 +96,29 @@ void Bullet::setAngle(float a)
 float Bullet::getDamage()
 {
 	return DAMAGE;
+}
+
+void Bullet::topbottombounce()	//rotation when hitting top and bottom walls
+{
+	if (velocity.x > 0)
+	{
+		RotationRate += damage * 300 * (velocity.y / 200);
+	}
+	else
+	{
+		RotationRate -= damage * 300 * (velocity.y / 200);
+	}
+}
+
+void Bullet::leftrightbounce()	//rotation when hitting left and right walls 
+{
+	if (velocity.y > 0)
+	{
+		RotationRate -= (velocity.x / 200);
+	}
+	else
+	{
+		RotationRate += (velocity.x / 200);
+	}
 }
 
