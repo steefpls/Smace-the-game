@@ -38,12 +38,12 @@ namespace mineNS
 	const int MAX_BOUNCES = 3;
 	static int BOUNCES = 0;
 
-	const float MASS = 1.0e14f;
+	const float MASS = 300.0f;
 	static bool ACTIVE = true;
 	static float SCALE = 0.04;
 	//const int COLLISION_RADIUS = 60 / 2;
 
-	const double MAX_HP = 1000.0;			//wall maxhp
+	const double MAX_HP = 300.0;			//wall maxhp
 	static double HP = MAX_HP;				//wall hp
 	static double HP_PERCENTAGE = (HP / MAX_HP) * 100.0;
 }
