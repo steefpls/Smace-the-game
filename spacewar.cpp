@@ -139,12 +139,13 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole texture"));
 
 	//blackhole object
-	if(!blackhole1.initialize(this,blackholeNS::WIDTH,blackholeNS::HEIGHT,blackholeNS::TEXTURE_COLS,&blackholeTexture))
+	if (!blackhole1.initialize(this, blackholeNS::WIDTH, blackholeNS::HEIGHT, blackholeNS::TEXTURE_COLS, &blackholeTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole"));
 	blackhole1.setFrames(blackholeNS::BLACKHOLE_START_FRAME, blackholeNS::BLACKHOLE_END_FRAME);
 	blackhole1.setX(3 * GAME_WIDTH / 4);
 	blackhole1.setY(3 * GAME_HEIGHT / 4);
 
+	blackholeList.push_back(blackhole1);
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
 
 	// nebula
