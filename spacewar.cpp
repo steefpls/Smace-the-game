@@ -124,11 +124,11 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing explosion texture"));
 
 	//explosion object
-	if (!explosion1.initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing explosion1"));
-	explosion1.setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
-	explosion1.setX(GAME_WIDTH / 2);
-	explosion1.setY(GAME_HEIGHT / 2);
+	//if (!explosion1.initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture))
+	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing explosion1"));
+	//explosion1.setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
+	//explosion1.setX(GAME_WIDTH / 2);
+	//explosion1.setY(GAME_HEIGHT / 2);
 
 	//bullet texture
 	if (!bulletTexture.initialize(graphics, BULLET_IMAGE))
@@ -143,11 +143,11 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole texture"));
 
 	//blackhole object
-	if (!blackhole1.initialize(this, blackholeNS::WIDTH, blackholeNS::HEIGHT, blackholeNS::TEXTURE_COLS, &blackholeTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole"));
-	blackhole1.setFrames(blackholeNS::BLACKHOLE_START_FRAME, blackholeNS::BLACKHOLE_END_FRAME);
-	blackhole1.setX(3 * GAME_WIDTH / 4);
-	blackhole1.setY(3 * GAME_HEIGHT / 4);
+	//if (!blackhole1.initialize(this, blackholeNS::WIDTH, blackholeNS::HEIGHT, blackholeNS::TEXTURE_COLS, &blackholeTexture))
+	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole"));
+	//blackhole1.setFrames(blackholeNS::BLACKHOLE_START_FRAME, blackholeNS::BLACKHOLE_END_FRAME);
+	//blackhole1.setX(3 * GAME_WIDTH / 4);
+	//blackhole1.setY(3 * GAME_HEIGHT / 4);
 
 	//blackholeList.push_back(blackhole1);
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
@@ -179,7 +179,16 @@ void Spacewar::update()
 
 	ship1.update(frameTime);	//update ship frames
 	ship2.update(frameTime);
-	explosion1.update(frameTime);
+	
+	for (int i = 0; i < explosionList.size(); i++)
+	{
+		explosionList[i]->update(frameTime);
+		if (explosionList[i]->getCurrentFrame() == explosionList[i]->getEndFrame())
+		{
+			SAFE_DELETE(explosionList[i]);
+			explosionList.erase(explosionList.begin() + i);
+		}
+	}
 	
 	
 
@@ -501,6 +510,7 @@ void Spacewar::collisions()
 		}
 	}
 
+	//MINE COLLISION
 	for (int i = 0; i < (ship1.mineList.size()); i++)
 	{
 		for (int j = 0; j < (ship2.bulletList.size()); j++)
@@ -543,14 +553,24 @@ void Spacewar::collisions()
 
 		if (ship1.mineList[i]->getHP() <= 0)
 		{
+			explosionList.push_back(new Explosion);
+			explosionList[explosionList.size() - 1]->initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture);
+			explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
+			explosionList[explosionList.size() - 1]->setX(ship1.mineList[i]->getCenterX());
+			explosionList[explosionList.size() - 1]->setY(ship1.mineList[i]->getCenterY());
 			SAFE_DELETE(ship1.mineList[i]);
 			ship1.mineList.erase(ship1.mineList.begin() + i);
 		}		
 	}
 
+	//BULLET COLLISION
 	for (int i = 0; i < (ship2.bulletList.size()); i++)
 	{
-
+		if (ship2.bulletList[i]->collidesWith(ship1, collisionVector))
+		{
+			ship1.setDamage(ship1.getDamage() + (ship2.bulletList[i]->getDamage()/ship1.getDamageResistance()));
+			ship1.bounce(collisionVector,*ship2.bulletList[i]);
+		}
 	}
 	//if (ship1.collidesWith(missile1, collisionVector))
 	//{
@@ -599,8 +619,14 @@ void Spacewar::render()
 
 	ship1.draw();							// add the ship to the scene
 	ship2.draw();							// add the cooler ship to the scene
-	explosion1.draw();
 	
+	if (explosionList.size() > 0)
+	{
+		for (int i = 0; i < explosionList.size(); i++)
+		{
+			explosionList[i]->draw();
+		}
+	}
 
 	// draw walls
 	for (int i = 0; i<(wallListList.size());i++)

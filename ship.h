@@ -78,6 +78,7 @@ namespace shipNS
 
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
+	static float DAMAGE_RESISTANCE = 1000.0;
 	const int MAX_MINES = 20;
 	static int NO_OF_BULLETS_SHOT = 4;
 	static double DEGREE_SPREAD = 20.0;
@@ -97,6 +98,7 @@ protected:
 	float bulletTimer;
 	float mineTimer;
 	float blackholeTimer;
+	float damageResistance;
 
 	int noOfBullets = shipNS::NO_OF_BULLETS_SHOT;
 	float bulletDegreeSpread = shipNS::DEGREE_SPREAD;
@@ -141,7 +143,7 @@ public:
 
 	int getmaxmines();
 	int getnoofbullets();
-
+	float getDamageResistance();
 
 	double getdegreespread();
 

@@ -35,6 +35,8 @@ Ship::Ship() : Entity()
 	edge.right = spriteData.width / 2;
 	edge.top = -spriteData.height / 2;
 	edge.bottom = spriteData.height / 2;
+
+	damageResistance = shipNS::DAMAGE_RESISTANCE;
 }
 
 //=============================================================================
@@ -326,4 +328,9 @@ int Ship::getnoofbullets()
 double Ship::getdegreespread()
 {
 	return bulletDegreeSpread;
+}
+
+float Ship::getDamageResistance()
+{
+	return damageResistance;
 }
