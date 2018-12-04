@@ -62,8 +62,6 @@ void Blackhole::update(float frameTime)
 {
 	Entity::update(frameTime);
 
-	//------------Handle Ship Rotation on Key Press--------------
-
 	//Keeping the ranges of the angle to 0<x<360
 	while (spriteData.angle < 0)
 	{
@@ -74,13 +72,24 @@ void Blackhole::update(float frameTime)
 	{
 		spriteData.angle -= 2 * PI;			//Calculation done in radians
 	}
+	//Scale update
+	if (spriteData.scale < 1)
+	{
+		spriteData.scale += 0.01*frameTime;
+	}
 
-	spriteData.angle = (spriteData.angle + ROTATION_RATE / 360 * 2 * PI * frameTime); // Final update missile rotation
-
-
+	//bullet direction update
+	if (velocity.x >= 0)
+	{
+		spriteData.angle = atan(velocity.y / velocity.x) + PI / 2;
+	}
+	else
+	{
+		spriteData.angle = atan(velocity.y / velocity.x) - PI / 2;
+	}
 	//SHIP LOCATION UPDATEb
-	//spriteData.x += (velocity.x * sin(spriteData.angle) * frameTime); // Update Ship X location
-	//spriteData.y += (velocity.y * -cos(spriteData.angle) * frameTime); // Update Ship Y location
+	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
+	spriteData.y += (velocity.y  * frameTime); // Update Ship Y location
 
 }
 void Blackhole::setAngle(float a)

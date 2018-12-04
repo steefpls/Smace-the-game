@@ -44,13 +44,14 @@ private:
 	std::vector<Wall *> wallListLeft;	//list of left walls
 	std::vector<Wall *> wallListRight;	//list of right walls
 	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists;
-	std::vector<Blackhole *> blackholeList;	//list of black holes
-	std::vector<Explosion *> explosionList; //list of explosions
+	std::vector<Explosion *> explosionList;
 
-	Blackhole blackhole1;
+	
 	
 	const char player1Primary = 'C';
 	const char player1Secondary = 'X';
+
+	const char player2Secondary = 'M';
 
 	//Missile missile1;				// missile object
 	Explosion explosion1;

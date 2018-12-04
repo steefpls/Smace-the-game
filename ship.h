@@ -7,6 +7,9 @@
 #include "missile.h"
 #include "bullet.h"
 #include "mine.h"
+#include "blackhole.h"
+
+
 using namespace std;
 #include <iostream>
 #include <vector>
@@ -30,13 +33,13 @@ namespace shipNS
 	static float X_SPEED = 0.0f;            // pixels per second
 	static float Y_SPEED = 0.0f;            // pixels per second
 	
-	const float ORIGINAL_X = 400.0f;
-	const float ORIGINAL_Y = 400.0f;		//Original acceleration
+	const float ORIGINAL_X_ACC = 400.0f;
+	const float ORIGINAL_Y_ACC = 400.0f;		//Original acceleration
 
-	static float BOOSTED_X = 800.0f;
-	static float BOOSTED_Y = 800.0f;		//Boosted speed
-	static float X_ACC = ORIGINAL_X;			//pixels per second per second
-	static float Y_ACC = ORIGINAL_Y;			//pixels per second per second
+	static float BOOSTED_X_ACC = 800.0f;
+	static float BOOSTED_Y_ACC = 800.0f;		//Boosted speed
+	//static float X_ACC = ORIGINAL_X_ACC;			//pixels per second per second
+	//static float Y_ACC = ORIGINAL_Y_ACC;			//pixels per second per second
 
 	static float DRAG = 98 / 100;			//air resistance (IK its in space but stfu)
 	const float MASS = 300.0f;              // mass
@@ -54,8 +57,8 @@ namespace shipNS
 	//Timers
 	const float MAX_DASH_TIMER = 2.0f;
 	static float DASH_TIMER = 1.0f;
-	static bool CAN_DASH = false;
-	static float BOOST_AMT = 400; //pixels per second
+	//static bool CAN_DASH = false;
+	const float BOOST_AMT = 400; //pixels per second
 
 	const float MAX_MISSILE_TIMER = 3.0f;
 	static float MISSILE_TIMER = 1.0f;
@@ -68,6 +71,8 @@ namespace shipNS
 	const float MAX_MINE_TIMER = 1.0f;
 	static float MINE_TIMER = 0.5f;
 	
+	const float MAX_BLACKHOLE_TIMER = 10.0f;
+	static float BLACKHOLE_TIMER = 1.0f;
 
 
 
@@ -86,6 +91,17 @@ private:
 	Image   shield;
 	//vector<Missile*> missileList;
 
+protected:
+	float dashTimer;
+	float missileTimer;
+	float bulletTimer;
+	float mineTimer;
+	float blackholeTimer;
+
+	int noOfBullets = shipNS::NO_OF_BULLETS_SHOT;
+	float bulletDegreeSpread = shipNS::DEGREE_SPREAD;
+
+
 public:
 	// constructor
 	Ship();
@@ -102,22 +118,30 @@ public:
 	std::vector<Missile *> missileList;
 	std::vector<Bullet *> bulletList;
 	std::vector<Mine *> mineList;
-	std::vector<Blackhole *> blackholeList;
+	std::vector<Blackhole *> blackholeList;	//list of black holes
+	
 
 	void spawnmissile();
 	void spawnbullet();
 	void spawnmine();
+	void spawnblackhole();
 
 	void setMissileXY();
 	void setBulletXY(double b);
 	void setMineXY();
+	void setBlackholeXY();
 
 	float getmissiletimer();
 	float getbullettimer();
 	float getminetimer();
+	float getblackholetimer();
+
+	float x_acc = shipNS::ORIGINAL_X_ACC;
+	float y_acc = shipNS::ORIGINAL_Y_ACC;
 
 	int getmaxmines();
 	int getnoofbullets();
+
 
 	double getdegreespread();
 

@@ -46,6 +46,10 @@ void Spacewar::initialize(HWND hwnd)
 	ship1.setCurrentFrame(shipNS::SHIP_START_FRAME);
 	ship1.setX(GAME_WIDTH / 4);
 	ship1.setY(GAME_HEIGHT /4);
+	ship1.player1Down = 'S';
+	ship1.player1Up = 'W';
+	ship1.player1Left = 'A';
+	ship1.player1Right = 'D';
 
 	//ship2
 	if (!ship2.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &ship2Texture))
@@ -139,13 +143,7 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole texture"));
 
 	//blackhole object
-	if (!blackhole1.initialize(this, blackholeNS::WIDTH, blackholeNS::HEIGHT, blackholeNS::TEXTURE_COLS, &blackholeTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole"));
-	blackhole1.setFrames(blackholeNS::BLACKHOLE_START_FRAME, blackholeNS::BLACKHOLE_END_FRAME);
-	blackhole1.setX(3 * GAME_WIDTH / 4);
-	blackhole1.setY(3 * GAME_HEIGHT / 4);
-
-	blackholeList.push_back(blackhole1);
+	
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
 
 	// nebula
@@ -176,7 +174,8 @@ void Spacewar::update()
 	ship1.update(frameTime);	//update ship frames
 	ship2.update(frameTime);
 	explosion1.update(frameTime);
-	blackhole1.update(frameTime);
+	
+	
 
 	for (int i = 0; i < wallListList.size(); i++)
 	{
@@ -236,7 +235,7 @@ void Spacewar::update()
 		ship1.setMineXY();
 	}
 
-	for (int i = 0; i < ship1.mineList.size(); i++)									//Update all ship1 mine objects
+	for (int i = 0; i < ship1.mineList.size(); i++)								//Update all ship1 mine objects
 	{
 		ship1.mineList[i]->update(frameTime);
 	}
@@ -293,6 +292,21 @@ void Spacewar::update()
 			ship2.bulletList.erase(ship2.bulletList.begin() + i);
 		}
 	}
+
+	if (input->isKeyDown(player2Secondary) && ship2.getblackholetimer()<=0)			//Update black hole
+	{
+		ship2.spawnblackhole();
+		ship2.blackholeList[ship2.blackholeList.size() - 1]->initialize(this, blackholeNS::WIDTH, blackholeNS::HEIGHT, blackholeNS::TEXTURE_COLS, &blackholeTexture);
+		ship2.blackholeList[ship2.blackholeList.size() - 1]->setScale(0.3);
+		ship2.setBlackholeXY();
+		
+	}
+
+	for (int i = 0; i < ship2.blackholeList.size(); i++)								//Update all ship2 blackhole objects
+	{
+		ship2.blackholeList[i]->update(frameTime);
+	}
+
 
 	if (input->isKeyDown(ESC_KEY))
 	{
@@ -526,7 +540,16 @@ void Spacewar::render()
 
 	nebula.draw();                          // add the orion nebula to the scene
 	planet.draw();                          // add the planet to the scene
-	blackhole1.draw();
+	
+	//draw blackholes from ship 2
+	if (ship2.blackholeList.size() > 0)
+	{
+		for (int i = 0; i < ship2.blackholeList.size(); i++)
+		{
+			ship2.blackholeList[i]->draw();
+		}
+	}
+
 	ship1.draw();							// add the ship to the scene
 	ship2.draw();							// add the cooler ship to the scene
 	explosion1.draw();
@@ -566,6 +589,8 @@ void Spacewar::render()
 			ship2.bulletList[i]->draw();
 		}
 	}
+
+	
 
 	//bullet1.draw();				
 	graphics->spriteEnd();                  // end drawing sprites

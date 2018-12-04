@@ -23,8 +23,8 @@ namespace blackholeNS
 
 
 	//2d Movement
-	static float X_SPEED = 500.0f;                // pixels per second
-	static float Y_SPEED = 500.0f;                // pixels per second
+	static float X_SPEED = 750.0f;                // pixels per second
+	static float Y_SPEED = 750.0f;                // pixels per second
 	static float X_ACC = 40000.0f;			//pixels per second per second
 	static float Y_ACC = 40000.0f;			//pixels per second per second
 	static float DRAG = 98 / 100;			//air resistance (IK its in space but stfu)

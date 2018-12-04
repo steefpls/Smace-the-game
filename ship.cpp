@@ -19,8 +19,13 @@ Ship::Ship() : Entity()
 	endFrame = shipNS::SHIP_END_FRAME;     // last frame of ship animation
 	currentFrame = startFrame;
 	damage = shipNS::DAMAGE_MULTIPLIER;
-	
-	
+
+	dashTimer = shipNS::DASH_TIMER;
+	missileTimer = shipNS::MISSILE_TIMER;
+	bulletTimer = shipNS::BULLET_TIMER;
+	mineTimer = shipNS::MINE_TIMER;
+	blackholeTimer = shipNS::BLACKHOLE_TIMER;
+
 	//radius = shipNS::WIDTH / 2.0;
 	shieldOn = false;
 	mass = shipNS::MASS;
@@ -120,14 +125,14 @@ void Ship::update(float frameTime)
 
 	if (input->isKeyDown(player1Up)) //If the W key is held
 	{
-		velocity.x += sin(spriteData.angle) * shipNS::X_ACC * frameTime;
-		velocity.y -= cos(spriteData.angle) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
+		velocity.x += sin(spriteData.angle) * x_acc * frameTime;
+		velocity.y -= cos(spriteData.angle) * y_acc * frameTime;		//Sets the ship X and Y speed based on angle
 	}
 
 	if (input->isKeyDown(player1Down)) //If the S key is held
 	{
-		velocity.x -= sin(spriteData.angle) * shipNS::X_ACC * frameTime;
-		velocity.y += cos(spriteData.angle) * shipNS::Y_ACC * frameTime;		//Sets the ship X and Y speed based on angle
+		velocity.x -= sin(spriteData.angle) * x_acc * frameTime;
+		velocity.y += cos(spriteData.angle) * y_acc * frameTime;		//Sets the ship X and Y speed based on angle
 	}
 
 
@@ -147,27 +152,30 @@ void Ship::update(float frameTime)
 		}
 	}
 
-	//================================================= SHIP DASH TIMER =================================================
-	if (shipNS::DASH_TIMER > 0)		//If timer is larger than 0
+	//================================================= SHIP TIMERS =================================================
+	if (dashTimer > 0)		//If timer is larger than 0
 	{
-		shipNS::DASH_TIMER -= 1.0f * frameTime; //Timer goes down by 1 per second
+		dashTimer -= 1.0f * frameTime; //Timer goes down by 1 per second
 	}
 
-
-
-	if (shipNS::MISSILE_TIMER > 0)
+	if (missileTimer > 0)
 	{
-		shipNS::MISSILE_TIMER -= 1.0f * frameTime;
+		missileTimer-= 1.0f * frameTime;
 	}
 
-	if (shipNS::BULLET_TIMER > 0)
+	if (bulletTimer > 0)
 	{ 
-		shipNS::BULLET_TIMER -= 1.0f * frameTime;
+		bulletTimer -= 1.0f * frameTime;
 	}
 
-	if (shipNS::MINE_TIMER > 0)
+	if (mineTimer > 0)
 	{
-		shipNS::MINE_TIMER -= 1.0f * frameTime;
+		mineTimer -= 1.0f * frameTime;
+	}
+
+	if (blackholeTimer > 0)
+	{
+		blackholeTimer -= 1.0f * frameTime;
 	}
 
 	//SHIP LOCATION UPDATE
@@ -179,19 +187,24 @@ void Ship::update(float frameTime)
 void Ship::spawnmissile()
 {
 	missileList.push_back (new Missile());
-	shipNS::MISSILE_TIMER = shipNS::MAX_MISSILE_TIMER;
+	missileTimer = shipNS::MAX_MISSILE_TIMER;
 }
 
 void Ship::spawnbullet()
 {
 	bulletList.push_back(new Bullet());
-	shipNS::BULLET_TIMER = shipNS::MAX_BULLET_TIMER;
+	bulletTimer = shipNS::MAX_BULLET_TIMER;
 }
 
 void Ship::spawnmine()
 {
 	mineList.push_back(new Mine());
-	shipNS::MINE_TIMER = shipNS::MAX_MINE_TIMER;
+	mineTimer = shipNS::MAX_MINE_TIMER;
+}
+void Ship::spawnblackhole()
+{
+	blackholeList.push_back(new Blackhole());
+	blackholeTimer = shipNS::MAX_BLACKHOLE_TIMER;
 }
 
 void Ship::setMissileXY()
@@ -220,6 +233,16 @@ void Ship::setMineXY()
 	mineList[mineList.size() - 1]->setVelocityX(mineList[mineList.size() - 1]->getVelocityX()*sin(mineList[mineList.size() - 1]->getRadians()));
 	mineList[mineList.size() - 1]->setVelocityY(mineList[mineList.size() - 1]->getVelocityY()*-cos(mineList[mineList.size() - 1]->getRadians()));
 }
+void Ship::setBlackholeXY()
+{
+	blackholeList[blackholeList.size() - 1]->setX(getCenterX() - ((blackholeList[blackholeList.size() - 1]->getWidth())*(blackholeList[blackholeList.size() - 1]->getScale()) / 2));
+	blackholeList[blackholeList.size() - 1]->setY(getCenterY() - ((blackholeList[blackholeList.size() - 1]->getHeight())*(blackholeList[blackholeList.size() - 1]->getScale()) / 2));
+	blackholeList[blackholeList.size() - 1]->setAngle(spriteData.angle);
+
+	blackholeList[blackholeList.size() - 1]->setVelocityX(blackholeList[blackholeList.size() - 1]->getVelocityX()*sin(blackholeList[blackholeList.size() - 1]->getRadians()));
+	blackholeList[blackholeList.size() - 1]->setVelocityY(blackholeList[blackholeList.size() - 1]->getVelocityY()*-cos(blackholeList[blackholeList.size() - 1]->getRadians()));
+}
+
 
 int Ship::getmaxmines()
 {
@@ -230,17 +253,22 @@ int Ship::getmaxmines()
 
 float Ship::getmissiletimer()
 {
-	return shipNS::MISSILE_TIMER;
+	return missileTimer;
 }
 
 float Ship::getbullettimer()
 {
-	return shipNS::BULLET_TIMER;
+	return bulletTimer;
 }
 
 float Ship::getminetimer()
 {
-	return shipNS::MINE_TIMER;
+	return mineTimer;
+}
+
+float Ship::getblackholetimer()
+{
+	return blackholeTimer;
 }
 
 void Ship::topbottomrotatebounce()	//rotation when hitting top and bottom walls
@@ -268,12 +296,11 @@ void Ship::leftrightrotatebounce()	//rotation when hitting left and right walls
 
 void Ship::dash()
 {
-	if (shipNS::DASH_TIMER <= 0)
+	if (dashTimer <= 0)
 	{
 		velocity.x += sin(spriteData.angle) * shipNS::BOOST_AMT;
 		velocity.y -= cos(spriteData.angle) * shipNS::BOOST_AMT;
-		shipNS::DASH_TIMER = shipNS::MAX_DASH_TIMER;
-
+		dashTimer = shipNS::MAX_DASH_TIMER;
 	}
 }
 
@@ -281,22 +308,22 @@ void Ship::boost(bool b)
 {
 	if (b)
 	{
-		shipNS::X_ACC = shipNS::BOOSTED_X;
-		shipNS::Y_ACC = shipNS::BOOSTED_Y;
+		x_acc = shipNS::BOOSTED_X_ACC;
+		y_acc = shipNS::BOOSTED_Y_ACC;
 	}
 	else
 	{
-		shipNS::X_ACC = shipNS::ORIGINAL_X;
-		shipNS::Y_ACC = shipNS::ORIGINAL_Y;
+		x_acc = shipNS::ORIGINAL_X_ACC;
+		y_acc = shipNS::ORIGINAL_Y_ACC;
 	}
 }
 
 int Ship::getnoofbullets()
 {
-	return shipNS::NO_OF_BULLETS_SHOT;
+	return noOfBullets;
 }
 
 double Ship::getdegreespread()
 {
-	return shipNS::DEGREE_SPREAD;
+	return bulletDegreeSpread;
 }
