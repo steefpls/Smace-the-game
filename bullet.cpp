@@ -84,8 +84,8 @@ void Bullet::update(float frameTime)
 	
 
 	//SHIP LOCATION UPDATEb
-	spriteData.x += (velocity.x * sin(spriteData.angle) * frameTime); // Update Ship X location
-	spriteData.y += (velocity.y * -cos(spriteData.angle) * frameTime); // Update Ship Y location
+	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
+	spriteData.y += (velocity.y  * frameTime); // Update Ship Y location
 
 }
 void Bullet::setAngle(float a)
@@ -102,11 +102,12 @@ void Bullet::topbottombounce()	//rotation when hitting top and bottom walls
 {
 	if (velocity.x > 0)
 	{
-		RotationRate += damage * 300 * (velocity.y / 200);
+		 
+		RotationRate += (velocity.y / 200);
 	}
 	else
 	{
-		RotationRate -= damage * 300 * (velocity.y / 200);
+		RotationRate -= (velocity.y / 200);
 	}
 }
 

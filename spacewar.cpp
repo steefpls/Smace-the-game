@@ -266,6 +266,7 @@ void Spacewar::update()
 		ship2.spawnbullet();
 		ship2.bulletList[ship2.bulletList.size() - 1]->initialize(this, bulletNS::WIDTH, bulletNS::HEIGHT, bulletNS::TEXTURE_COLS, &bulletTexture);
 		ship2.setBulletXY();
+		
 	}
 
 	for (int i = 0; i < ship2.bulletList.size(); i++)	//Bullet Deletion when exits boundaries
@@ -364,23 +365,55 @@ void Spacewar::collisions()
 				{
 					if (ship2.bulletList[x]->bounce > 0)
 					{
-						int check = (wallListList[i][j]->squarebounce(* ship2.bulletList[x]));
-
-						if (check == 1 || check == 3)
+						double check = (wallListList[i][j]->bulletbounce(* ship2.bulletList[x]));
 						{
-							wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship2.bulletList[x]->getDamage()));
-							ship2.bulletList[x]->topbottombounce();
-						}
-						else if (check == 2 || check == 4)
-						{
-							wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship2.bulletList[x]->getDamage()));
-							ship2.bulletList[x]->leftrightbounce();
-						}
+							if (check >= 315.0 || check < 45)				//hitting de bottam woll
+							{
+								if (ship2.bulletList[x]->getVelocityY()>0)
+								{
+									wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
+									ship2.bulletList[x]->bounce -= 1;
+									ship2.bulletList[x]->setVelocityY(-ship2.bulletList[x]->getVelocityY());
+								}
+							}
+							
+							if (check >= 45 && check < 135)				//hitting de left woll
+							{
+								if (ship2.bulletList[x]->getVelocityX() < 0)
+								{
+									wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
+									ship2.bulletList[x]->bounce -= 1;
+									ship2.bulletList[x]->setVelocityX(-ship2.bulletList[x]->getVelocityX());
+								}
+							}
 
-						ship2.bulletList[x]->bounce -= 1;
+							if (check >= 135 && check < 225)			//hitting de tap woll
+							{
+								if (ship2.bulletList[x]->getVelocityY() < 0)
+								{
+									wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
+									ship2.bulletList[x]->bounce -= 1;
+									ship2.bulletList[x]->setVelocityY(-ship2.bulletList[x]->getVelocityY());
+								}
+							}
+
+							if (check >= 225 && check < 315)			//hitting de right woll
+							{
+								if (ship2.bulletList[x]->getVelocityX() > 0)
+								{
+									wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
+									ship2.bulletList[x]->bounce -= 1;
+									ship2.bulletList[x]->setVelocityX(-ship2.bulletList[x]->getVelocityX());
+								}
+							}
+						}
+						//wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship2.bulletList[x]->getDamage()));
+							
+
+						//ship2.bulletList[x]->bounce -= 1;
 					}
 
-					if (ship2.bulletList[x]->bounce <= 0)
+					else
 					{
 						wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
 						SAFE_DELETE(ship2.bulletList[x]);

@@ -161,6 +161,7 @@ public:
 
 	//for ship collision with wall
 	int squarebounce(Entity &ent);
+	double bulletbounce(Entity &ent);
 	double anglebetween(Entity &ent);
 	void topbottomrotatebounce();
 	void leftrightrotatebounce();

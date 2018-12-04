@@ -204,6 +204,9 @@ void Ship::setBulletXY()
 	bulletList[bulletList.size() - 1]->setX(getCenterX() - ((bulletList[bulletList.size() - 1]->getWidth())*(bulletList[bulletList.size() - 1]->getScale()) / 2));
 	bulletList[bulletList.size() - 1]->setY(getCenterY() - ((bulletList[bulletList.size() - 1]->getHeight())*(bulletList[bulletList.size() - 1]->getScale()) / 2));
 	bulletList[bulletList.size() - 1]->setAngle(spriteData.angle);
+	
+	bulletList[bulletList.size() - 1]->setVelocityX(sin(bulletList[bulletList.size() - 1]->getRadians())*bulletList[bulletList.size() - 1]->getVelocityX());
+	bulletList[bulletList.size() - 1]->setVelocityY(-cos(bulletList[bulletList.size() - 1]->getRadians())*bulletList[bulletList.size() - 1]->getVelocityY());
 }
 
 void Ship::setMineXY()

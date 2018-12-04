@@ -479,6 +479,11 @@ double Entity::anglebetween(Entity &ent2)	//Returns in degrees
 	}
 }
 
+double Entity::bulletbounce(Entity &ent1)
+{
+	double angbet = anglebetween(ent1);
+	return angbet;
+}
 //=============================================================================
 // Get Velocities
 //=============================================================================
