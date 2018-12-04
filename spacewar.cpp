@@ -134,6 +134,17 @@ void Spacewar::initialize(HWND hwnd)
 	if (!mineTexture.initialize(graphics, MINE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing mine texture"));
 
+	//blackhole texture
+	if(!blackholeTexture.initialize(graphics,BLACKHOLE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole texture"));
+
+	//blackhole object
+	if(!blackhole1.initialize(this,blackholeNS::WIDTH,blackholeNS::HEIGHT,blackholeNS::TEXTURE_COLS,&blackholeTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole"));
+	blackhole1.setFrames(blackholeNS::BLACKHOLE_START_FRAME, blackholeNS::BLACKHOLE_END_FRAME);
+	blackhole1.setX(3 * GAME_WIDTH / 4);
+	blackhole1.setY(3 * GAME_HEIGHT / 4);
+
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
 
 	// nebula
@@ -164,6 +175,7 @@ void Spacewar::update()
 	ship1.update(frameTime);	//update ship frames
 	ship2.update(frameTime);
 	explosion1.update(frameTime);
+	blackhole1.update(frameTime);
 
 	for (int i = 0; i < wallListList.size(); i++)
 	{
@@ -311,8 +323,7 @@ void Spacewar::collisions()
 				{
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.missileList[x]->getDamage());
 					SAFE_DELETE(ship1.missileList[x]);
-					ship1.missileList.erase(ship1.missileList.begin() + x);
-					
+					ship1.missileList.erase(ship1.missileList.begin() + x);		
 				}
 			}
 
@@ -402,6 +413,7 @@ void Spacewar::render()
 	ship1.draw();							// add the ship to the scene
 	ship2.draw();							// add the cooler ship to the scene
 	explosion1.draw();
+	blackhole1.draw();
 
 	// draw walls
 	for (int i = 0; i<(wallListList.size());i++)

@@ -39,7 +39,7 @@ const char MISSILE_IMAGE[] = "pictures\\rockets_PNG13274.png";	//missile
 const char EXPLOSION_IMAGE[] = "pictures\\explosion.png";	//explosion
 const char BULLET_IMAGE[] = "pictures\\Bullet123.png";	//bullet
 const char MINE_IMAGE[] = "pictures\\mine.png";	//mine
-const char BLACKHOLE_IMAGE[] = "pictures\\giphy.gif";	//black hole
+const char BLACKHOLE_IMAGE[] = "pictures\\blackhole.png";	//black hole
 const char RECTANGLE_IMAGE[] = "pictures\\bigblackrect.png";	//big black rectangle and smaller blue one
 
 ////keybinds

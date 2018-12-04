@@ -9,7 +9,7 @@
 #include "ship.h"
 #include "wall.h"
 #include "explosion.h"
-#include "mine.h"
+#include "blackhole.h"
 
 #include <iostream>
 #include <list>
@@ -44,6 +44,8 @@ private:
 	std::vector<Wall *> wallListLeft;	//list of left walls
 	std::vector<Wall *> wallListRight;	//list of right walls
 	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists;
+
+	Blackhole blackhole1;
 	
 	const char player1Primary = 'C';
 	const char player1Secondary = 'X';
