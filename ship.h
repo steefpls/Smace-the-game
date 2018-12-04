@@ -6,6 +6,7 @@
 #include "constants.h"
 #include "missile.h"
 #include "bullet.h"
+#include "mine.h"
 using namespace std;
 #include <iostream>
 #include <vector>
@@ -20,7 +21,7 @@ namespace shipNS
 
 	//2d Rotation
 	static float ROTATION_RATE = 0.0f;		    // degrees per second
-	static float ROTATION_ACC_RATE = 450.0f  ;   //degrees per second per second
+	static float ROTATION_ACC_RATE = 450.0f ;   //degrees per second per second
 	static float ROTATION_DRAG = 800.0f ;	//degrees drag per second
 	static float MAX_ROTATION_RATE = 240.0f ;	 // degrees per second
 	const float ROTATION_RATE_CAP = 3000.0f;	//Max Rotation Cap
@@ -42,10 +43,8 @@ namespace shipNS
 
 	//Textures
 	const int   TEXTURE_COLS = 2;           // texture has 2 columns
-	const int   SHIP1_START_FRAME = 0;      // ship1 starts at frame 0
-	const int   SHIP1_END_FRAME = 3;        // ship1 animation frames 0,1,2,3
-	//const int   SHIP2_START_FRAME = 8;      // ship2 starts at frame 8
-	//const int   SHIP2_END_FRAME = 11;       // ship2 animation frames 8,9,10,11
+	const int   SHIP_START_FRAME = 0;      // ship1 starts at frame 0
+	const int   SHIP_END_FRAME = 3;        // ship1 animation frames 0,1,2,3
 	const float SHIP_ANIMATION_DELAY = 0.2f;    // time between frames
 	const int   SHIELD_START_FRAME = 24;    // shield start frame
 	const int   SHIELD_END_FRAME = 27;      // shield end frame
@@ -66,14 +65,12 @@ namespace shipNS
 	static float BULLET_TIMER = 0.5f;
 	static bool CAN_BULET = false;
 
+	const float MAX_MINE_TIMER = 1.0f;
+	static float MINE_TIMER = 0.5f;
+	static bool CAN_MINE = false;
+
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
-
-	////keybinds
-	//const char PLAYER1_RIGHT = 'D';
-	//const char PLAYER1_LEFT = 'A';
-	//const char PLAYER1_UP = 'W';
-	//const char PLAYER1_DOWN = 'S';
 }
 
 // inherits from Entity class
@@ -93,30 +90,31 @@ public:
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
 		TextureManager *textureM);
 	void update(float frameTime);
+
 	void topbottomrotatebounce();
 	void leftrightrotatebounce();
+
 	std::vector<Missile *> missileList;
 	std::vector<Bullet *> bulletList;
-
+	std::vector<Mine *> mineList;
 
 	void spawnmissile();
 	void spawnbullet();
+	void spawnmine();
+
 	void setMissileXY();
 	void setBulletXY();
+	void setMineXY();
+
 	float getmissiletimer();
 	float getbullettimer();
+	float getminetimer();
 
 	//keybinds
 	char player1Right = 'D';
 	char player1Left = 'A';
 	char player1Up = 'W';
 	char player1Down = 'S';
-	
-
-
-	//void shootMissile();
-	//void drawMissile(float x, float y);
-	//double damage;
 
 	float RotationRate = shipNS::ROTATION_RATE;
 	float MaxRotationRate = shipNS::MAX_ROTATION_RATE;

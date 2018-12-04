@@ -42,16 +42,16 @@ void Spacewar::initialize(HWND hwnd)
 	// ship1
 	if (!ship1.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &ship1Texture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1"));
-	ship1.setFrames(shipNS::SHIP1_START_FRAME, shipNS::SHIP1_END_FRAME);
-	ship1.setCurrentFrame(shipNS::SHIP1_START_FRAME);
+	ship1.setFrames(shipNS::SHIP_START_FRAME, shipNS::SHIP_END_FRAME);
+	ship1.setCurrentFrame(shipNS::SHIP_START_FRAME);
 	ship1.setX(GAME_WIDTH / 4);
 	ship1.setY(GAME_HEIGHT /4);
 
 	//ship2
 	if (!ship2.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &ship2Texture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship2"));
-	ship2.setFrames(shipNS::SHIP1_START_FRAME, shipNS::SHIP1_END_FRAME);
-	ship2.setCurrentFrame(shipNS::SHIP1_START_FRAME);
+	ship2.setFrames(shipNS::SHIP_START_FRAME, shipNS::SHIP_END_FRAME);
+	ship2.setCurrentFrame(shipNS::SHIP_START_FRAME);
 	ship2.setX(3 * GAME_WIDTH / 4);
 	ship2.setY(GAME_HEIGHT / 4);
 	ship2.player1Down = VK_DOWN;
@@ -134,13 +134,6 @@ void Spacewar::initialize(HWND hwnd)
 	if (!mineTexture.initialize(graphics, MINE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing mine texture"));
 
-	//mine1
-	if (!mine1.initialize(this,mineNS::WIDTH,mineNS::HEIGHT,mineNS::TEXTURE_COLS,&mineTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing mine1"));
-	mine1.setFrames(mineNS::MINE_START_FRAME, mineNS::MINE_END_FRAME);
-	mine1.setX(GAME_WIDTH / 3);
-	mine1.setY(GAME_HEIGHT / 3);
-
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
 
 	// nebula
@@ -171,7 +164,6 @@ void Spacewar::update()
 	ship1.update(frameTime);	//update ship frames
 	ship2.update(frameTime);
 	explosion1.update(frameTime);
-	mine1.update(frameTime);
 
 	for (int i = 0; i < wallListList.size(); i++)
 	{
@@ -184,14 +176,16 @@ void Spacewar::update()
 	//===========================================================================================================
 	//  Inputs FOR SHIP 1
 	//===========================================================================================================
-	for (int i = 0; i < ship1.missileList.size(); i++)									//Update all ship1 missile objects
-	{
-		ship1.missileList[i]->update(frameTime);
-	}
 
+	//SHIP
 	if (input->isKeyDown(SHIFT_KEY))													//if shift is pressed, ship 1 dashes
 	{
 		ship1.dash();
+	}
+
+	for (int i = 0; i < ship1.missileList.size(); i++)									//Update all ship1 missile objects
+	{
+		ship1.missileList[i]->update(frameTime);
 	}
 
 	if (input->isKeyDown(player1Secondary) && ship1.getmissiletimer()<0)				//If player is pressing X, shoot missiles
@@ -212,6 +206,33 @@ void Spacewar::update()
 		{
 			SAFE_DELETE(ship1.missileList[i]);
 			ship1.missileList.erase(ship1.missileList.begin() + i);	
+		}
+	}
+
+	//MINE
+	for (int i = 0; i < ship1.mineList.size(); i++)									//Update all ship1 mine objects
+	{
+		ship1.mineList[i]->update(frameTime);
+	}
+
+	if (input->isKeyDown(player1Primary) && ship1.getminetimer() < 0)				//If player is pressing X, shoot mines
+	{
+		ship1.spawnmine();
+		ship1.mineList[ship1.mineList.size() - 1]->initialize(this, mineNS::WIDTH, mineNS::HEIGHT, mineNS::TEXTURE_COLS, &mineTexture);
+		ship1.setMineXY();
+	}
+
+	for (int i = 0; i < ship1.mineList.size(); i++)				//check if mine is out of bounds
+	{
+		if (ship1.mineList[i]->getX() > GAME_WIDTH || ship1.mineList[i]->getX() < 0 - ship1.mineList[i]->getHeight())
+		{
+			SAFE_DELETE(ship1.mineList[i]);
+			ship1.mineList.erase(ship1.mineList.begin() + i);
+		}
+		else if (ship1.mineList[i]->getY() > GAME_HEIGHT || ship1.mineList[i]->getY() < 0 - ship1.mineList[i]->getHeight())
+		{
+			SAFE_DELETE(ship1.mineList[i]);
+			ship1.mineList.erase(ship1.mineList.begin() + i);
 		}
 	}
 
@@ -281,9 +302,9 @@ void Spacewar::collisions()
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship1.getVelocityX()));
 					ship1.leftrightrotatebounce();
 					ship1.setDamage(ship1.getDamage() + 0.1);
-				}
-				
+				}				
 			}
+
 			for (int x = 0; x < (ship1.missileList.size()); x++)													//If ship collides with missile
 			{
 				if (ship1.missileList[x]->collidesWith(*wallListList[i][j], collisionVector))
@@ -294,8 +315,6 @@ void Spacewar::collisions()
 					
 				}
 			}
-
-			
 
 			if (wallListList[i][j]->getHP() <= 0)
 			{
@@ -383,7 +402,6 @@ void Spacewar::render()
 	ship1.draw();							// add the ship to the scene
 	ship2.draw();							// add the cooler ship to the scene
 	explosion1.draw();
-	mine1.draw();
 
 	// draw walls
 	for (int i = 0; i<(wallListList.size());i++)
@@ -400,6 +418,14 @@ void Spacewar::render()
 		for (int i = 0; i < ship1.missileList.size(); i++)
 		{
 			ship1.missileList[i]->draw();
+		}
+	}
+	//draw mines from ship 1
+	if (ship1.mineList.size() > 0)
+	{
+		for (int i = 0; i < ship1.mineList.size(); i++)
+		{
+			ship1.mineList[i]->draw();
 		}
 	}
 

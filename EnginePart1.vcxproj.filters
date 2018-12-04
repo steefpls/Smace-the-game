@@ -130,9 +130,6 @@
     <Image Include="pictures\wall.png">
       <Filter>pictures</Filter>
     </Image>
-    <Image Include="pictures\explosion.jpg">
-      <Filter>pictures</Filter>
-    </Image>
     <Image Include="pictures\Bullet123.png">
       <Filter>pictures</Filter>
     </Image>
@@ -143,6 +140,9 @@
       <Filter>pictures</Filter>
     </Image>
     <Image Include="pictures\bigblackrect.png">
+      <Filter>pictures</Filter>
+    </Image>
+    <Image Include="pictures\explosion.png">
       <Filter>pictures</Filter>
     </Image>
   </ItemGroup>

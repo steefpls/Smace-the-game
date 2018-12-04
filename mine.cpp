@@ -1,27 +1,30 @@
 #include "mine.h"
-
+using namespace mineNS;
 //=============================================================================
 // default constructor
 //=============================================================================
 
 Mine::Mine() : Entity()
 {
-	spriteData.scale = mineNS::SCALE;
-	spriteData.width = mineNS::WIDTH;	//size of wall
-	spriteData.height = mineNS::HEIGHT;
-	//radius = wallNS::WIDTH;
-	spriteData.x = mineNS::X;
-	spriteData.y = mineNS::Y;
-	mass = mineNS::MASS;
-	active = mineNS::ACTIVE;
-	collisionType = entityNS::ROTATED_BOX;
-	edge.left = -mineNS::WIDTH / 2;
-	edge.right = mineNS::WIDTH / 2;
-	edge.top = -mineNS::HEIGHT / 2;
-	edge.bottom = mineNS::HEIGHT / 2;
-	maxhp = mineNS::MAX_HP;
-	hp = mineNS::HP;
-	hppercentage = mineNS::HP_PERCENTAGE;
+	spriteData.scale = SCALE;
+	spriteData.width = WIDTH;           // size of Ship1
+	spriteData.height = HEIGHT;
+	spriteData.x = X;                   // location on screen
+	spriteData.y = Y;
+	spriteData.rect.bottom = HEIGHT;    // rectangle to select parts of an image
+	spriteData.rect.right = WIDTH;
+	velocity.x = X_SPEED;                             // velocity X
+	velocity.y = Y_SPEED;                             // velocity Y
+	maxvel = MAX_VELOCITY;							// Max Velocity
+	frameDelay = MINE_ANIMATION_DELAY;
+	startFrame = MINE_START_FRAME;     // first frame of ship animation
+	endFrame = MINE_END_FRAME;     // last frame of ship animation
+	currentFrame = startFrame;
+	//radius = shipNS::WIDTH / 2.0;
+	mass = MASS;
+	collisionType = entityNS::CIRCLE;
+	radius = WIDTH / 2;
+	damage = DAMAGE;
 }
 
 //=============================================================================
@@ -42,6 +45,11 @@ void Mine::draw()
 	Image::draw();              // draw wall
 }
 
+bool Mine::getdel()
+{
+	return false;
+}
+
 //=============================================================================
 // update
 // typically called once per frame
@@ -51,24 +59,35 @@ void Mine::update(float frameTime)
 {
 	Entity::update(frameTime);
 
-	//hppercentage = (hp / maxhp) * 100;
-	//if (hppercentage > 75)
-	//{
-	//	setCurrentFrame(0);
-	//}
+	//------------Handle Ship Rotation on Key Press--------------
 
-	//else if (hppercentage <= 75 && hppercentage > 50)
-	//{
-	//	setCurrentFrame(1);
-	//}
-	//else if (hppercentage <= 50 && hppercentage > 25)
-	//{
-	//	setCurrentFrame(2);
-	//}
-	//else
-	//{
-	//	setCurrentFrame(3);
-	//}
+	//Keeping the ranges of the angle to 0<x<360
+	while (spriteData.angle < 0)
+	{
+		spriteData.angle += 2 * PI;			//Calculation done in radians
+	}
 
+	while (spriteData.angle > 2 * PI)
+	{
+		spriteData.angle -= 2 * PI;			//Calculation done in radians
+	}
+
+	spriteData.angle = (spriteData.angle + ROTATION_RATE / 360 * 2 * PI * frameTime); // Final update missile rotation
+
+
+	//SHIP LOCATION UPDATEb
+	spriteData.x += (velocity.x * sin(spriteData.angle) * frameTime); // Update Ship X location
+	spriteData.y += (velocity.y * -cos(spriteData.angle) * frameTime); // Update Ship Y location
 }
+
+void Mine::setAngle(float a)
+{
+	spriteData.angle = a + ((rand() % 7 - 3) / 360 * 2 * PI);
+}
+
+float Mine::getDamage()
+{
+	return DAMAGE;
+}
+
 

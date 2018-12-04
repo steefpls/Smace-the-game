@@ -43,8 +43,7 @@ private:
 	std::vector<Wall *> wallListBottom;	//list of bottom walls
 	std::vector<Wall *> wallListLeft;	//list of left walls
 	std::vector<Wall *> wallListRight;	//list of right walls
-	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists
-	Mine mine1;
+	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists;
 	
 	const char player1Primary = 'C';
 	const char player1Secondary = 'X';

@@ -15,6 +15,7 @@ Explosion::Explosion() : Entity()
 	//mass = explosionNS::MASS;
 	active = explosionNS::ACTIVE;
 	collisionType = entityNS::CIRCLE;
+	frameDelay = explosionNS::EXPLOSION_ANIMATION_DELAY;
 	/*edge.left = -explosionNS::WIDTH / 2;
 	edge.right = explosionNS::WIDTH / 2;
 	edge.top = -explosionNS::HEIGHT / 2;
