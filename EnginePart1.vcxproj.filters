@@ -63,6 +63,9 @@
     <ClCompile Include="blackhole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="healthbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -111,6 +114,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="blackhole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="healthbar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -35,10 +35,6 @@ public:
 	// Destructor
 	virtual ~Image();
 
-	
-	
-
-	
 	virtual bool Image::initialize(Graphics *g, int width, int height,
 		int ncols, TextureManager *textureM);
 
@@ -112,7 +108,6 @@ public:
 	// Return colorFilter.
 	virtual COLOR_ARGB getColorFilter() { return colorFilter; }
 
-
 	// Set X location.
 	virtual void setX(float newX) { spriteData.x = newX; }
 
@@ -162,7 +157,6 @@ public:
 	{
 		textureManager = textureM;
 	}
-
 };
 
 #endif
