@@ -163,6 +163,11 @@ void Ship::update(float frameTime)
 		shipNS::BULLET_TIMER -= 1.0f * frameTime;
 	}
 
+	if (shipNS::MINE_TIMER > 0)
+	{
+		shipNS::MINE_TIMER -= 1.0f * frameTime;
+	}
+
 	//SHIP LOCATION UPDATE
 
 	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
