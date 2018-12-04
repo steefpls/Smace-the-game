@@ -226,6 +226,12 @@ void Spacewar::update()
 	{
 		ship1.spawnmine();
 		ship1.mineList[ship1.mineList.size() - 1]->initialize(this, mineNS::WIDTH, mineNS::HEIGHT, mineNS::TEXTURE_COLS, &mineTexture);
+		if (ship1.mineList.size() > ship1.getmaxmines())
+		{
+			
+			SAFE_DELETE(ship1.mineList[0]);
+			ship1.mineList.erase(ship1.mineList.begin() + 0);
+		}
 		ship1.setMineXY();
 	}
 

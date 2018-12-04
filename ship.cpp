@@ -20,9 +20,11 @@ Ship::Ship() : Entity()
 	currentFrame = startFrame;
 	damage = shipNS::DAMAGE_MULTIPLIER;
 	
+	
 	//radius = shipNS::WIDTH / 2.0;
 	shieldOn = false;
 	mass = shipNS::MASS;
+	
 	collisionType = entityNS::ROTATED_BOX;
 	edge.left = -spriteData.width / 2;
 	edge.right = spriteData.width / 2;
@@ -159,7 +161,7 @@ void Ship::update(float frameTime)
 	}
 
 	if (shipNS::BULLET_TIMER > 0)
-	{
+	{ 
 		shipNS::BULLET_TIMER -= 1.0f * frameTime;
 	}
 
@@ -211,6 +213,14 @@ void Ship::setMineXY()
 	mineList[mineList.size() - 1]->setX(getCenterX() - ((mineList[mineList.size() - 1]->getWidth())*(mineList[mineList.size() - 1]->getScale()) / 2));
 	mineList[mineList.size() - 1]->setY(getCenterY() - ((mineList[mineList.size() - 1]->getHeight())*(mineList[mineList.size() - 1]->getScale()) / 2));
 	mineList[mineList.size() - 1]->setAngle(spriteData.angle);
+
+	mineList[mineList.size() - 1]->setVelocityX(mineList[mineList.size() - 1]->getVelocityX()*sin(mineList[mineList.size() - 1]->getRadians()));
+	mineList[mineList.size() - 1]->setVelocityY(mineList[mineList.size() - 1]->getVelocityY()*-cos(mineList[mineList.size() - 1]->getRadians()));
+}
+
+int Ship::getmaxmines()
+{
+	return shipNS::MAX_MINES;
 }
 
 float Ship::getmissiletimer()

@@ -71,6 +71,7 @@ namespace shipNS
 
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
+	const int MAX_MINES = 20;
 }
 
 // inherits from Entity class
@@ -110,6 +111,7 @@ public:
 	float getbullettimer();
 	float getminetimer();
 
+	int getmaxmines();
 	//keybinds
 	char player1Right = 'D';
 	char player1Left = 'A';
