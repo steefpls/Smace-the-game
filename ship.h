@@ -102,6 +102,7 @@ public:
 	std::vector<Missile *> missileList;
 	std::vector<Bullet *> bulletList;
 	std::vector<Mine *> mineList;
+	std::vector<Blackhole *> blackholeList;
 
 	void spawnmissile();
 	void spawnbullet();

@@ -44,6 +44,8 @@ private:
 	std::vector<Wall *> wallListLeft;	//list of left walls
 	std::vector<Wall *> wallListRight;	//list of right walls
 	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists;
+	std::vector<Blackhole *> blackholeList;	//list of black holes
+	std::vector<Explosion *> explosionList; //list of explosions
 
 	Blackhole blackhole1;
 	
