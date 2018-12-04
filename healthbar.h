@@ -44,7 +44,6 @@ namespace healthbarNS
 	const int   HEALTHBAR_START_FRAME = 0;      // ship1 starts at frame 0
 	const int   HEALTHBAR_END_FRAME = 3;        // ship1 animation frames 0,1,2,3
 	const float HEALTHBAR_ANIMATION_DELAY = 0.2f;    // time between frames
-	const float HEALTHBAR_ANIMATION_DELAY = 0.1f; // time between frames
 	static float SCALE = 1.4;			//ship scale
 
 	//Timers
@@ -85,6 +84,8 @@ public:
 	void update(float frameTime);
 
 	void setAngle(float a);
+
+	Ship ship;
 
 	//void topbottomrotatebounce();
 	//void leftrightrotatebounce();

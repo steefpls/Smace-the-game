@@ -39,7 +39,7 @@ namespace bulletNS
 
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
-	const float DAMAGE = 200.0f;
+	const float DAMAGE = 100.0f;
 	const int MAX_BOUNCES = 3;
 	static int BOUNCES = 0;
 }
