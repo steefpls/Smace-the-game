@@ -326,7 +326,7 @@ void Spacewar::collisions()
 				}				
 			}
 
-			for (int x = 0; x < (ship1.missileList.size()); x++)													//If ship collides with missile
+			for (int x = 0; x < (ship1.missileList.size()); x++)													//If missile collides with wall
 			{
 				if (ship1.missileList[x]->collidesWith(*wallListList[i][j], collisionVector))
 				{
@@ -336,11 +336,59 @@ void Spacewar::collisions()
 				}
 			}
 
+			for (int x = 0; x < (ship1.mineList.size()); x++)
+			{
+				if (ship1.mineList[x]->collidesWith(*wallListList[i][j], collisionVector))
+				{
+					double check = (wallListList[i][j]->bulletbounce(*ship1.mineList[x]));
+					{
+						if (check >= 315.0 || check < 45)				//hitting de bottam woll
+						{
+							if (ship1.mineList[x]->getVelocityY() > 0)
+							{
+								wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
+								//ship1.mineList[x]->bounceCounter -= 1;
+								ship1.mineList[x]->setVelocityY(-ship1.mineList[x]->getVelocityY());
+							}
+						}
+
+						if (check >= 45 && check < 135)				//hitting de left woll
+						{
+							if (ship1.mineList[x]->getVelocityX() < 0)
+							{
+								wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
+								//ship1.mineList[x]->bounceCounter -= 1;
+								ship1.mineList[x]->setVelocityX(-ship1.mineList[x]->getVelocityX());
+							}
+						}
+
+						if (check >= 135 && check < 225)			//hitting de tap woll
+						{
+							if (ship1.mineList[x]->getVelocityY() < 0)
+							{
+								wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
+								//ship1.mineList[x]->bounceCounter -= 1;
+								ship1.mineList[x]->setVelocityY(-ship1.mineList[x]->getVelocityY());
+							}
+						}
+
+						if (check >= 225 && check < 315)			//hitting de right woll
+						{
+							if (ship1.mineList[x]->getVelocityX() > 0)
+							{
+								wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.mineList[x]->getDamage());
+								//ship1.mineList[x]->bounceCounter -= 1;
+								ship1.mineList[x]->setVelocityX(-ship1.mineList[x]->getVelocityX());
+							}
+						}
+					}
+				}
+			}
+
 			if (wallListList[i][j]->getHP() <= 0)
 			{
 				SAFE_DELETE(wallListList[i][j]);
 				wallListList[i].erase(wallListList[i].begin() + j);
-				
 			}
 		}
 
@@ -369,7 +417,7 @@ void Spacewar::collisions()
 			{
 				if (ship2.bulletList[x]->collidesWith(*wallListList[i][j], collisionVector))
 				{
-					if (ship2.bulletList[x]->bounce > 0)
+					if (ship2.bulletList[x]->bounceCounter > 0)
 					{
 						double check = (wallListList[i][j]->bulletbounce(* ship2.bulletList[x]));
 						{
@@ -378,7 +426,7 @@ void Spacewar::collisions()
 								if (ship2.bulletList[x]->getVelocityY()>0)
 								{
 									wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
-									ship2.bulletList[x]->bounce -= 1;
+									ship2.bulletList[x]->bounceCounter -= 1;
 									ship2.bulletList[x]->setVelocityY(-ship2.bulletList[x]->getVelocityY());
 								}
 							}
@@ -388,7 +436,7 @@ void Spacewar::collisions()
 								if (ship2.bulletList[x]->getVelocityX() < 0)
 								{
 									wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
-									ship2.bulletList[x]->bounce -= 1;
+									ship2.bulletList[x]->bounceCounter -= 1;
 									ship2.bulletList[x]->setVelocityX(-ship2.bulletList[x]->getVelocityX());
 								}
 							}
@@ -398,7 +446,7 @@ void Spacewar::collisions()
 								if (ship2.bulletList[x]->getVelocityY() < 0)
 								{
 									wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
-									ship2.bulletList[x]->bounce -= 1;
+									ship2.bulletList[x]->bounceCounter -= 1;
 									ship2.bulletList[x]->setVelocityY(-ship2.bulletList[x]->getVelocityY());
 								}
 							}
@@ -408,7 +456,7 @@ void Spacewar::collisions()
 								if (ship2.bulletList[x]->getVelocityX() > 0)
 								{
 									wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
-									ship2.bulletList[x]->bounce -= 1;
+									ship2.bulletList[x]->bounceCounter -= 1;
 									ship2.bulletList[x]->setVelocityX(-ship2.bulletList[x]->getVelocityX());
 								}
 							}
