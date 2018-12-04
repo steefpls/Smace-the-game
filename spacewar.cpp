@@ -570,6 +570,8 @@ void Spacewar::collisions()
 		{
 			ship1.setDamage(ship1.getDamage() + (ship2.bulletList[i]->getDamage()/ship1.getDamageResistance()));
 			ship1.bounce(collisionVector,*ship2.bulletList[i]);
+			SAFE_DELETE(ship2.bulletList[i]);
+			ship2.bulletList.erase(ship2.bulletList.begin() + i);
 		}
 	}
 	//if (ship1.collidesWith(missile1, collisionVector))
