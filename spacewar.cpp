@@ -360,10 +360,30 @@ void Spacewar::collisions()
 			{
 				if (ship2.bulletList[x]->collidesWith(*wallListList[i][j], collisionVector))
 				{
-					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
-					SAFE_DELETE(ship2.bulletList[x]);
-					ship2.bulletList.erase(ship2.bulletList.begin() + x);
-					
+					if (ship2.bulletList[x]->bounce > 0)
+					{
+						int check = (wallListList[i][j]->squarebounce(* ship2.bulletList[x]));
+
+						if (check == 1 || check == 3)
+						{
+							wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship2.bulletList[x]->getDamage()));
+							ship2.bulletList[x]->topbottombounce();
+						}
+						else if (check == 2 || check == 4)
+						{
+							wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship2.bulletList[x]->getDamage()));
+							ship2.bulletList[x]->leftrightbounce();
+						}
+
+						ship2.bulletList[x]->bounce -= 1;
+					}
+
+					if (ship2.bulletList[x]->bounce <= 0)
+					{
+						wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
+						SAFE_DELETE(ship2.bulletList[x]);
+						ship2.bulletList.erase(ship2.bulletList.begin() + x);
+					}		
 				}
 			}
 

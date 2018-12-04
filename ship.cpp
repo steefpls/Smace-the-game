@@ -233,7 +233,6 @@ void Ship::topbottomrotatebounce()	//rotation when hitting top and bottom walls
 	{
 		RotationRate -= damage * 300 * (velocity.y / 200);
 	}
-	
 }
 void Ship::leftrightrotatebounce()	//rotation when hitting left and right walls 
 {

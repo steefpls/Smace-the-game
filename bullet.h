@@ -40,8 +40,8 @@ namespace bulletNS
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
 	const float DAMAGE = 100.0f;
-	const int MAX_BOUNCES = 3;
-	static int BOUNCES = 0;
+	//const int MAX_BOUNCES = 3;
+	static int BOUNCES = 3;
 }
 
 // inherits from Entity class
@@ -62,6 +62,12 @@ public:
 	bool getdel();
 	void setAngle(float a);
 	float getDamage();
+
+	void topbottombounce();
+	void leftrightbounce();
+	
+	float RotationRate;
+	int bounce;
 	
 
 	//void damage(WEAPON);
