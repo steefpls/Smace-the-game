@@ -80,9 +80,15 @@ void Bullet::update(float frameTime)
 		spriteData.angle -= 2 * PI;			//Calculation done in radians
 	}
 
-	spriteData.angle = (spriteData.angle + ROTATION_RATE / 360 * 2 * PI * frameTime); // Final update missile rotation
-	
-
+	//bullet direction update
+	if (velocity.x >= 0)
+	{
+		spriteData.angle = atan(velocity.y / velocity.x) + PI / 2;
+	}
+	else
+	{
+		spriteData.angle = atan(velocity.y / velocity.x) - PI / 2;
+	}
 	//SHIP LOCATION UPDATEb
 	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
 	spriteData.y += (velocity.y  * frameTime); // Update Ship Y location

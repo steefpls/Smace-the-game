@@ -59,19 +59,23 @@ namespace shipNS
 
 	const float MAX_MISSILE_TIMER = 3.0f;
 	static float MISSILE_TIMER = 1.0f;
-	static bool CAN_MISILE = false;
+	
 
-	const float MAX_BULLET_TIMER = 1.0f;
+	const float MAX_BULLET_TIMER = 1.5f;
 	static float BULLET_TIMER = 0.5f;
-	static bool CAN_BULET = false;
+	
 
 	const float MAX_MINE_TIMER = 1.0f;
 	static float MINE_TIMER = 0.5f;
-	static bool CAN_MINE = false;
+	
+
+
 
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
 	const int MAX_MINES = 20;
+	static int NO_OF_BULLETS_SHOT = 4;
+	static double DEGREE_SPREAD = 20.0;
 }
 
 // inherits from Entity class
@@ -104,7 +108,7 @@ public:
 	void spawnmine();
 
 	void setMissileXY();
-	void setBulletXY();
+	void setBulletXY(double b);
 	void setMineXY();
 
 	float getmissiletimer();
@@ -112,6 +116,10 @@ public:
 	float getminetimer();
 
 	int getmaxmines();
+	int getnoofbullets();
+
+	double getdegreespread();
+
 	//keybinds
 	char player1Right = 'D';
 	char player1Left = 'A';
