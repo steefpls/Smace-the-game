@@ -165,9 +165,9 @@ void Spacewar::initialize(HWND hwnd)
 	return;
 }
 
-//=============================================================================
+//==========================================================================================================================================================================================================================
 // Update all game items
-//=============================================================================
+//==========================================================================================================================================================================================================================
 void Spacewar::update()
 {
 	//bullet1.update(frameTime); //update bullet frames
@@ -269,10 +269,14 @@ void Spacewar::update()
 
 	if (input->isKeyDown(SPACE) && ship2.getbullettimer() < 0)	//if Space is pressed, shoot bullets
 	{
-		ship2.spawnbullet();
-		ship2.bulletList[ship2.bulletList.size() - 1]->initialize(this, bulletNS::WIDTH, bulletNS::HEIGHT, bulletNS::TEXTURE_COLS, &bulletTexture);
-		ship2.setBulletXY();
-		
+		double degdiff = ship2.getdegreespread() / (ship2.getnoofbullets() - 1);
+
+		for (int i = 0; i < (ship2.getnoofbullets()); i++)
+		{
+			ship2.spawnbullet();
+			ship2.bulletList[ship2.bulletList.size() - 1]->initialize(this, bulletNS::WIDTH, bulletNS::HEIGHT, bulletNS::TEXTURE_COLS, &bulletTexture);
+			ship2.setBulletXY((-ship2.getdegreespread() / 2)+i*degdiff);
+		}
 	}
 
 	for (int i = 0; i < ship2.bulletList.size(); i++)	//Bullet Deletion when exits boundaries
@@ -519,10 +523,11 @@ void Spacewar::render()
 
 	nebula.draw();                          // add the orion nebula to the scene
 	planet.draw();                          // add the planet to the scene
+	blackhole1.draw();
 	ship1.draw();							// add the ship to the scene
 	ship2.draw();							// add the cooler ship to the scene
 	explosion1.draw();
-	blackhole1.draw();
+	
 
 	// draw walls
 	for (int i = 0; i<(wallListList.size());i++)

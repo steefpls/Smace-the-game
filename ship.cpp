@@ -201,11 +201,11 @@ void Ship::setMissileXY()
 	missileList[missileList.size() - 1]->setAngle(spriteData.angle);
 }
 
-void Ship::setBulletXY()
+void Ship::setBulletXY(double b)
 {
 	bulletList[bulletList.size() - 1]->setX(getCenterX() - ((bulletList[bulletList.size() - 1]->getWidth())*(bulletList[bulletList.size() - 1]->getScale()) / 2));
 	bulletList[bulletList.size() - 1]->setY(getCenterY() - ((bulletList[bulletList.size() - 1]->getHeight())*(bulletList[bulletList.size() - 1]->getScale()) / 2));
-	bulletList[bulletList.size() - 1]->setAngle(spriteData.angle);
+	bulletList[bulletList.size() - 1]->setAngle(spriteData.angle+((b/360)*2*PI));
 	
 	bulletList[bulletList.size() - 1]->setVelocityX(sin(bulletList[bulletList.size() - 1]->getRadians())*bulletList[bulletList.size() - 1]->getVelocityX());
 	bulletList[bulletList.size() - 1]->setVelocityY(-cos(bulletList[bulletList.size() - 1]->getRadians())*bulletList[bulletList.size() - 1]->getVelocityY());
@@ -225,6 +225,8 @@ int Ship::getmaxmines()
 {
 	return shipNS::MAX_MINES;
 }
+
+
 
 float Ship::getmissiletimer()
 {
@@ -287,4 +289,14 @@ void Ship::boost(bool b)
 		shipNS::X_ACC = shipNS::ORIGINAL_X;
 		shipNS::Y_ACC = shipNS::ORIGINAL_Y;
 	}
+}
+
+int Ship::getnoofbullets()
+{
+	return shipNS::NO_OF_BULLETS_SHOT;
+}
+
+double Ship::getdegreespread()
+{
+	return shipNS::DEGREE_SPREAD;
 }
