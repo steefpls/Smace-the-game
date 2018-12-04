@@ -74,10 +74,13 @@ void Mine::update(float frameTime)
 
 	spriteData.angle = (spriteData.angle + ROTATION_RATE / 360 * 2 * PI * frameTime); // Final update missile rotation
 
+	//Mine Drag
+	velocity.x = velocity.x - ((1 - mineNS::DRAG) *velocity.x) * frameTime;
+	velocity.y = velocity.y - ((1 - mineNS::DRAG) *velocity.y) * frameTime;   //Implementation of "Air" Resistance
 
 	//SHIP LOCATION UPDATEb
-	spriteData.x += (velocity.x * sin(spriteData.angle) * frameTime); // Update Ship X location
-	spriteData.y += (velocity.y * -cos(spriteData.angle) * frameTime); // Update Ship Y location
+	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
+	spriteData.y += (velocity.y  * frameTime); // Update Ship Y location
 }
 
 void Mine::setAngle(float a)
