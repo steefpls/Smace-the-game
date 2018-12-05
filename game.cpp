@@ -207,7 +207,7 @@ void Game::run(HWND hwnd)
     renderGame();                   // draw all game items
     input->readControllers();       // read state of controllers
 
-
+	
     // Clear input
     // Call this after all key checks are done
     input->clear(inputNS::KEYS_PRESSED);
