@@ -528,3 +528,17 @@ void Entity::setDamage(double d)
 {
 	damage = d;
 }
+
+//=================================================================
+// Get Explosion Blast
+//=================================================================
+void Entity::getExplosionBlast(Entity &ent2, float blastPower)
+{
+	float powerX = abs(ent2.getCenterX() - getCenterX());
+	float powerY = abs(ent2.getCenterY() - getCenterY());
+	float power = powerX+ powerY;
+	double angbet = anglebetween(ent2);
+	angbet = angbet * PI / 180;
+	ent2.setVelocityX(ent2.getVelocityX() + (blastPower * power * sin(angbet)));
+	ent2.setVelocityY(ent2.getVelocityY() + (blastPower * power * -cos(angbet)));
+}

@@ -35,10 +35,10 @@ Ship::Ship() : Entity()
 	edge.right = spriteData.width / 2;
 	edge.top = -spriteData.height / 2;
 	edge.bottom = spriteData.height / 2;
-
+	damagemultiplier = getKnockBack();
 	hp = shipNS::HP;
 
-	damageResistance = shipNS::DAMAGE_RESISTANCE;
+	//damageResistance = shipNS::DAMAGE_RESISTANCE;
 }
 
 //=============================================================================
@@ -76,6 +76,11 @@ void Ship::update(float frameTime)
 {
 	Entity::update(frameTime);
 
+	damagemultiplier = getKnockBack();
+	if (hp < 0)
+	{
+		hp == 0;
+	}
 	//------------Handle Ship Rotation on Key Press--------------
 
 	//Keeping the ranges of the angle to 0<x<360
@@ -349,5 +354,5 @@ float Ship::getDamageResistance()
 
 float Ship::getKnockBack()
 {
-	return 3000 / (hp + 1000);
+	return 6000 / (hp + 2000);
 }
