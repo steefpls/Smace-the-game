@@ -465,12 +465,6 @@ void Spacewar::update()
 		}
 	}
 
-	if (input->isKeyDown('E'))
-	{
-		deleteAll();
-		initialize(hwnd);
-	}
-
 	if (input->isKeyDown(ESC_KEY))
 	{
 		PostQuitMessage(0);

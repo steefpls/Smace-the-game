@@ -309,11 +309,11 @@ void Ship::leftrightrotatebounce()	//rotation when hitting left and right walls
 {
 	if (velocity.y > 0)	
 	{
-		RotationRate -= damage * 300 * (velocity.x / 200);
+		RotationRate -= getKnockBack() * 300 * (velocity.x / 200);
 	}
 	else
 	{
-		RotationRate += damage * 300 * (velocity.x / 200);
+		RotationRate += getKnockBack() * 300 * (velocity.x / 200);
 	}
 }
 

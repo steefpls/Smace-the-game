@@ -541,5 +541,4 @@ void Entity::getExplosionBlast(Entity &ent2, float blastPower)
 	angbet = (angbet * PI / 180)+0.005;		//So angbet is never exactly 0 or PI, since that causes wonky behaviour that I can't fix (steve)
 	ent2.setVelocityX(ent2.getVelocityX() + (blastPower * power * sin(angbet)));
 	ent2.setVelocityY(ent2.getVelocityY() + (blastPower * power * -cos(angbet)));
-	
 }
