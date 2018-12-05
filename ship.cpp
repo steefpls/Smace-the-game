@@ -90,6 +90,15 @@ void Ship::update(float frameTime)
 	}
 
 	//----------------------------------------------------------- Handling max rotation rate ---------------------------------------------
+	if (RotationRate > shipNS::ROTATION_RATE_CAP)
+	{
+		RotationRate = shipNS::ROTATION_RATE_CAP;
+	}
+	if (RotationRate < -shipNS::ROTATION_RATE_CAP)
+	{
+		RotationRate = -shipNS::ROTATION_RATE_CAP;
+	}
+
 
 	if (RotationRate < MaxRotationRate) //if ship is rotating at a speed less than the MAX_ROTATION_RATE
 	{
@@ -106,6 +115,7 @@ void Ship::update(float frameTime)
 			RotationRate -= RotationAccRate * frameTime; //Add rotation speed
 		}
 	}
+	
 
 	//================================================= Ship Rotation Drag Handling =====================================
 
