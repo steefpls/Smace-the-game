@@ -25,7 +25,8 @@ Blackhole::Blackhole() : Entity()
 	mass = MASS;
 	collisionType = entityNS::CIRCLE;
 	radius = WIDTH / 2;
-	
+	maxscale = MAX_SCALE;
+
 	growthrate = BLACKHOLE_GROWTH_RATE;
 
 	damage = DAMAGE;
@@ -76,7 +77,7 @@ void Blackhole::update(float frameTime)
 	}
 	//Scale update
 
-	if (spriteData.scale < 10)
+	if (spriteData.scale < maxscale)
 	{
 		spriteData.scale += growthrate *frameTime;
 		spriteData.x = spriteData.x - (growthrate  * spriteData.width / 2 * frameTime) ;

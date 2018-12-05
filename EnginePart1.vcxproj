@@ -101,6 +101,7 @@
     <ClCompile Include="missile.cpp" />
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="spacewar.cpp" />
+    <ClCompile Include="text.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="wall.cpp" />
     <ClCompile Include="winmain.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="missile.h" />
     <ClInclude Include="ship.h" />
     <ClInclude Include="spacewar.h" />
+    <ClInclude Include="text.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="wall.h" />
   </ItemGroup>

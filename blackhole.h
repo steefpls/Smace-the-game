@@ -46,7 +46,7 @@ namespace blackholeNS
 	const double BLACKHOLE_GROWTH_RATE = 0.5;		//scale per second
 	const double BLACKHOLE_SUCK_STRENGTH = 5000;		//pixels per second per second
 	const float SCALE = 1;
-}	const float MAX_SCALE = 1;			//MAX scale
+}	const float MAX_SCALE = 3;			//MAX scale
 
 // inherits from Entity class
 class Blackhole : public Entity

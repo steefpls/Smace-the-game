@@ -115,6 +115,7 @@ void Spacewar::initialize(HWND hwnd)
 	wallListList.push_back(wallListLeft);		//wallListList[1] = wallListLeft
 	wallListList.push_back(wallListRight);		//wallListList[0] = wallListRight
 
+
 	//missile texture
 	if (!missileTexture.initialize(graphics, MISSILE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing missile texture"));
@@ -151,6 +152,9 @@ void Spacewar::initialize(HWND hwnd)
 
 	//blackholeList.push_back(blackhole1);
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
+
+	gameOverText.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises test font
+	gameOverText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
 
 	// nebula
 	if (!nebula.initialize(graphics, 0, 0, 0, &nebulaTexture))
@@ -830,7 +834,9 @@ void Spacewar::render()
 
 	nebula.draw();                          // add the orion nebula to the scene
 	planet.draw();                          // add the planet to the scene
-	
+
+	gameOverText.print("Player 1\n     v", ship1.getCenterX()-67, ship1.getCenterY() - spacewarNS::FONT_SIZE / 2 - spacewarNS::FONT_SIZE*2);
+
 	//draw blackholes from ship 2
 	if (ship2.blackholeList.size() > 0)
 	{

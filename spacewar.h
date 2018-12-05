@@ -10,10 +10,17 @@
 #include "wall.h"
 #include "explosion.h"
 #include "blackhole.h"
+#include "text.h"
 
 #include <iostream>
 #include <list>
 #include <vector>
+namespace spacewarNS
+{
+	const char FONT[] = "Arial Bold";  // font
+	const int FONT_SIZE = 48;     // font height
+	const COLOR_ARGB FONT_COLOR = graphicsNS::YELLOW;
+}
 //=============================================================================
 // Create game class
 //=============================================================================
@@ -46,7 +53,7 @@ private:
 	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists;
 	std::vector<Explosion *> explosionList;
 
-	
+	Text gameOverText;	//testing
 	
 	const char player1Primary = 'C';
 	const char player1Secondary = 'X';

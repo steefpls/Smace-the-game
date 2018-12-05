@@ -153,6 +153,9 @@ public:
     // Return device3d.
     LP_3DDEVICE get3Ddevice()   { return device3d; }
 
+	//Return sprite
+	LP_SPRITE getSprite()		 { return sprite; }
+
     // Return handle to device context (window).
     HDC     getDC()             { return GetDC(hwnd); }
 
