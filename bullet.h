@@ -2,6 +2,8 @@
 //  Assignment1:        Ships and Shapes
 //  Student Name:       Steven Koe
 //  Student Number:     S10181536D
+//  Student Name:       Jedidiah Wong
+//  Student Number:     S10178790F
 
 #ifndef _BULLET_H                 // Prevent multiple definitions if this 
 #define _BULLET_H                 // file is included in more than one place

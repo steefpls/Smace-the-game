@@ -2,6 +2,8 @@
 //  Assignment1:        Ships and Shapes
 //  Student Name:       Steven Koe
 //  Student Number:     S10181536D
+//  Student Name:       Jedidiah Wong
+//  Student Number:     S10178790F
 
 #include "mine.h"
 using namespace mineNS;
