@@ -35,7 +35,7 @@ namespace blackholeNS
 	const int   BLACKHOLE_START_FRAME = 0;      // ship1 starts at frame 0
 	const int   BLACKHOLE_END_FRAME = 35;        // ship1 animation frames 0,1,2,3
 	const float BLACKHOLE_ANIMATION_DELAY = 0.01f;    // time between frames
-	static float SCALE = 1;			//ship scale
+	
 
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
@@ -45,7 +45,8 @@ namespace blackholeNS
 
 	const double BLACKHOLE_GROWTH_RATE = 0.5;		//scale per second
 	const double BLACKHOLE_SUCK_STRENGTH = 5000;		//pixels per second per second
-}
+	const float SCALE = 1;
+}	const float MAX_SCALE = 1;			//MAX scale
 
 // inherits from Entity class
 class Blackhole : public Entity
@@ -55,6 +56,8 @@ private:
 	//Image   shield;
 	double growthrate;
 	double suckstrength;	//pixels per second
+	float maxscale;		//max scale of black hole
+
 public:
 	// constructor
 	Blackhole();

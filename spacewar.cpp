@@ -185,8 +185,11 @@ void Spacewar::update()
 		explosionList[i]->update(frameTime);
 		if (explosionList[i]->getCurrentFrame() == explosionList[i]->getEndFrame())
 		{
-			SAFE_DELETE(explosionList[i]);
-			explosionList.erase(explosionList.begin() + i);
+			if (explosionList[i] != NULL)
+			{
+				SAFE_DELETE(explosionList[i]);
+				explosionList.erase(explosionList.begin() + i);
+			}
 		}
 	}
 	
@@ -222,15 +225,21 @@ void Spacewar::update()
 
 	for (int i = 0; i < ship1.missileList.size(); i++)				//check if missile is out of bounds
 	{
-		if (ship1.missileList[i]->getX() > GAME_WIDTH || ship1.missileList[i]->getX() < 0 - ship1.missileList[i]->getHeight())
+		if (ship1.missileList[i]->getX() > GAME_WIDTH || ship1.missileList[i]->getX() < 0 - ship1.missileList[i]->getHeight()*ship1.missileList[i]->getScale())
 		{
-			SAFE_DELETE(ship1.missileList[i]);
-			ship1.missileList.erase(ship1.missileList.begin() + i);
+			if (ship1.missileList[i] != NULL)
+			{
+				SAFE_DELETE(ship1.missileList[i]);
+				ship1.missileList.erase(ship1.missileList.begin() + i);
+			}
 		}
-		else if (ship1.missileList[i]->getY() > GAME_HEIGHT || ship1.missileList[i]->getY() < 0 - ship1.missileList[i]->getHeight())
+		else if (ship1.missileList[i]->getY() > GAME_HEIGHT || ship1.missileList[i]->getY() < 0 - ship1.missileList[i]->getHeight()*ship1.missileList[i]->getScale())
 		{
-			SAFE_DELETE(ship1.missileList[i]);
-			ship1.missileList.erase(ship1.missileList.begin() + i);	
+			if (ship1.missileList[i] != NULL)
+			{
+				SAFE_DELETE(ship1.missileList[i]);
+				ship1.missileList.erase(ship1.missileList.begin() + i);
+			}
 		}
 	}
 
@@ -241,8 +250,11 @@ void Spacewar::update()
 		ship1.mineList[ship1.mineList.size() - 1]->initialize(this, mineNS::WIDTH, mineNS::HEIGHT, mineNS::TEXTURE_COLS, &mineTexture);
 		if (ship1.mineList.size() > ship1.getmaxmines())
 		{
-			SAFE_DELETE(ship1.mineList[0]);
-			ship1.mineList.erase(ship1.mineList.begin() + 0);
+			if (ship1.mineList[0] != NULL)
+			{
+				SAFE_DELETE(ship1.mineList[0]);
+				ship1.mineList.erase(ship1.mineList.begin() + 0);
+			}
 		}
 		ship1.setMineXY();
 	}
@@ -252,17 +264,23 @@ void Spacewar::update()
 		ship1.mineList[i]->update(frameTime);
 	}
 
-	for (int i = 0; i < ship1.mineList.size(); i++)	//Bullet Deletion when exits boundaries
+	for (int i = 0; i < ship1.mineList.size(); i++)	//MINE Deletion when exits boundaries
 	{
-		if (ship1.mineList[i]->getX() > GAME_WIDTH || ship1.mineList[i]->getX() < 0 - ship1.mineList[i]->getHeight())
+		if (ship1.mineList[i]->getX() > GAME_WIDTH || ship1.mineList[i]->getX() < 0 - ship1.mineList[i]->getWidth()* ship1.mineList[i]->getScale())
 		{
-			SAFE_DELETE(ship1.mineList[i]);
-			ship1.mineList.erase(ship1.mineList.begin() + i);
+			if (ship1.mineList[i] != NULL)
+			{
+				SAFE_DELETE(ship1.mineList[i]);
+				ship1.mineList.erase(ship1.mineList.begin() + i);
+			}
 		}
-		else if (ship1.mineList[i]->getY() > GAME_HEIGHT || ship1.mineList[i]->getY() < 0 - ship1.mineList[i]->getHeight())
+		else if (ship1.mineList[i]->getY() > GAME_HEIGHT || ship1.mineList[i]->getY() < 0 - ship1.mineList[i]->getHeight()* ship1.mineList[i]->getScale())
 		{
-			SAFE_DELETE(ship1.mineList[i]);
-			ship1.mineList.erase(ship1.mineList.begin() + i);
+			if (ship1.mineList[i] != NULL)
+			{
+				SAFE_DELETE(ship1.mineList[i]);
+				ship1.mineList.erase(ship1.mineList.begin() + i);
+			}
 		}
 	}
 
@@ -302,13 +320,19 @@ void Spacewar::update()
 	{
 		if (ship2.bulletList[i]->getX() > GAME_WIDTH || ship2.bulletList[i]->getX() < 0 - ship2.bulletList[i]->getHeight())
 		{
-			SAFE_DELETE(ship2.bulletList[i]);
-			ship2.bulletList.erase(ship2.bulletList.begin() + i);
+			if (ship2.bulletList[i] != NULL)
+			{
+				SAFE_DELETE(ship2.bulletList[i]);
+				ship2.bulletList.erase(ship2.bulletList.begin() + i);
+			}
 		}
 		else if (ship2.bulletList[i]->getY() > GAME_HEIGHT || ship2.bulletList[i]->getY() < 0 - ship2.bulletList[i]->getHeight())
 		{
-			SAFE_DELETE(ship2.bulletList[i]);
-			ship2.bulletList.erase(ship2.bulletList.begin() + i);
+			if (ship2.bulletList[i] != NULL)
+			{
+				SAFE_DELETE(ship2.bulletList[i]);
+				ship2.bulletList.erase(ship2.bulletList.begin() + i);
+			}
 		}
 	}
 
@@ -375,8 +399,11 @@ void Spacewar::collisions()
 					explosionList[explosionList.size() - 1]->setX(ship1.missileList[x]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth());
 					explosionList[explosionList.size() - 1]->setY(ship1.missileList[x]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.missileList[x]->getDamage());
-					SAFE_DELETE(ship1.missileList[x]);
-					ship1.missileList.erase(ship1.missileList.begin() + x);		
+					if (ship1.missileList[x] != NULL)
+					{
+						SAFE_DELETE(ship1.missileList[x]);
+						ship1.missileList.erase(ship1.missileList.begin() + x);
+					}
 				}
 			}
 
@@ -431,8 +458,11 @@ void Spacewar::collisions()
 
 			if (wallListList[i][j]->getHP() <= 0)
 			{
-				SAFE_DELETE(wallListList[i][j]);
-				wallListList[i].erase(wallListList[i].begin() + j);
+				if (wallListList[i][j] != NULL)
+				{
+					SAFE_DELETE(wallListList[i][j]);
+					wallListList[i].erase(wallListList[i].begin() + j);
+				}
 			}
 		}
 
@@ -509,8 +539,11 @@ void Spacewar::collisions()
 					else
 					{
 						wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
-						SAFE_DELETE(ship2.bulletList[x]);
-						ship2.bulletList.erase(ship2.bulletList.begin() + x);
+						if (wallListList[i][j] != NULL)
+						{
+							SAFE_DELETE(ship2.bulletList[x]);
+							ship2.bulletList.erase(ship2.bulletList.begin() + x);
+						}
 					}
 				}
 			}
@@ -525,8 +558,11 @@ void Spacewar::collisions()
 
 			if (wallListList[i][j]->getHP() <= 0)
 			{
-				SAFE_DELETE(wallListList[i][j]);
-				wallListList[i].erase(wallListList[i].begin() + j);
+				if (wallListList[i][j] != NULL)
+				{
+					SAFE_DELETE(wallListList[i][j]);
+					wallListList[i].erase(wallListList[i].begin() + j);
+				}
 			}
 		}
 	}
@@ -540,9 +576,11 @@ void Spacewar::collisions()
 			{
 				ship1.mineList[i]->bounce(collisionVector, *ship2.bulletList[j]);
 				ship1.mineList[i]->setHP(ship1.mineList[i]->getHP() - ship2.bulletList[j]->getDamage());
-
-				SAFE_DELETE(ship2.bulletList[j]);
-				ship2.bulletList.erase(ship2.bulletList.begin() + j);
+				if (ship2.bulletList[j] != NULL)
+				{
+					SAFE_DELETE(ship2.bulletList[j]);
+					ship2.bulletList.erase(ship2.bulletList.begin() + j);
+				}
 			}
 		}
 
@@ -562,8 +600,11 @@ void Spacewar::collisions()
 			if (ship1.mineList[i]->collidesWith(*ship1.missileList[j], collisionVector))
 			{
 				ship1.mineList[i]->setHP(ship1.mineList[i]->getHP() - ship1.missileList[j]->getDamage());
-				SAFE_DELETE(ship1.missileList[j]);
-				ship1.missileList.erase(ship1.missileList.begin() + j);
+				if (ship1.missileList[j] != NULL)
+				{
+					SAFE_DELETE(ship1.missileList[j]);
+					ship1.missileList.erase(ship1.missileList.begin() + j);
+				}
 			}
 		}
 
@@ -587,8 +628,11 @@ void Spacewar::collisions()
 			explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
 			explosionList[explosionList.size() - 1]->setX(ship1.mineList[i]->getCenterX()-explosionList[explosionList.size()-1]->getWidth());
 			explosionList[explosionList.size() - 1]->setY(ship1.mineList[i]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
-			SAFE_DELETE(ship1.mineList[i]);
-			ship1.mineList.erase(ship1.mineList.begin() + i);
+			if (ship1.mineList[i] != NULL)
+			{
+				SAFE_DELETE(ship1.mineList[i]);
+				ship1.mineList.erase(ship1.mineList.begin() + i);
+			}
 		}		
 	}
 
@@ -603,8 +647,11 @@ void Spacewar::collisions()
 		{
 			ship1.setHP(ship1.getHP() - (ship2.bulletList[i]->getDamage()));
 			//ship1.bounce(collisionVector,*ship2.bulletList[i]);
-			SAFE_DELETE(ship2.bulletList[i]);
-			ship2.bulletList.erase(ship2.bulletList.begin() + i);
+			if (ship2.bulletList[i] != NULL)
+			{
+				SAFE_DELETE(ship2.bulletList[i]);
+				ship2.bulletList.erase(ship2.bulletList.begin() + i);
+			}
 		}
 
 		for (int j = 0; j < (ship1.missileList.size()); j++)
@@ -616,8 +663,11 @@ void Spacewar::collisions()
 				explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
 				explosionList[explosionList.size() - 1]->setX(ship1.missileList[j]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth());
 				explosionList[explosionList.size() - 1]->setY(ship1.missileList[j]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
-				SAFE_DELETE(ship1.missileList[j], collisionVector);
-				ship1.missileList.erase(ship1.missileList.begin() + j);
+				if (ship1.missileList[j] != NULL)
+				{
+					SAFE_DELETE(ship1.missileList[j], collisionVector);
+					ship1.missileList.erase(ship1.missileList.begin() + j);
+				}
 			}
 		}
 	}
@@ -638,8 +688,11 @@ void Spacewar::collisions()
 			explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
 			explosionList[explosionList.size() - 1]->setX(ship1.missileList[i]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth());
 			explosionList[explosionList.size() - 1]->setY(ship1.missileList[i]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
-			SAFE_DELETE(ship1.missileList[i]);
-			ship1.missileList.erase(ship1.missileList.begin() + i);
+			if (ship1.missileList[i] != NULL)
+			{
+				SAFE_DELETE(ship1.missileList[i]);
+				ship1.missileList.erase(ship1.missileList.begin() + i);
+			}
 		}
 	}
 
