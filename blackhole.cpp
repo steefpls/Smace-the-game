@@ -25,6 +25,8 @@ Blackhole::Blackhole() : Entity()
 	mass = MASS;
 	collisionType = entityNS::CIRCLE;
 	radius = WIDTH / 2;
+	
+	growthrate = BLACKHOLE_GROWTH_RATE;
 
 	damage = DAMAGE;
 }
@@ -73,9 +75,12 @@ void Blackhole::update(float frameTime)
 		spriteData.angle -= 2 * PI;			//Calculation done in radians
 	}
 	//Scale update
+
 	if (spriteData.scale < 1)
 	{
-		spriteData.scale += 0.01*frameTime;
+		spriteData.scale += growthrate *frameTime;
+		spriteData.x = spriteData.x - (growthrate  * spriteData.width / 2 * frameTime) ;
+		spriteData.y = spriteData.y - (growthrate  * spriteData.height / 2 * frameTime) ;
 	}
 
 	//bullet direction update
@@ -87,7 +92,13 @@ void Blackhole::update(float frameTime)
 	{
 		spriteData.angle = atan(velocity.y / velocity.x) - PI / 2;
 	}
-	//SHIP LOCATION UPDATEb
+
+	//Black hole Drag
+	velocity.x = velocity.x - ((1 - blackholeNS::DRAG) *velocity.x) * frameTime;
+	velocity.y = velocity.y - ((1 - blackholeNS::DRAG) *velocity.y) * frameTime;   //Implementation of "Air" Resistance
+
+	//SHIP LOCATION UPDATE
+	
 	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
 	spriteData.y += (velocity.y  * frameTime); // Update Ship Y location
 

@@ -42,6 +42,8 @@ namespace blackholeNS
 	const float DAMAGE = 200.0f;
 	const int MAX_BOUNCES = 3;
 	static int BOUNCES = 0;
+
+	const double BLACKHOLE_GROWTH_RATE = 0.1;		//scale per second
 }
 
 // inherits from Entity class
@@ -50,6 +52,7 @@ class Blackhole : public Entity
 private:
 	//bool    shieldOn;
 	//Image   shield;
+	double growthrate;
 public:
 	// constructor
 	Blackhole();

@@ -609,7 +609,16 @@ void Spacewar::render()
 
 	nebula.draw();                          // add the orion nebula to the scene
 	planet.draw();                          // add the planet to the scene
-	
+
+	// draw walls
+	for (int i = 0; i < (wallListList.size()); i++)
+	{
+		for (int j = 0; j < (wallListList[i].size()); j++)
+		{
+			wallListList[i][j]->draw();
+		}
+	}
+
 	//draw blackholes from ship 2
 	if (ship2.blackholeList.size() > 0)
 	{
@@ -630,14 +639,7 @@ void Spacewar::render()
 		}
 	}
 
-	// draw walls
-	for (int i = 0; i<(wallListList.size());i++)
-	{
-		for(int j = 0; j<(wallListList[i].size());j++)
-		{
-			wallListList[i][j]->draw();
-		}
-	}
+	
 
 	//draw missiles from ship 1
 	if (ship1.missileList.size() > 0)
