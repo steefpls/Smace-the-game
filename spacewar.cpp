@@ -595,10 +595,14 @@ void Spacewar::collisions()
 	//BULLET COLLISION
 	for (int i = 0; i < (ship2.bulletList.size()); i++)
 	{
+		if (ship1.collidesWith(*ship2.bulletList[i], collisionVector))
+		{
+			ship1.bounce(collisionVector, *ship2.bulletList[i]);
+		}
 		if (ship2.bulletList[i]->collidesWith(ship1, collisionVector))
 		{
 			ship1.setDamage(ship1.getDamage() + (ship2.bulletList[i]->getDamage()/ship1.getDamageResistance()));
-			ship1.bounce(collisionVector,*ship2.bulletList[i]);
+			//ship1.bounce(collisionVector,*ship2.bulletList[i]);
 			SAFE_DELETE(ship2.bulletList[i]);
 			ship2.bulletList.erase(ship2.bulletList.begin() + i);
 		}
@@ -623,6 +627,12 @@ void Spacewar::collisions()
 	{
 		if (ship1.missileList[i]->collidesWith(ship2,collisionVector))
 		{
+
+			if (ship2.collidesWith(*ship1.missileList[i], collisionVector))
+			{
+				ship2.bounce(collisionVector, *ship1.missileList[i]);
+			}
+			ship2.setDamage(ship2.getDamage() + ship1.missileList[i]->getDamage());
 			explosionList.push_back(new Explosion);
 			explosionList[explosionList.size() - 1]->initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture);
 			explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
@@ -682,6 +692,15 @@ void Spacewar::collisions()
 			ship2.setDamage(ship2.getDamage() + explosionList[i]->getDamage() / ship2.getDamageResistance());
 			ship2.bounce(collisionVector, *explosionList[i]);
 		}
+	}
+
+	if (ship1.collidesWith(ship2, collisionVector))
+	{
+		ship1.bounce(collisionVector, ship2);
+	}
+	if (ship2.collidesWith(ship1, collisionVector))
+	{
+		ship2.bounce(collisionVector, ship1);
 	}
 	//if (ship1.collidesWith(missile1, collisionVector))
 	//{
