@@ -179,20 +179,20 @@ void Spacewar::initialize(HWND hwnd)
 	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
 
 	Player1Label.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
-	Player1Label.setFontColor(SETCOLOR_ARGB(200, 196, 218, 255));
+	Player1Label.setFontColor(SETCOLOR_ARGB(255, 19, 25, 48));
 	
 
 	Player1DamagePercent.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
-	Player1DamagePercent.setFontColor(SETCOLOR_ARGB(255, 196, 218, 255));
+	Player1DamagePercent.setFontColor(SETCOLOR_ARGB(255, 19, 25, 48));
 
 	Player2Label.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
-	Player2Label.setFontColor(SETCOLOR_ARGB(200, 255, 190, 183));
+	Player2Label.setFontColor(SETCOLOR_ARGB(255, 79, 4, 4));
 
 	Player2DamagePercent.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
-	Player2DamagePercent.setFontColor(SETCOLOR_ARGB(255, 255, 190, 183));
+	Player2DamagePercent.setFontColor(SETCOLOR_ARGB(255, 79, 4, 4));
 
 	gameOverText.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
-	gameOverText.setFontColor(SETCOLOR_ARGB(255, 223, 204, 255));
+	gameOverText.setFontColor(SETCOLOR_ARGB(255, 30, 27, 35));
 
 	// nebula
 	if (!nebula.initialize(graphics, 0, 0, 0, &nebulaTexture))
@@ -1040,6 +1040,32 @@ void Spacewar::render()
 
 	Player2DamagePercent.print("Player 2\n" + ship2.getdamagestring(), GAME_WIDTH -5*spacewarNS::FONT_SIZE, GAME_HEIGHT - spacewarNS::FONT_SIZE * 2);		//Render Player Health Text
 	Player2Label.print("Player 2\n     v", ship2.getCenterX() - 67, ship2.getCenterY() - spacewarNS::FONT_SIZE / 2 - spacewarNS::FONT_SIZE * 2);		//Render Player Label Text
+	
+	if (ship1.lifeList.size() <= 0)
+	{
+		trigger += 1;
+	}
+	else if (ship2.lifeList.size() <= 0)
+	{
+		trigger += 1;
+	}
+	
+	if (trigger == 1)
+	{
+		if (ship1.getLifeCount() < ship2.getLifeCount())
+		{
+			triggeredship = "Player 2";
+		}
+		else if (ship1.getLifeCount() > ship2.getLifeCount())
+		{
+			triggeredship = "Player 1";
+		}
+	}
+
+	if (trigger >= 1)
+	{
+		gameOverText.print(triggeredship + " won!", GAME_WIDTH / 2, GAME_HEIGHT / 2);		//Render Player Label Text
+	}
 
 	
 
