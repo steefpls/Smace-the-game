@@ -1,7 +1,4 @@
-//  Module:             Gameplay Programming
-//  Assignment1:        Ships and Shapes
-//  Student Name:       Steven Koe
-//  Student Number:     S10181536D
+
 
 #ifndef _TEXTDX_H               // Prevent multiple definitions if this 
 #define _TEXTDX_H               // file is included in more than one place
