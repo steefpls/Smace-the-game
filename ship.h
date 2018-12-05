@@ -60,19 +60,22 @@ namespace shipNS
 	//static bool CAN_DASH = false;
 	const float BOOST_AMT = 400; //pixels per second
 
-	const float MAX_MISSILE_TIMER = 3.0f;
-	static float MISSILE_TIMER = 1.0f;
+	//Missile
+	const float MAX_MISSILE_TIMER = 1.5f;
+	static float MISSILE_TIMER = 0.5f;
 	
-
+	//bullet
 	const float MAX_BULLET_TIMER = 1.5f;
 	static float BULLET_TIMER = 0.5f;
 	
-
+	//Mine
 	const float MAX_MINE_TIMER = 1.0f;
 	static float MINE_TIMER = 0.5f;
 	
-	const float MAX_BLACKHOLE_TIMER = 10.0f;
+	//blackhole
+	const float MAX_BLACKHOLE_TIMER = 5.0f;
 	static float BLACKHOLE_TIMER = 1.0f;
+	
 
 
 
