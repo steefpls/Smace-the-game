@@ -1,3 +1,8 @@
+//  Module:             Gameplay Programming
+//  Assignment1:        Ships and Shapes
+//  Student Name:       your name
+//  Student Number:     your student number
+
 #include "blackhole.h"
 #include "wall.h"
 using namespace blackholeNS;

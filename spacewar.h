@@ -1,3 +1,7 @@
+//  Module:             Gameplay Programming
+//  Assignment1:        Ships and Shapes
+//  Student Name:       your name
+//  Student Number:     your student number
 
 #ifndef _SPACEWAR_H             // prevent multiple definitions if this 
 #define _SPACEWAR_H             // ..file is included in more than one place

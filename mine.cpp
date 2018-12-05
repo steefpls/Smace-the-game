@@ -1,3 +1,8 @@
+//  Module:             Gameplay Programming
+//  Assignment1:        Ships and Shapes
+//  Student Name:       your name
+//  Student Number:     your student number
+
 #include "mine.h"
 using namespace mineNS;
 //=============================================================================

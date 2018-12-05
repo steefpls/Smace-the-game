@@ -1,3 +1,8 @@
+//  Module:             Gameplay Programming
+//  Assignment1:        Ships and Shapes
+//  Student Name:       your name
+//  Student Number:     your student number
+
 #ifndef _EXPLOSION_H
 #define _EXPLOSION_H
 #define WIN32_LEAN_AND_MEAN
