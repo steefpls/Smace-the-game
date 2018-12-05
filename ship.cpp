@@ -36,6 +36,8 @@ Ship::Ship() : Entity()
 	edge.top = -spriteData.height / 2;
 	edge.bottom = spriteData.height / 2;
 
+	hp = shipNS::HP;
+
 	damageResistance = shipNS::DAMAGE_RESISTANCE;
 }
 
@@ -277,11 +279,11 @@ void Ship::topbottomrotatebounce()	//rotation when hitting top and bottom walls
 {
 	if (velocity.x > 0)	
 	{
-		RotationRate += damage * 300 * (velocity.y / 200);	 
+		RotationRate += getKnockBack() * 300 * (velocity.y / 200);	 
 	}
 	else
 	{
-		RotationRate -= damage * 300 * (velocity.y / 200);
+		RotationRate -= getKnockBack() * 300 * (velocity.y / 200);
 	}
 }
 void Ship::leftrightrotatebounce()	//rotation when hitting left and right walls 
@@ -333,4 +335,9 @@ double Ship::getdegreespread()
 float Ship::getDamageResistance()
 {
 	return damageResistance;
+}
+
+float Ship::getKnockBack()
+{
+	return 3000 / (hp + 1000);
 }
