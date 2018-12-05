@@ -1,3 +1,5 @@
+//for future use
+
 #include "healthbar.h"
 #include "wall.h"
 using namespace healthbarNS;
