@@ -77,7 +77,7 @@ namespace shipNS
 	static float BLACKHOLE_TIMER = 1.0f;
 	
 	//Arbritrary values
-	static float DAMAGE_MULTIPLIER = 1.0;
+	static double DAMAGE_MULTIPLIER = 1.0;
 	static float DAMAGE_RESISTANCE = 1000.0;
 	const int MAX_MINES = 20;
 	static int NO_OF_BULLETS_SHOT = 4;

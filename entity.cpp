@@ -19,6 +19,7 @@ Entity::Entity() : Image()
 	active = true;                  // the entity is active
 	rotatedBoxReady = false;
 	collisionType = entityNS::NONE;
+	damagemultiplier = 1.0;
 }
 
 //=============================================================================
@@ -400,11 +401,11 @@ void Entity::bounce(VECTOR2 &collisionVector, Entity &ent)
 	// Move entities apart along collisionVector
 	if (cUVdotVdiff > 0)
 	{
-		setX(getX() - cUV.x * massRatio);
-		setY(getY() - cUV.y * massRatio);
+		setX(getX() - cUV.x * massRatio * damagemultiplier);
+		setY(getY() - cUV.y * massRatio * damagemultiplier);
 	}
 	else
-		deltaV += ((massRatio * cUVdotVdiff) * cUV);
+		deltaV += ((massRatio * cUVdotVdiff) * cUV*damagemultiplier);
 }
 
 //=============================================================================

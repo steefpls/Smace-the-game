@@ -37,7 +37,9 @@ protected:
 	double maxhp;			//maxhp
 	double hppercentage;	//hp percentage
 	double randval;			//Random Degree variance
-	double damage;			//damage multiplier
+	double damage;			//damage done
+	double damagemultiplier; //Damage multiplier
+	
 	
 
 
