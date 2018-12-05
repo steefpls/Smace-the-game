@@ -86,7 +86,7 @@ void Mine::update(float frameTime)
 
 void Mine::setAngle(float a)
 {
-	spriteData.angle = a + ((rand() % 7 - 3) / 360 * 2 * PI);
+	spriteData.angle = a;
 }
 
 float Mine::getDamage()

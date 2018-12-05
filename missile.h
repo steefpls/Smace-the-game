@@ -23,13 +23,13 @@ namespace missileNS
 
 	
 	//2d Movement
-	static float X_SPEED = 100.0f;                // pixels per second
-	static float Y_SPEED = 100.0f;                // pixels per second
-	static float X_ACC = 40000.0f;			//pixels per second per second
-	static float Y_ACC = 40000.0f;			//pixels per second per second
+	static float X_SPEED = 0.0f;                // pixels per second
+	static float Y_SPEED = 0.0f;                // pixels per second
+	static float X_ACC = 2000.0f;			//pixels per second per second
+	static float Y_ACC = 2000.0f;			//pixels per second per second
 	static float DRAG = 98 / 100;			//air resistance (IK its in space but stfu)
 	const float MASS = 300.0f;              // mass
-	const float MAX_VELOCITY = 40000.0f;		//max speed
+	const float MAX_VELOCITY = 2000.0f;		//max speed 
 	//Textures
 	const int   TEXTURE_COLS = 1;           // texture has 2 columns
 	const int   MISSILE_START_FRAME = 0;      // ship1 starts at frame 0
@@ -48,6 +48,9 @@ class Missile : public Entity
 private:
 	//bool    shieldOn;
 	//Image   shield;
+	float xacc = missileNS::X_ACC;
+	float yacc = missileNS::Y_ACC;
+
 public:
 	// constructor
 	Missile();

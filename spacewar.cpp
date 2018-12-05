@@ -676,6 +676,23 @@ void Spacewar::collisions()
 				
 			}
 		}
+		for (int j = 0; j < (ship1.missileList.size()); j++)
+		{
+			if (ship2.blackholeList[i]->collidesWith(*ship1.missileList[j], collisionVector))
+			{
+
+				double angbet = ship2.blackholeList[i]->anglebetween(*ship1.missileList[j]);
+				angbet += 180.0;
+				if (angbet > 360) { angbet -= 360; }
+				
+				
+
+				ship1.missileList[j]->setVelocityX(ship1.missileList[j]->getVelocityX() + ((sin(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength())*frameTime));
+				ship1.missileList[j]->setVelocityY(ship1.missileList[j]->getVelocityY() - ((cos(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength())*frameTime));
+
+
+			}
+		}
 	}
 
 	//EXPLOSION COLLISION

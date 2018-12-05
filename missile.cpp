@@ -15,6 +15,9 @@ Missile::Missile() : Entity()
 	spriteData.rect.right = WIDTH;
 	velocity.x = X_SPEED;                             // velocity X
 	velocity.y = Y_SPEED;                             // velocity Y
+	xacc = X_ACC;
+	yacc = Y_ACC;
+
 	maxvel = MAX_VELOCITY;							// Max Velocity
 	frameDelay = MISSILE_ANIMATION_DELAY;
 	startFrame = MISSILE_START_FRAME;     // first frame of ship animation
@@ -80,20 +83,25 @@ void Missile::update(float frameTime)
 
 	spriteData.angle = (spriteData.angle + ROTATION_RATE / 360 * 2 * PI * frameTime); // Final update missile rotation
 
-	if (abs(sin(spriteData.angle)*velocity.x)<= abs(sin(spriteData.angle)*maxvel) && abs(cos(spriteData.angle)*velocity.y) <= abs(cos(spriteData.angle)*maxvel))
+	if (abs(velocity.x*sin(spriteData.angle)) < abs(missileNS::MAX_VELOCITY*sin(spriteData.angle)))
 	{
-		velocity.x += sin(spriteData.angle) * X_ACC * frameTime;
-		velocity.y -= cos(spriteData.angle) * Y_ACC * frameTime;   //Position update
+		velocity.x += xacc * sin(spriteData.angle)*frameTime;
 	}
+	if (abs(velocity.y*-cos(spriteData.angle)) < abs(missileNS::MAX_VELOCITY*-cos(spriteData.angle)))
+	{
+		velocity.y += yacc * -cos(spriteData.angle)*frameTime;
+	}
+	
+	
 
 	//SHIP LOCATION UPDATEb
-	spriteData.x += (velocity.x * spriteData.scale * frameTime); // Update Ship X location
-	spriteData.y += (velocity.y * spriteData.scale * frameTime); // Update Ship Y location
+	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
+	spriteData.y += (velocity.y  * frameTime); // Update Ship Y location
 
 }
 void Missile::setAngle(float a)
 {
-	spriteData.angle = a+ ((rand() % 7 - 3)/360*2*PI);
+	spriteData.angle = a;
 }
 
 float Missile::getDamage()

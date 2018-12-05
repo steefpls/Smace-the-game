@@ -78,7 +78,7 @@ void Healthbar::update(float frameTime)
 }
 void Healthbar::setAngle(float a)
 {
-	spriteData.angle = a + ((rand() % 7 - 3) / 360 * 2 * PI);
+	spriteData.angle = a;
 }
 
 //float Healtbar::getDamage()

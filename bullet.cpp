@@ -96,7 +96,7 @@ void Bullet::update(float frameTime)
 }
 void Bullet::setAngle(float a)
 {
-	spriteData.angle = a + ((rand() % 7 - 3) / 360 * 2 * PI);
+	spriteData.angle = a;
 }
 
 float Bullet::getDamage()

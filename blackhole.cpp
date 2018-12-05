@@ -105,7 +105,7 @@ void Blackhole::update(float frameTime)
 }
 void Blackhole::setAngle(float a)
 {
-	spriteData.angle = a + ((rand() % 7 - 3) / 360 * 2 * PI);
+	spriteData.angle = a;
 }
 
 float Blackhole::getDamage()
