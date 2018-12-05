@@ -65,11 +65,11 @@ namespace shipNS
 	static float MISSILE_TIMER = 0.5f;
 	
 	//bullet
-	const float MAX_BULLET_TIMER = 1.5f;
+	const float MAX_BULLET_TIMER = 0.75f;
 	static float BULLET_TIMER = 0.5f;
 	
 	//Mine
-	const float MAX_MINE_TIMER = 1.5f;
+	const float MAX_MINE_TIMER = 0.5f;
 	static float MINE_TIMER = 0.5f;
 	
 	//blackhole
@@ -123,7 +123,7 @@ public:
 	std::vector<Mine *> mineList;
 	std::vector<Blackhole *> blackholeList;	//list of black holes
 	
-	float getKnockBack();
+	double getKnockBack();
 
 	void spawnmissile();
 	void spawnbullet();
@@ -162,5 +162,7 @@ public:
 
 	void dash();
 	void boost(bool b);
+
+	string getdamagestring();
 };
 #endif _SHIP_H

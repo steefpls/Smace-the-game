@@ -53,7 +53,11 @@ private:
 	std::vector<std::vector<Wall*>> wallListList;	//list of wall lists;
 	std::vector<Explosion *> explosionList;
 
-	Text gameOverText;	//testing
+	Text Player1Label;	//Player 1 Label
+	Text Player1DamagePercent;	//Player 1 Damage percentage
+
+	Text Player2Label;	//Player 1 Label
+	Text Player2DamagePercent;	//Player 1 Damage percentage
 	
 	const char player1Primary = 'C';
 	const char player1Secondary = 'X';
@@ -78,6 +82,7 @@ public:
     void render();      // "
     void releaseAll();
     void resetAll();
+	
 	
 };
 

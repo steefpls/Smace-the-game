@@ -1,4 +1,5 @@
 #include "ship.h"
+#include <string>
 
 //=============================================================================
 // default constructor
@@ -79,7 +80,7 @@ void Ship::update(float frameTime)
 	damagemultiplier = getKnockBack();
 	if (hp < 0)
 	{
-		hp == 0;
+		hp = 0;
 	}
 	//------------Handle Ship Rotation on Key Press--------------
 
@@ -352,7 +353,14 @@ float Ship::getDamageResistance()
 	return damageResistance;
 }
 
-float Ship::getKnockBack()
+double Ship::getKnockBack()
 {
 	return 6000 / (hp + 2000);
+}
+
+string Ship::getdamagestring()
+{
+	double damagestring = getKnockBack()*100.0-100;
+	string str = std::to_string(damagestring);
+	return str + "%";
 }
