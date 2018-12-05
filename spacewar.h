@@ -60,6 +60,7 @@ private:
 	Text Player1Label;	//Player 1 Label
 	Text Player1DamagePercent;	//Player 1 Damage percentage
 
+	Text gameOverText;
 	Text Player2Label;	//Player 1 Label
 	Text Player2DamagePercent;	//Player 1 Damage percentage
 	
