@@ -81,7 +81,7 @@ namespace shipNS
 	static float DAMAGE_RESISTANCE = 1000.0;
 	const int MAX_MINES = 20;
 	static int NO_OF_BULLETS_SHOT = 4;
-	static double DEGREE_SPREAD = 20.0;
+	static double DEGREE_SPREAD = 20.0f;
 }
 
 // inherits from Entity class

@@ -18,10 +18,12 @@ namespace explosionNS
 	const int EXPLOSION_START_FRAME = 1;      // ship1 starts at frame 0
 	const int EXPLOSION_END_FRAME = 10;        // ship1 animation frames 0,1,2,3
 	const float EXPLOSION_ANIMATION_DELAY = 0.05;
+	
 	//const float MASS = 1.0e14f;
 	static bool ACTIVE = true;
 	static float SCALE = 2;
 	//const int COLLISION_RADIUS = 60 / 2;
+	const float DAMAGE = 500.0f;
 }
 
 class Explosion : public Entity

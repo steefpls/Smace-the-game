@@ -507,6 +507,14 @@ void Spacewar::collisions()
 				}
 			}
 
+			for (int x = 0; x < explosionList.size(); x++)
+			{
+				if (wallListList[i][j]->collidesWith(*explosionList[x], collisionVector) && explosionList[x]->getCurrentFrame()==0)
+				{
+					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - explosionList[x]->getDamage());
+				}
+			}
+
 			if (wallListList[i][j]->getHP() <= 0)
 			{
 				SAFE_DELETE(wallListList[i][j]);
@@ -554,6 +562,14 @@ void Spacewar::collisions()
 		if (ship1.mineList[i]->collidesWith(ship2,collisionVector))
 		{
 			ship1.mineList[i]->setHP(0);
+		}
+
+		for (int j = 0; j < (explosionList.size()); j++)
+		{
+			if (ship1.mineList[i]->collidesWith(*explosionList[j], collisionVector))
+			{
+				ship1.mineList[i]->setHP(ship1.mineList[i]->getHP() - explosionList[j]->getDamage());
+			}
 		}
 
 		if (ship1.mineList[i]->getHP() <= 0)
@@ -607,6 +623,11 @@ void Spacewar::collisions()
 			SAFE_DELETE(ship1.missileList[i]);
 			ship1.missileList.erase(ship1.missileList.begin() + i);
 		}
+	}
+
+	//EXPLOSION COLLISION
+	for (int i = 0; i < (explosionList.size()); i++)
+	{
 	}
 	//if (ship1.collidesWith(missile1, collisionVector))
 	//{
