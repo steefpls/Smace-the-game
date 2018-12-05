@@ -190,8 +190,6 @@ void Spacewar::update()
 		}
 	}
 	
-	
-
 	for (int i = 0; i < wallListList.size(); i++)
 	{
 		for (int j = 0; j < wallListList[i].size(); j++)
@@ -254,7 +252,7 @@ void Spacewar::update()
 		ship1.mineList[i]->update(frameTime);
 	}
 
-	for (int i = 0; i < ship1.mineList.size(); i++)				//check if mine is out of bounds
+	for (int i = 0; i < ship1.mineList.size(); i++)	//Bullet Deletion when exits boundaries
 	{
 		if (ship1.mineList[i]->getX() > GAME_WIDTH || ship1.mineList[i]->getX() < 0 - ship1.mineList[i]->getHeight())
 		{
@@ -280,13 +278,23 @@ void Spacewar::update()
 	
 	if (input->isKeyDown(SPACE) && ship2.getbullettimer() < 0)	//if Space is pressed, shoot bullets
 	{
-		double degdiff = ship2.getdegreespread() / (ship2.getnoofbullets() - 1);
+		if (ship2.getnoofbullets() > 1)
+		{
+			double degdiff = ship2.getdegreespread() / (ship2.getnoofbullets() - 1);
 
-		for (int i = 0; i < (ship2.getnoofbullets()); i++)
+
+			for (int i = 0; i < (ship2.getnoofbullets()); i++)
+			{
+				ship2.spawnbullet();
+				ship2.bulletList[ship2.bulletList.size() - 1]->initialize(this, bulletNS::WIDTH, bulletNS::HEIGHT, bulletNS::TEXTURE_COLS, &bulletTexture);
+				ship2.setBulletXY((-ship2.getdegreespread() / 2) + i * degdiff);
+			}
+		}
+		else if (ship2.getnoofbullets() == 1)
 		{
 			ship2.spawnbullet();
 			ship2.bulletList[ship2.bulletList.size() - 1]->initialize(this, bulletNS::WIDTH, bulletNS::HEIGHT, bulletNS::TEXTURE_COLS, &bulletTexture);
-			ship2.setBulletXY((-ship2.getdegreespread() / 2) + i * degdiff);
+			ship2.setBulletXY((0));
 		}
 	}
 
@@ -566,7 +574,7 @@ void Spacewar::collisions()
 
 		for (int j = 0; j < (explosionList.size()); j++)
 		{
-			if (ship1.mineList[i]->collidesWith(*explosionList[j], collisionVector))
+			if (ship1.mineList[i]->collidesWith(*explosionList[j], collisionVector) && explosionList[j]->getCurrentFrame() == 0)
 			{
 				ship1.mineList[i]->setHP(ship1.mineList[i]->getHP() - explosionList[j]->getDamage());
 			}
@@ -628,6 +636,17 @@ void Spacewar::collisions()
 	//EXPLOSION COLLISION
 	for (int i = 0; i < (explosionList.size()); i++)
 	{
+		if (ship1.collidesWith(*explosionList[i], collisionVector))
+		{
+			ship1.setDamage(ship1.getDamage() + explosionList[i]->getDamage() / ship1.getDamageResistance());
+			ship1.bounce(collisionVector, *explosionList[i]);
+		}
+
+		if (ship2.collidesWith(*explosionList[i], collisionVector))
+		{
+			ship2.setDamage(ship2.getDamage() + explosionList[i]->getDamage() / ship2.getDamageResistance());
+			ship2.bounce(collisionVector, *explosionList[i]);
+		}
 	}
 	//if (ship1.collidesWith(missile1, collisionVector))
 	//{
@@ -664,16 +683,7 @@ void Spacewar::render()
 
 	nebula.draw();                          // add the orion nebula to the scene
 	planet.draw();                          // add the planet to the scene
-
-	// draw walls
-	for (int i = 0; i < (wallListList.size()); i++)
-	{
-		for (int j = 0; j < (wallListList[i].size()); j++)
-		{
-			wallListList[i][j]->draw();
-		}
-	}
-
+	
 	//draw blackholes from ship 2
 	if (ship2.blackholeList.size() > 0)
 	{
@@ -694,7 +704,14 @@ void Spacewar::render()
 		}
 	}
 
-	
+	// draw walls
+	for (int i = 0; i<(wallListList.size());i++)
+	{
+		for(int j = 0; j<(wallListList[i].size());j++)
+		{
+			wallListList[i][j]->draw();
+		}
+	}
 
 	//draw missiles from ship 1
 	if (ship1.missileList.size() > 0)

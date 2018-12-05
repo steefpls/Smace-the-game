@@ -65,7 +65,7 @@ namespace shipNS
 	static float MISSILE_TIMER = 0.5f;
 	
 	//bullet
-	const float MAX_BULLET_TIMER = 1.5f;
+	const float MAX_BULLET_TIMER = 0.5f;
 	static float BULLET_TIMER = 0.5f;
 	
 	//Mine
@@ -83,7 +83,7 @@ namespace shipNS
 	static float DAMAGE_MULTIPLIER = 1.0;
 	static float DAMAGE_RESISTANCE = 1000.0;
 	const int MAX_MINES = 20;
-	static int NO_OF_BULLETS_SHOT = 4;
+	static int NO_OF_BULLETS_SHOT = 1;
 	static double DEGREE_SPREAD = 20.0f;
 }
 
@@ -164,4 +164,4 @@ public:
 	void dash();
 	void boost(bool b);
 };
-#endif
+#endif _SHIP_H
