@@ -273,7 +273,7 @@ void Spacewar::update()
 		ship2.setY(GAME_HEIGHT / 2);
 		ship2.setLifeCount(ship2.getLifeCount() - 1);
 
-		ship2.lifeList.erase(ship1.lifeList.begin() + ship1.lifeList.size() - 1);
+		ship2.lifeList.erase(ship2.lifeList.begin() + ship2.lifeList.size() - 1);
 	}
 	else if (ship2.getY() > GAME_HEIGHT || ship2.getY() < 0 - ship2.getHeight()*ship2.getScale())
 	{
@@ -283,7 +283,7 @@ void Spacewar::update()
 
 		if (ship2.lifeList.size() >= 1)
 		{
-			ship2.lifeList.erase(ship1.lifeList.begin() + ship1.lifeList.size() - 1);
+			ship2.lifeList.erase(ship2.lifeList.begin() + ship2.lifeList.size() - 1);
 		}
 	}
 
