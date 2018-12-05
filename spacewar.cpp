@@ -190,10 +190,10 @@ void Spacewar::update()
 {
 	//bullet1.update(frameTime); //update bullet frames
 
-	ship1.update(frameTime);	//update ship frames
-	ship2.update(frameTime);
+	ship1.update(frameTime);	//update ship1 frames
+	ship2.update(frameTime);	//update ship2 frames
 	
-	for (int i = 0; i < explosionList.size(); i++)
+	for (int i = 0; i < explosionList.size(); i++)	//update all explosion frames
 	{
 		explosionList[i]->update(frameTime);
 		if (explosionList[i]->getCurrentFrame() == explosionList[i]->getEndFrame())
@@ -552,7 +552,7 @@ void Spacewar::collisions()
 					else
 					{
 						wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
-						if (wallListList[i][j] != NULL)
+						if (ship2.bulletList[x] != NULL)
 						{
 							SAFE_DELETE(ship2.bulletList[x]);
 							ship2.bulletList.erase(ship2.bulletList.begin() + x);
@@ -781,7 +781,7 @@ void Spacewar::collisions()
 		{
 			if (ship2.bulletList[j]->collidesWith(*explosionList[i], collisionVector) && explosionList[i]->getCurrentFrame()==1)
 			{
-				if (ship2.bulletList[i] != NULL)
+				if (ship2.bulletList[j] != NULL)
 				{
 					SAFE_DELETE(ship2.bulletList[j]);
 					ship2.bulletList.erase(ship2.bulletList.begin() + j);
@@ -793,7 +793,7 @@ void Spacewar::collisions()
 		for (int j = 0; j < ship1.missileList.size(); j++)
 		{
 			if (ship1.missileList[j]->collidesWith(*explosionList[i], collisionVector) && explosionList[i]->getCurrentFrame() == 1)
-				if (ship1.missileList[i] != NULL)
+				if (ship1.missileList[j] != NULL)
 				{
 					SAFE_DELETE(ship1.missileList[j]);
 					ship1.missileList.erase(ship1.missileList.begin() + j);
