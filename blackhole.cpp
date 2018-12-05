@@ -76,7 +76,7 @@ void Blackhole::update(float frameTime)
 	}
 	//Scale update
 
-	if (spriteData.scale < 1)
+	if (spriteData.scale < 10)
 	{
 		spriteData.scale += growthrate *frameTime;
 		spriteData.x = spriteData.x - (growthrate  * spriteData.width / 2 * frameTime) ;
@@ -111,4 +111,9 @@ void Blackhole::setAngle(float a)
 float Blackhole::getDamage()
 {
 	return DAMAGE;
+}
+
+float Blackhole::getsuckstrength()
+{
+	return blackholeNS::BLACKHOLE_SUCK_STRENGTH;
 }
