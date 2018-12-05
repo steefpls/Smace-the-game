@@ -1,7 +1,7 @@
 //  Module:             Gameplay Programming
 //  Assignment1:        Ships and Shapes
-//  Student Name:       your name
-//  Student Number:     your student number
+//  Student Name:       Steven Koe
+//  Student Number:     S10181536D
 
 #ifndef _EXPLOSION_H
 #define _EXPLOSION_H

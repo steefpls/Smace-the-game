@@ -1,13 +1,7 @@
 //  Module:             Gameplay Programming
 //  Assignment1:        Ships and Shapes
-//  Student Name:       your name
-//  Student Number:     your student number
-
-// Programming 2D Games
-// Copyright (c) 2011 by: 
-// Charles Kelly
-// textDX.cpp v1.1
-// DirectX font
+//  Student Name:       Steven Koe
+//  Student Number:     S10181536D
 
 #include "text.h"
 
