@@ -251,6 +251,7 @@ void Spacewar::update()
 		ship1.setVelocityY(0);
 		ship1.setRadians(0);
 		ship1.setLifeCount(ship1.getLifeCount() - 1);
+		ship1.setHP(ship1.getMaxHP());
 
 		ship1.lifeList.erase(ship1.lifeList.begin() + ship1.lifeList.size() - 1);
 	}
@@ -262,6 +263,7 @@ void Spacewar::update()
 		ship1.setVelocityY(0);
 		ship1.setRadians(0);
 		ship1.setLifeCount(ship1.getLifeCount() - 1);
+		ship1.setHP(ship1.getMaxHP());
 
 		if (ship1.lifeList.size() >= 1)
 		{
@@ -280,6 +282,7 @@ void Spacewar::update()
 		ship2.setVelocityY(0);
 		ship2.setRadians(0);
 		ship2.setLifeCount(ship2.getLifeCount() - 1);
+		ship2.setHP(ship2.getMaxHP());
 
 		ship2.lifeList.erase(ship2.lifeList.begin() + ship2.lifeList.size() - 1);
 	}
@@ -291,6 +294,7 @@ void Spacewar::update()
 		ship2.setVelocityY(0);
 		ship2.setRadians(0);
 		ship2.setLifeCount(ship1.getLifeCount() - 1);
+		ship2.setHP(ship2.getMaxHP());
 
 		if (ship2.lifeList.size() >= 1)
 		{
@@ -432,8 +436,8 @@ void Spacewar::update()
 			}
 		}
 	}
-
-	if (input->isKeyDown(player2Secondary) && ship2.getblackholetimer()<=0)			//Update black hole
+	//Shoot black hole
+	if (input->isKeyDown(player2Secondary) && ship2.getblackholetimer()<=0)			
 	{
 		ship2.spawnblackhole();
 		ship2.blackholeList[ship2.blackholeList.size() - 1]->initialize(this, blackholeNS::WIDTH, blackholeNS::HEIGHT, blackholeNS::TEXTURE_COLS, &blackholeTexture);
@@ -441,10 +445,18 @@ void Spacewar::update()
 		ship2.setBlackholeXY();
 		
 	}
-
-	for (int i = 0; i < ship2.blackholeList.size(); i++)								//Update all ship2 blackhole objects
+	//Update all ship2 blackhole objects
+	for (int i = 0; i < ship2.blackholeList.size(); i++)								
 	{
 		ship2.blackholeList[i]->update(frameTime);
+		if (ship2.blackholeList[i]->getScale() <= 0)
+		{
+			if (ship2.blackholeList[i] != NULL)
+			{
+				SAFE_DELETE(ship2.blackholeList[i]);
+				ship2.blackholeList.erase(ship2.blackholeList.begin() + i);
+			}
+		}
 	}
 
 

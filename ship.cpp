@@ -38,6 +38,7 @@ Ship::Ship() : Entity()
 	edge.bottom = spriteData.height / 2;
 	damagemultiplier = getKnockBack();
 	hp = shipNS::HP;
+	maxhp = shipNS::MAX_HP;
 
 	lifeCount = shipNS::LIFE_COUNT;
 	//damageResistance = shipNS::DAMAGE_RESISTANCE;
@@ -371,4 +372,9 @@ float Ship::getLifeCount()
 void Ship::setLifeCount(float lc)
 {
 	lifeCount = lc;
+}
+
+double Ship::getMaxHP()
+{
+	return maxhp;
 }

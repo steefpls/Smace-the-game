@@ -82,7 +82,8 @@ namespace shipNS
 	const int MAX_MINES = 20;
 	static int NO_OF_BULLETS_SHOT = 4;
 	static double DEGREE_SPREAD = 20.0f;
-	static float HP = 4000;
+	static float MAX_HP = 4000;
+	static float HP = MAX_HP;
 
 	const float LIFE_COUNT = 3.0f;
 }
@@ -102,6 +103,7 @@ protected:
 	float mineTimer;
 	float blackholeTimer;
 	float damageResistance;
+	float maxhp;
 
 	int noOfBullets = shipNS::NO_OF_BULLETS_SHOT;
 	float bulletDegreeSpread = shipNS::DEGREE_SPREAD;
@@ -170,7 +172,7 @@ public:
 
 	void dash();
 	void boost(bool b);
-
+	double getMaxHP();
 	string getdamagestring();
 };
 #endif _SHIP_H
