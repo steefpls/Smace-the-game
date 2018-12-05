@@ -536,9 +536,13 @@ void Entity::getExplosionBlast(Entity &ent2, float blastPower)
 {
 	float powerX = abs(ent2.getCenterX() - getCenterX());
 	float powerY = abs(ent2.getCenterY() - getCenterY());
-	float power = powerX+ powerY;
+	float power = powerX + powerY;
 	double angbet = anglebetween(ent2);
-	angbet = angbet * PI / 180;
-	ent2.setVelocityX(ent2.getVelocityX() + (blastPower * power * sin(angbet)));
-	ent2.setVelocityY(ent2.getVelocityY() + (blastPower * power * -cos(angbet)));
+	
+	angbet = (angbet * PI / 180)+0.005;		//So angbet is never exactly 0 or PI, since that causes wonky behaviour that I can't fix (steve)
+	
+	
+		ent2.setVelocityX(ent2.getVelocityX() + (blastPower * power * sin(angbet)));
+		ent2.setVelocityY(ent2.getVelocityY() + (blastPower * power * -cos(angbet)));
+	
 }

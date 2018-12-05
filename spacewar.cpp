@@ -168,8 +168,29 @@ void Spacewar::initialize(HWND hwnd)
 	if(!blackholeTexture.initialize(graphics,BLACKHOLE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole texture"));
 
+	//blackhole object
+	//if (!blackhole1.initialize(this, blackholeNS::WIDTH, blackholeNS::HEIGHT, blackholeNS::TEXTURE_COLS, &blackholeTexture))
+	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole"));
+	//blackhole1.setFrames(blackholeNS::BLACKHOLE_START_FRAME, blackholeNS::BLACKHOLE_END_FRAME);
+	//blackhole1.setX(3 * GAME_WIDTH / 4);
+	//blackhole1.setY(3 * GAME_HEIGHT / 4);
+
+	//blackholeList.push_back(blackhole1);
+	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
+
+	Player1Label.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
+	Player1Label.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
 	gameOverText.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises test font
 	gameOverText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
+
+	Player1DamagePercent.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
+	Player1DamagePercent.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
+
+	Player2Label.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
+	Player2Label.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
+
+	Player2DamagePercent.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
+	Player2DamagePercent.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
 
 	// nebula
 	if (!nebula.initialize(graphics, 0, 0, 0, &nebulaTexture))
@@ -196,10 +217,10 @@ void Spacewar::update()
 {
 	//bullet1.update(frameTime); //update bullet frames
 
-	ship1.update(frameTime);	//update ship frames
-	ship2.update(frameTime);
+	ship1.update(frameTime);	//update ship1 frames
+	ship2.update(frameTime);	//update ship2 frames
 	
-	for (int i = 0; i < explosionList.size(); i++)
+	for (int i = 0; i < explosionList.size(); i++)	//update all explosion frames
 	{
 		explosionList[i]->update(frameTime);
 		if (explosionList[i]->getCurrentFrame() == explosionList[i]->getEndFrame())
@@ -444,13 +465,13 @@ void Spacewar::collisions()
 				{
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship1.getVelocityY()));
 					ship1.topbottomrotatebounce();
-					ship1.setHP(ship1.getHP() - ship1.getVelocityX());
+					ship1.setHP(ship1.getHP() - abs(ship1.getVelocityY()) / 3);
 				}
 				else if (check == 2 || check == 4)
 				{
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship1.getVelocityX()));
 					ship1.leftrightrotatebounce();
-					ship1.setHP(ship1.getHP() - ship1.getVelocityY());
+					ship1.setHP(ship1.getHP() - abs(ship1.getVelocityX()) / 3);
 				}				
 			}
 
@@ -461,8 +482,8 @@ void Spacewar::collisions()
 					explosionList.push_back(new Explosion);
 					explosionList[explosionList.size() - 1]->initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture);
 					explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
-					explosionList[explosionList.size() - 1]->setX(ship1.missileList[x]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth());
-					explosionList[explosionList.size() - 1]->setY(ship1.missileList[x]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
+					explosionList[explosionList.size() - 1]->setX(ship1.missileList[x]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth()+ sin(ship1.missileList[x]->getRadians())*ship1.missileList[x]->getHeight()/2* ship1.missileList[x]->getScale());		
+					explosionList[explosionList.size() - 1]->setY(ship1.missileList[x]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight()- cos(ship1.missileList[x]->getRadians())*ship1.missileList[x]->getHeight()/2 * ship1.missileList[x]->getScale());	//This set of codes ensures that the explosion is spawned at the tip of the missile, first by centering the xplosion point around the missile center, then adding x and y based on angle of missile.
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.missileList[x]->getDamage());
 					if (ship1.missileList[x] != NULL)
 					{
@@ -542,13 +563,13 @@ void Spacewar::collisions()
 				{
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship2.getVelocityY()));
 					ship2.topbottomrotatebounce();
-					ship2.setHP(ship2.getHP() - ship2.getVelocityY());
+					ship2.setHP(ship2.getHP() - abs(ship2.getVelocityY()) / 3);
 				}
 				else if (check == 2 || check == 4)
 				{
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship2.getVelocityX()));
 					ship2.leftrightrotatebounce();
-					ship2.setHP(ship2.getHP() - ship2.getVelocityX());
+					ship2.setHP(ship2.getHP() - abs(ship2.getVelocityX())/3);
 				}
 			}
 
@@ -604,7 +625,7 @@ void Spacewar::collisions()
 					else
 					{
 						wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship2.bulletList[x]->getDamage());
-						if (wallListList[i][j] != NULL)
+						if (ship2.bulletList[x] != NULL)
 						{
 							SAFE_DELETE(ship2.bulletList[x]);
 							ship2.bulletList.erase(ship2.bulletList.begin() + x);
@@ -751,8 +772,9 @@ void Spacewar::collisions()
 			explosionList.push_back(new Explosion);
 			explosionList[explosionList.size() - 1]->initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture);
 			explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
-			explosionList[explosionList.size() - 1]->setX(ship1.missileList[i]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth());
-			explosionList[explosionList.size() - 1]->setY(ship1.missileList[i]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
+			explosionList[explosionList.size() - 1]->setX(ship1.missileList[i]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth() + sin(ship1.missileList[i]->getRadians())*ship1.missileList[i]->getHeight() / 2 * ship1.missileList[i]->getScale());
+			explosionList[explosionList.size() - 1]->setY(ship1.missileList[i]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight() - cos(ship1.missileList[i]->getRadians())*ship1.missileList[i]->getHeight() / 2 * ship1.missileList[i]->getScale());	//This set of codes ensures that the explosion is spawned at the tip of the missile, first by centering the xplosion point around the missile center, then adding x and y based on angle of missile.
+
 			if (ship1.missileList[i] != NULL)
 			{
 				SAFE_DELETE(ship1.missileList[i]);
@@ -832,7 +854,7 @@ void Spacewar::collisions()
 		{
 			if (ship2.bulletList[j]->collidesWith(*explosionList[i], collisionVector) && explosionList[i]->getCurrentFrame()==1)
 			{
-				if (ship2.bulletList[i] != NULL)
+				if (ship2.bulletList[j] != NULL)
 				{
 					SAFE_DELETE(ship2.bulletList[j]);
 					ship2.bulletList.erase(ship2.bulletList.begin() + j);
@@ -844,7 +866,7 @@ void Spacewar::collisions()
 		for (int j = 0; j < ship1.missileList.size(); j++)
 		{
 			if (ship1.missileList[j]->collidesWith(*explosionList[i], collisionVector) && explosionList[i]->getCurrentFrame() == 1)
-				if (ship1.missileList[i] != NULL)
+				if (ship1.missileList[j] != NULL)
 				{
 					SAFE_DELETE(ship1.missileList[j]);
 					ship1.missileList.erase(ship1.missileList.begin() + j);
@@ -962,8 +984,13 @@ void Spacewar::render()
 			ship2.bulletList[i]->draw();
 		}
 	}
+	//Print Words
+	Player1DamagePercent.print("Player 1\n"+ship1.getdamagestring(), spacewarNS::FONT_SIZE, GAME_HEIGHT - spacewarNS::FONT_SIZE * 2);		//Render Player Health Text
+	Player1Label.print("Player 1\n     v", ship1.getCenterX() - 67, ship1.getCenterY() - spacewarNS::FONT_SIZE / 2 - spacewarNS::FONT_SIZE * 2);		//Render Player Label Text
 
-	//bullet1.draw();				
+	Player2DamagePercent.print("Player 2\n" + ship2.getdamagestring(), GAME_WIDTH -5*spacewarNS::FONT_SIZE, GAME_HEIGHT - spacewarNS::FONT_SIZE * 2);		//Render Player Health Text
+	Player2Label.print("Player 2\n     v", ship2.getCenterX() - 67, ship2.getCenterY() - spacewarNS::FONT_SIZE / 2 - spacewarNS::FONT_SIZE * 2);		//Render Player Label Text
+
 	graphics->spriteEnd();                  // end drawing sprites
 }
 
