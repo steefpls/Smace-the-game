@@ -76,15 +76,13 @@ namespace shipNS
 	const float MAX_BLACKHOLE_TIMER = 5.0f;
 	static float BLACKHOLE_TIMER = 1.0f;
 	
-
-
-
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
 	static float DAMAGE_RESISTANCE = 1000.0;
 	const int MAX_MINES = 20;
 	static int NO_OF_BULLETS_SHOT = 1;
 	static double DEGREE_SPREAD = 20.0f;
+	static float HP = 2000;
 }
 
 // inherits from Entity class
@@ -125,6 +123,7 @@ public:
 	std::vector<Mine *> mineList;
 	std::vector<Blackhole *> blackholeList;	//list of black holes
 	
+	float getKnockBack();
 
 	void spawnmissile();
 	void spawnbullet();

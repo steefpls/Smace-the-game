@@ -355,13 +355,13 @@ void Spacewar::collisions()
 				{
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship1.getVelocityY()));
 					ship1.topbottomrotatebounce();
-					ship1.setDamage(ship1.getDamage() + 0.1);
+					ship1.setHP(ship1.getHP() - ship1.getVelocityX());
 				}
 				else if (check == 2 || check == 4)
 				{
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship1.getVelocityX()));
 					ship1.leftrightrotatebounce();
-					ship1.setDamage(ship1.getDamage() + 0.1);
+					ship1.setHP(ship1.getHP() - ship1.getVelocityY());
 				}				
 			}
 
@@ -447,13 +447,13 @@ void Spacewar::collisions()
 				{
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship2.getVelocityY()));
 					ship2.topbottomrotatebounce();
-					ship2.setDamage(ship2.getDamage() + 0.1);
+					ship2.setHP(ship2.getHP() - ship2.getVelocityY());
 				}
 				else if (check == 2 || check == 4)
 				{
-				wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship2.getVelocityX()));
-				ship2.leftrightrotatebounce();
-				ship2.setDamage(ship2.getDamage() + 0.1);
+					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - abs(ship2.getVelocityX()));
+					ship2.leftrightrotatebounce();
+					ship2.setHP(ship2.getHP() - ship2.getVelocityX());
 				}
 			}
 
@@ -601,7 +601,7 @@ void Spacewar::collisions()
 		}
 		if (ship2.bulletList[i]->collidesWith(ship1, collisionVector))
 		{
-			ship1.setDamage(ship1.getDamage() + (ship2.bulletList[i]->getDamage()/ship1.getDamageResistance()));
+			ship1.setHP(ship1.getHP() - (ship2.bulletList[i]->getDamage()));
 			//ship1.bounce(collisionVector,*ship2.bulletList[i]);
 			SAFE_DELETE(ship2.bulletList[i]);
 			ship2.bulletList.erase(ship2.bulletList.begin() + i);
@@ -625,14 +625,14 @@ void Spacewar::collisions()
 	//MISSILE COLLISION
 	for (int i = 0; i < (ship1.missileList.size()); i++)
 	{
+		if (ship2.collidesWith(*ship1.missileList[i], collisionVector))
+		{
+			ship2.bounce(collisionVector, *ship1.missileList[i]);
+		}
+
 		if (ship1.missileList[i]->collidesWith(ship2,collisionVector))
 		{
-
-			if (ship2.collidesWith(*ship1.missileList[i], collisionVector))
-			{
-				ship2.bounce(collisionVector, *ship1.missileList[i]);
-			}
-			ship2.setDamage(ship2.getDamage() + ship1.missileList[i]->getDamage());
+			ship2.setHP(ship2.getHP() - ship1.missileList[i]->getDamage());
 			explosionList.push_back(new Explosion);
 			explosionList[explosionList.size() - 1]->initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture);
 			explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
@@ -700,13 +700,13 @@ void Spacewar::collisions()
 	{
 		if (ship1.collidesWith(*explosionList[i], collisionVector))
 		{
-			ship1.setDamage(ship1.getDamage() + explosionList[i]->getDamage() / ship1.getDamageResistance());
+			ship1.setHP(ship1.getHP() - explosionList[i]->getHP());
 			ship1.bounce(collisionVector, *explosionList[i]);
 		}
 
 		if (ship2.collidesWith(*explosionList[i], collisionVector))
 		{
-			ship2.setDamage(ship2.getDamage() + explosionList[i]->getDamage() / ship2.getDamageResistance());
+			ship2.setHP(ship2.getHP() - explosionList[i]->getDamage());
 			ship2.bounce(collisionVector, *explosionList[i]);
 		}
 	}
