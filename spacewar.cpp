@@ -180,8 +180,7 @@ void Spacewar::initialize(HWND hwnd)
 
 	Player1Label.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
 	Player1Label.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
-	gameOverText.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises test font
-	gameOverText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
+	
 
 	Player1DamagePercent.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
 	Player1DamagePercent.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
@@ -248,6 +247,9 @@ void Spacewar::update()
 	{
 		ship1.setX(GAME_WIDTH / 2);
 		ship1.setY(GAME_HEIGHT / 2);
+		ship1.setVelocityX(0);
+		ship1.setVelocityY(0);
+		ship1.setRadians(0);
 		ship1.setLifeCount(ship1.getLifeCount() - 1);
 
 		ship1.lifeList.erase(ship1.lifeList.begin() + ship1.lifeList.size() - 1);
@@ -256,6 +258,9 @@ void Spacewar::update()
 	{
 		ship1.setX(GAME_WIDTH / 2);
 		ship1.setY(GAME_HEIGHT / 2);
+		ship1.setVelocityX(0);
+		ship1.setVelocityY(0);
+		ship1.setRadians(0);
 		ship1.setLifeCount(ship1.getLifeCount() - 1);
 
 		if (ship1.lifeList.size() >= 1)
@@ -271,6 +276,9 @@ void Spacewar::update()
 	{
 		ship2.setX(GAME_WIDTH / 2);
 		ship2.setY(GAME_HEIGHT / 2);
+		ship2.setVelocityX(0);
+		ship2.setVelocityY(0);
+		ship2.setRadians(0);
 		ship2.setLifeCount(ship2.getLifeCount() - 1);
 
 		ship2.lifeList.erase(ship1.lifeList.begin() + ship1.lifeList.size() - 1);
@@ -279,6 +287,9 @@ void Spacewar::update()
 	{
 		ship2.setX(GAME_WIDTH / 2);
 		ship2.setY(GAME_HEIGHT / 2);
+		ship2.setVelocityX(0);
+		ship2.setVelocityY(0);
+		ship2.setRadians(0);
 		ship2.setLifeCount(ship1.getLifeCount() - 1);
 
 		if (ship2.lifeList.size() >= 1)
@@ -928,7 +939,7 @@ void Spacewar::render()
 		ship2.lifeList[i]->draw();
 	}
 
-	gameOverText.print("Player 1\n     v", ship1.getCenterX()-67, ship1.getCenterY() - spacewarNS::FONT_SIZE / 2 - spacewarNS::FONT_SIZE*2);
+	
 
 	//draw blackholes from ship 2
 	if (ship2.blackholeList.size() > 0)
