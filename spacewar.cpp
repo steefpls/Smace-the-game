@@ -23,6 +23,14 @@ void Spacewar::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
 	
+		// blue heart texture
+	if (!blueHeartTexture.initialize(graphics,BLUEHEART_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing blue heart texture"));
+
+		//red heart texture
+	if (!redHeartTexture.initialize(graphics, REDHEART_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing red heart texture"));
+
 		// nebula texture
 	if (!nebulaTexture.initialize(graphics, NEBULA_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing nebula texture"));
@@ -50,6 +58,14 @@ void Spacewar::initialize(HWND hwnd)
 	ship1.player1Up = 'W';
 	ship1.player1Left = 'A';
 	ship1.player1Right = 'D';
+	for (int i = 0; i < ship1.getLifeCount(); i++)
+	{
+		ship1.lifeList.push_back(new Image);
+		ship1.lifeList[i]->initialize(graphics, 0, 0, 0, &blueHeartTexture);
+		ship1.lifeList[i]->setScale(0.1);
+		ship1.lifeList[i]->setX((wallNS::WIDTH*wallNS::SCALE)+i*(ship1.lifeList[i]->getWidth()*ship1.lifeList[i]->getScale()));
+		ship1.lifeList[i]->setY(GAME_HEIGHT - (wallNS::WIDTH*wallNS::SCALE) - (ship1.lifeList[i]->getHeight()*ship1.lifeList[i]->getScale()));
+	}
 
 	//ship2
 	if (!ship2.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &ship2Texture))
@@ -62,6 +78,15 @@ void Spacewar::initialize(HWND hwnd)
 	ship2.player1Up = VK_UP;
 	ship2.player1Left = VK_LEFT;
 	ship2.player1Right = VK_RIGHT;
+
+	for (int i = 0; i < ship2.getLifeCount(); i++)
+	{
+		ship2.lifeList.push_back(new Image);
+		ship2.lifeList[i]->initialize(graphics, 0, 0, 0, &redHeartTexture);
+		ship2.lifeList[i]->setScale(0.1);
+		ship2.lifeList[i]->setX(GAME_WIDTH - (wallNS::WIDTH*wallNS::SCALE) - (i+1) *(ship2.lifeList[i]->getWidth()*ship2.lifeList[i]->getScale()));
+		ship2.lifeList[i]->setY(GAME_HEIGHT - (wallNS::WIDTH*wallNS::SCALE) - (ship2.lifeList[i]->getHeight()*ship2.lifeList[i]->getScale()));
+	}
 
 	//Wall texture
 	if (!wallTexture.initialize(graphics, WALL_IMAGE))
@@ -155,6 +180,8 @@ void Spacewar::initialize(HWND hwnd)
 
 	Player1Label.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
 	Player1Label.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
+	gameOverText.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises test font
+	gameOverText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
 
 	Player1DamagePercent.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
 	Player1DamagePercent.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
@@ -211,6 +238,52 @@ void Spacewar::update()
 		for (int j = 0; j < wallListList[i].size(); j++)
 		{
 			wallListList[i][j]->update(frameTime);	//update top wall frames
+		}
+	}
+
+	//==========================================================================================================
+	// if SHIP 1 leaves boundary
+	//==========================================================================================================
+	if (ship1.getX() > GAME_WIDTH || ship1.getX() < 0 - ship1.getWidth()*ship1.getScale())
+	{
+		ship1.setX(GAME_WIDTH / 2);
+		ship1.setY(GAME_HEIGHT / 2);
+		ship1.setLifeCount(ship1.getLifeCount() - 1);
+
+		ship1.lifeList.erase(ship1.lifeList.begin() + ship1.lifeList.size() - 1);
+	}
+	else if (ship1.getY() > GAME_HEIGHT || ship1.getY() < 0 - ship1.getHeight()*ship1.getScale())
+	{
+		ship1.setX(GAME_WIDTH / 2);
+		ship1.setY(GAME_HEIGHT / 2);
+		ship1.setLifeCount(ship1.getLifeCount() - 1);
+
+		if (ship1.lifeList.size() >= 1)
+		{
+			ship1.lifeList.erase(ship1.lifeList.begin() + ship1.lifeList.size() - 1);
+		}
+	}
+
+	//==========================================================================================================
+	// if SHIP 2 leaves boundary
+	//==========================================================================================================
+	if (ship2.getX() > GAME_WIDTH || ship2.getX() < 0 - ship2.getWidth()*ship2.getScale())
+	{
+		ship2.setX(GAME_WIDTH / 2);
+		ship2.setY(GAME_HEIGHT / 2);
+		ship2.setLifeCount(ship2.getLifeCount() - 1);
+
+		ship2.lifeList.erase(ship1.lifeList.begin() + ship1.lifeList.size() - 1);
+	}
+	else if (ship2.getY() > GAME_HEIGHT || ship2.getY() < 0 - ship2.getHeight()*ship2.getScale())
+	{
+		ship2.setX(GAME_WIDTH / 2);
+		ship2.setY(GAME_HEIGHT / 2);
+		ship2.setLifeCount(ship1.getLifeCount() - 1);
+
+		if (ship2.lifeList.size() >= 1)
+		{
+			ship2.lifeList.erase(ship1.lifeList.begin() + ship1.lifeList.size() - 1);
 		}
 	}
 
@@ -845,8 +918,17 @@ void Spacewar::render()
 	nebula.draw();                          // add the orion nebula to the scene
 	planet.draw();                          // add the planet to the scene
 	
-	
-	
+	for (int i = 0; i < ship1.lifeList.size(); i++)
+	{
+		ship1.lifeList[i]->draw();
+	}
+
+	for (int i = 0; i < ship2.lifeList.size(); i++)
+	{
+		ship2.lifeList[i]->draw();
+	}
+
+	gameOverText.print("Player 1\n     v", ship1.getCenterX()-67, ship1.getCenterY() - spacewarNS::FONT_SIZE / 2 - spacewarNS::FONT_SIZE*2);
 
 	//draw blackholes from ship 2
 	if (ship2.blackholeList.size() > 0)

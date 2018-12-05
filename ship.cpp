@@ -39,6 +39,7 @@ Ship::Ship() : Entity()
 	damagemultiplier = getKnockBack();
 	hp = shipNS::HP;
 
+	lifeCount = shipNS::LIFE_COUNT;
 	//damageResistance = shipNS::DAMAGE_RESISTANCE;
 }
 
@@ -158,9 +159,6 @@ void Ship::update(float frameTime)
 
 	velocity.x = velocity.x - ((1 - shipNS::DRAG) *velocity.x) * frameTime;
 	velocity.y = velocity.y - ((1 - shipNS::DRAG) *velocity.y) * frameTime;   //Implementation of "Air" Resistance
-
-
-
 
 	if (shieldOn)
 	{
@@ -363,4 +361,14 @@ string Ship::getdamagestring()
 	double damagestring = getKnockBack()*100.0-100;
 	string str = std::to_string(damagestring);
 	return str + "%";
+}
+
+float Ship::getLifeCount()
+{
+	return lifeCount;
+}
+
+void Ship::setLifeCount(float lc)
+{
+	lifeCount = lc;
 }

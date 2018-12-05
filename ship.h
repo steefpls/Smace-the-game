@@ -83,6 +83,8 @@ namespace shipNS
 	static int NO_OF_BULLETS_SHOT = 4;
 	static double DEGREE_SPREAD = 20.0f;
 	static float HP = 4000;
+
+	const float LIFE_COUNT = 3.0f;
 }
 
 // inherits from Entity class
@@ -103,6 +105,7 @@ protected:
 
 	int noOfBullets = shipNS::NO_OF_BULLETS_SHOT;
 	float bulletDegreeSpread = shipNS::DEGREE_SPREAD;
+	float lifeCount;
 
 
 public:
@@ -122,6 +125,8 @@ public:
 	std::vector<Bullet *> bulletList;
 	std::vector<Mine *> mineList;
 	std::vector<Blackhole *> blackholeList;	//list of black holes
+
+	std::vector<Image *> lifeList;
 	
 	double getKnockBack();
 
@@ -159,6 +164,9 @@ public:
 	float MaxRotationRate = shipNS::MAX_ROTATION_RATE;
 	float RotationAccRate = shipNS::ROTATION_ACC_RATE;
 	float RotationDrag = shipNS::ROTATION_DRAG;
+
+	float getLifeCount();
+	void setLifeCount(float lifeCount);
 
 	void dash();
 	void boost(bool b);
