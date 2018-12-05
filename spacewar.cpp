@@ -361,6 +361,11 @@ void Spacewar::collisions()
 			{
 				if (ship1.missileList[x]->collidesWith(*wallListList[i][j], collisionVector))
 				{
+					explosionList.push_back(new Explosion);
+					explosionList[explosionList.size() - 1]->initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture);
+					explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
+					explosionList[explosionList.size() - 1]->setX(ship1.missileList[x]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth());
+					explosionList[explosionList.size() - 1]->setY(ship1.missileList[x]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.missileList[x]->getDamage());
 					SAFE_DELETE(ship1.missileList[x]);
 					ship1.missileList.erase(ship1.missileList.begin() + x);		
@@ -556,8 +561,8 @@ void Spacewar::collisions()
 			explosionList.push_back(new Explosion);
 			explosionList[explosionList.size() - 1]->initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture);
 			explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
-			explosionList[explosionList.size() - 1]->setX(ship1.mineList[i]->getCenterX());
-			explosionList[explosionList.size() - 1]->setY(ship1.mineList[i]->getCenterY());
+			explosionList[explosionList.size() - 1]->setX(ship1.mineList[i]->getCenterX()-explosionList[explosionList.size()-1]->getWidth());
+			explosionList[explosionList.size() - 1]->setY(ship1.mineList[i]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
 			SAFE_DELETE(ship1.mineList[i]);
 			ship1.mineList.erase(ship1.mineList.begin() + i);
 		}		
@@ -573,6 +578,12 @@ void Spacewar::collisions()
 			SAFE_DELETE(ship2.bulletList[i]);
 			ship2.bulletList.erase(ship2.bulletList.begin() + i);
 		}
+	}
+
+	//MISSILE COLLISION
+	for (int i = 0; i < (ship2.missileList.size()); i++)
+	{
+
 	}
 	//if (ship1.collidesWith(missile1, collisionVector))
 	//{
