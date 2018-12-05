@@ -39,7 +39,7 @@ namespace bulletNS
 
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
-	const float DAMAGE = 100.0f;
+	const double DAMAGE = 100.0f;
 	//const int MAX_BOUNCES = 3;
 	static int BOUNCES = 3;
 }
@@ -61,7 +61,7 @@ public:
 	void update(float frameTime);
 	bool getdel();
 	void setAngle(float a);
-	float getDamage();
+	double getDamage();
 
 	void topbottombounce();
 	void leftrightbounce();

@@ -99,7 +99,7 @@ void Bullet::setAngle(float a)
 	spriteData.angle = a;
 }
 
-float Bullet::getDamage()
+double Bullet::getDamage()
 {
 	return DAMAGE;
 }
