@@ -760,7 +760,9 @@ void Spacewar::collisions()
 	{
 		if (ship1.collidesWith(*ship2.bulletList[i], collisionVector))
 		{
-			ship1.bounce(collisionVector, *ship2.bulletList[i]);
+			ship1.setVelocityX(ship1.getVelocityX() + sin(ship2.bulletList[i]->getRadians()) *  (ship2.bulletList[i]->getDamage())*ship1.getKnockBack());
+			ship1.setVelocityY(ship1.getVelocityY() + -cos(ship2.bulletList[i]->getRadians()) *  (ship2.bulletList[i]->getDamage())*ship1.getKnockBack());
+
 		}
 		if (ship2.bulletList[i]->collidesWith(ship1, collisionVector))
 		{
