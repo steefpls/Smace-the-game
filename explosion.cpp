@@ -12,7 +12,7 @@ Explosion::Explosion() : Entity()
 	radius = explosionNS::WIDTH/2;
 	spriteData.x = explosionNS::X;
 	spriteData.y = explosionNS::Y;
-	//mass = explosionNS::MASS;
+	mass = explosionNS::MASS;
 	active = explosionNS::ACTIVE;
 	collisionType = entityNS::CIRCLE;
 	frameDelay = explosionNS::EXPLOSION_ANIMATION_DELAY;

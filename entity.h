@@ -161,6 +161,8 @@ public:
 	double getDamage();
 	void setDamage(double damage);
 
+	void getExplosionBlast(Entity & ent2, float blastPower);
+
 	//for ship collision with wall
 	int squarebounce(Entity &ent);
 	double bulletbounce(Entity &ent);

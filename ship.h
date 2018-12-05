@@ -82,7 +82,7 @@ namespace shipNS
 	const int MAX_MINES = 20;
 	static int NO_OF_BULLETS_SHOT = 4;
 	static double DEGREE_SPREAD = 20.0f;
-	static float HP = 2000;
+	static float HP = 4000;
 }
 
 // inherits from Entity class
