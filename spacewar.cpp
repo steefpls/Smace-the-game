@@ -222,12 +222,12 @@ void Spacewar::update()
 
 	for (int i = 0; i < ship1.missileList.size(); i++)				//check if missile is out of bounds
 	{
-		if (ship1.missileList[i]->getX() > GAME_WIDTH || ship1.missileList[i]->getX() < 0 - ship1.missileList[i]->getHeight())
+		if (ship1.missileList[i]->getX() > GAME_WIDTH || ship1.missileList[i]->getX() < 0 - ship1.missileList[i]->getWidth()*ship1.missileList[i]->getScale())
 		{
 			SAFE_DELETE(ship1.missileList[i]);
 			ship1.missileList.erase(ship1.missileList.begin() + i);
 		}
-		else if (ship1.missileList[i]->getY() > GAME_HEIGHT || ship1.missileList[i]->getY() < 0 - ship1.missileList[i]->getHeight())
+		else if (ship1.missileList[i]->getY() > GAME_HEIGHT || ship1.missileList[i]->getY() < 0 - ship1.missileList[i]->getHeight()*ship1.missileList[i]->getScale())
 		{
 			SAFE_DELETE(ship1.missileList[i]);
 			ship1.missileList.erase(ship1.missileList.begin() + i);	
@@ -601,8 +601,7 @@ void Spacewar::collisions()
 		}
 		if (ship2.bulletList[i]->collidesWith(ship1, collisionVector))
 		{
-			ship1.setHP(ship1.getHP() - (ship2.bulletList[i]->getDamage()));
-			//ship1.bounce(collisionVector,*ship2.bulletList[i]);
+			ship1.setHP(ship1.getHP() - (ship2.bulletList[i]->getDamage()));;
 			SAFE_DELETE(ship2.bulletList[i]);
 			ship2.bulletList.erase(ship2.bulletList.begin() + i);
 		}
@@ -708,6 +707,29 @@ void Spacewar::collisions()
 		{
 			ship2.setHP(ship2.getHP() - explosionList[i]->getDamage());
 			ship2.bounce(collisionVector, *explosionList[i]);
+		}
+
+		for (int j = 0; j < ship2.bulletList.size(); j++)
+		{
+			if (ship2.bulletList[j]->collidesWith(*explosionList[i], collisionVector) && explosionList[i]->getCurrentFrame()==1)
+			{
+				if (ship2.bulletList[i] != NULL)
+				{
+					SAFE_DELETE(ship2.bulletList[j]);
+					ship2.bulletList.erase(ship2.bulletList.begin() + j);
+				}
+			}
+
+		}
+
+		for (int j = 0; j < ship1.missileList.size(); j++)
+		{
+			if (ship1.missileList[j]->collidesWith(*explosionList[i], collisionVector) && explosionList[i]->getCurrentFrame() == 1)
+				if (ship1.missileList[i] != NULL)
+				{
+					SAFE_DELETE(ship1.missileList[j]);
+					ship1.missileList.erase(ship1.missileList.begin() + j);
+				}
 		}
 	}
 
