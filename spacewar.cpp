@@ -349,6 +349,8 @@ void Spacewar::update()
 	{
 		ship1.spawnmine();
 		ship1.mineList[ship1.mineList.size() - 1]->initialize(this, mineNS::WIDTH, mineNS::HEIGHT, mineNS::TEXTURE_COLS, &mineTexture);
+		
+
 		if (ship1.mineList.size() > ship1.getmaxmines())
 		{
 			if (ship1.mineList[0] != NULL)
@@ -358,6 +360,7 @@ void Spacewar::update()
 			}
 		}
 		ship1.setMineXY();
+		
 	}
 
 	for (int i = 0; i < ship1.mineList.size(); i++)								//Update all ship1 mine objects
@@ -809,7 +812,7 @@ void Spacewar::collisions()
 	//BLACKHOLE COLLISION
 	for (int i = 0; i < (ship2.blackholeList.size()); i++)
 	{
-		for (int j = 0; j < (ship2.bulletList.size()); j++)
+		for (int j = 0; j < (ship2.bulletList.size()); j++)						//if collide with ship2.bullets
 		{
 			if (ship2.blackholeList[i]->collidesWith(*ship2.bulletList[j], collisionVector))
 			{
@@ -824,7 +827,7 @@ void Spacewar::collisions()
 				
 			}
 		}
-		for (int j = 0; j < (ship1.mineList.size()); j++)
+		for (int j = 0; j < (ship1.mineList.size()); j++)						//if collide with ship1.mines
 		{
 			if (ship2.blackholeList[i]->collidesWith(*ship1.mineList[j], collisionVector))
 			{
@@ -839,7 +842,7 @@ void Spacewar::collisions()
 				
 			}
 		}
-		for (int j = 0; j < (ship1.missileList.size()); j++)
+		for (int j = 0; j < (ship1.missileList.size()); j++)						//if collide with ship1.missiles
 		{
 			if (ship2.blackholeList[i]->collidesWith(*ship1.missileList[j], collisionVector))
 			{
@@ -848,14 +851,34 @@ void Spacewar::collisions()
 				angbet += 180.0;
 				if (angbet > 360) { angbet -= 360; }
 				
-				
-
 				ship1.missileList[j]->setVelocityX(ship1.missileList[j]->getVelocityX() + ((sin(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength())*frameTime));
 				ship1.missileList[j]->setVelocityY(ship1.missileList[j]->getVelocityY() - ((cos(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength())*frameTime));
 
 
 			}
 		}
+		//==============if collide with ship1===============
+		if (ship2.blackholeList[i]->collidesWith(ship1, collisionVector))		//Ships are less affected by black holes, so multiply by ship.blackholesuckmultiplier
+		{																		
+			double angbet = ship2.blackholeList[i]->anglebetween(ship1);
+			angbet += 180.0;
+			if (angbet > 360) { angbet -= 360; }
+
+			ship1.setVelocityX(ship1.getVelocityX() + ship1.getblackholesuckmultiplier()*((sin(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength())*frameTime));
+			ship1.setVelocityY(ship1.getVelocityY() - ship1.getblackholesuckmultiplier()*((cos(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength())*frameTime));
+		}
+
+		//==============if collide with ship2===============
+		if (ship2.blackholeList[i]->collidesWith(ship2, collisionVector))		//Ships are less affected by black holes, so multiply by ship.blackholesuckmultiplier
+		{
+			double angbet = ship2.blackholeList[i]->anglebetween(ship2);
+			angbet += 180.0;
+			if (angbet > 360) { angbet -= 360; }
+
+			ship2.setVelocityX(ship2.getVelocityX() + ship2.getblackholesuckmultiplier()*((sin(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength())*frameTime));
+			ship2.setVelocityY(ship2.getVelocityY() - ship2.getblackholesuckmultiplier()*((cos(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength())*frameTime));
+		}
+		
 	}
 
 	//EXPLOSION COLLISION

@@ -26,6 +26,7 @@ Ship::Ship() : Entity()
 	bulletTimer = shipNS::BULLET_TIMER;
 	mineTimer = shipNS::MINE_TIMER;
 	blackholeTimer = shipNS::BLACKHOLE_TIMER;
+	blackholesuccmultiplier = shipNS::BLACK_HOLE_SUCC_MULTIPLIER;
 
 	//radius = shipNS::WIDTH / 2.0;
 	shieldOn = false;
@@ -251,6 +252,9 @@ void Ship::setMineXY()
 
 	mineList[mineList.size() - 1]->setVelocityX(mineList[mineList.size() - 1]->getVelocityX()*sin(mineList[mineList.size() - 1]->getRadians()));
 	mineList[mineList.size() - 1]->setVelocityY(mineList[mineList.size() - 1]->getVelocityY()*-cos(mineList[mineList.size() - 1]->getRadians()));
+
+	mineList[mineList.size() - 1]->setVelocityY(mineList[mineList.size() - 1]->getVelocityY() + getVelocityY());
+	mineList[mineList.size() - 1]->setVelocityX(mineList[mineList.size() - 1]->getVelocityX() + getVelocityX());
 }
 void Ship::setBlackholeXY()
 {
@@ -377,4 +381,9 @@ void Ship::setLifeCount(float lc)
 double Ship::getMaxHP()
 {
 	return maxhp;
+}
+
+double Ship::getblackholesuckmultiplier()
+{
+	return blackholesuccmultiplier;
 }

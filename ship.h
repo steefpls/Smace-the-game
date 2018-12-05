@@ -86,6 +86,8 @@ namespace shipNS
 	static float HP = MAX_HP;
 
 	const float LIFE_COUNT = 3.0f;
+
+	const double BLACK_HOLE_SUCC_MULTIPLIER = 0.08;
 }
 
 // inherits from Entity class
@@ -104,6 +106,7 @@ protected:
 	float blackholeTimer;
 	float damageResistance;
 	float maxhp;
+	double blackholesuccmultiplier;
 
 	int noOfBullets = shipNS::NO_OF_BULLETS_SHOT;
 	float bulletDegreeSpread = shipNS::DEGREE_SPREAD;
@@ -174,5 +177,6 @@ public:
 	void boost(bool b);
 	double getMaxHP();
 	string getdamagestring();
+	double getblackholesuckmultiplier();
 };
 #endif _SHIP_H
