@@ -361,6 +361,11 @@ void Spacewar::collisions()
 			{
 				if (ship1.missileList[x]->collidesWith(*wallListList[i][j], collisionVector))
 				{
+					explosionList.push_back(new Explosion);
+					explosionList[explosionList.size() - 1]->initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture);
+					explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
+					explosionList[explosionList.size() - 1]->setX(ship1.missileList[x]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth());
+					explosionList[explosionList.size() - 1]->setY(ship1.missileList[x]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
 					wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.missileList[x]->getDamage());
 					SAFE_DELETE(ship1.missileList[x]);
 					ship1.missileList.erase(ship1.missileList.begin() + x);		
@@ -556,8 +561,8 @@ void Spacewar::collisions()
 			explosionList.push_back(new Explosion);
 			explosionList[explosionList.size() - 1]->initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture);
 			explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
-			explosionList[explosionList.size() - 1]->setX(ship1.mineList[i]->getCenterX());
-			explosionList[explosionList.size() - 1]->setY(ship1.mineList[i]->getCenterY());
+			explosionList[explosionList.size() - 1]->setX(ship1.mineList[i]->getCenterX()-explosionList[explosionList.size()-1]->getWidth());
+			explosionList[explosionList.size() - 1]->setY(ship1.mineList[i]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
 			SAFE_DELETE(ship1.mineList[i]);
 			ship1.mineList.erase(ship1.mineList.begin() + i);
 		}		
@@ -572,6 +577,35 @@ void Spacewar::collisions()
 			ship1.bounce(collisionVector,*ship2.bulletList[i]);
 			SAFE_DELETE(ship2.bulletList[i]);
 			ship2.bulletList.erase(ship2.bulletList.begin() + i);
+		}
+
+		for (int j = 0; j < (ship1.missileList.size()); j++)
+		{
+			if (ship2.bulletList[i]->collidesWith(*ship1.missileList[j], collisionVector))
+			{
+				explosionList.push_back(new Explosion);
+				explosionList[explosionList.size() - 1]->initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture);
+				explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
+				explosionList[explosionList.size() - 1]->setX(ship1.missileList[j]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth());
+				explosionList[explosionList.size() - 1]->setY(ship1.missileList[j]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
+				SAFE_DELETE(ship1.missileList[j], collisionVector);
+				ship1.missileList.erase(ship1.missileList.begin() + j);
+			}
+		}
+	}
+
+	//MISSILE COLLISION
+	for (int i = 0; i < (ship1.missileList.size()); i++)
+	{
+		if (ship1.missileList[i]->collidesWith(ship2,collisionVector))
+		{
+			explosionList.push_back(new Explosion);
+			explosionList[explosionList.size() - 1]->initialize(this, explosionNS::WIDTH, explosionNS::HEIGHT, explosionNS::TEXTURE_COLS, &explosionTexture);
+			explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
+			explosionList[explosionList.size() - 1]->setX(ship1.missileList[i]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth());
+			explosionList[explosionList.size() - 1]->setY(ship1.missileList[i]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
+			SAFE_DELETE(ship1.missileList[i]);
+			ship1.missileList.erase(ship1.missileList.begin() + i);
 		}
 	}
 	//if (ship1.collidesWith(missile1, collisionVector))
