@@ -43,7 +43,8 @@ namespace blackholeNS
 	const int MAX_BOUNCES = 3;
 	static int BOUNCES = 0;
 
-	const double BLACKHOLE_GROWTH_RATE = 0.1;		//scale per second
+	const double BLACKHOLE_GROWTH_RATE = 0.5;		//scale per second
+	const double BLACKHOLE_SUCK_STRENGTH = 5000;		//pixels per second per second
 }
 
 // inherits from Entity class
@@ -53,6 +54,7 @@ private:
 	//bool    shieldOn;
 	//Image   shield;
 	double growthrate;
+	double suckstrength;	//pixels per second
 public:
 	// constructor
 	Blackhole();
@@ -65,7 +67,7 @@ public:
 	bool getdel();
 	void setAngle(float a);
 	float getDamage();
-
+	float getsuckstrength();
 
 	//void damage(WEAPON);
 };

@@ -69,7 +69,7 @@ namespace shipNS
 	static float BULLET_TIMER = 0.5f;
 	
 	//Mine
-	const float MAX_MINE_TIMER = 1.0f;
+	const float MAX_MINE_TIMER = 0.5f;
 	static float MINE_TIMER = 0.5f;
 	
 	//blackhole

@@ -633,6 +633,41 @@ void Spacewar::collisions()
 		}
 	}
 
+	//BLACKHOLE COLLISION
+	for (int i = 0; i < (ship2.blackholeList.size()); i++)
+	{
+		for (int j = 0; j < (ship2.bulletList.size()); j++)
+		{
+			if (ship2.blackholeList[i]->collidesWith(*ship2.bulletList[j], collisionVector))
+			{
+				
+				double angbet = ship2.blackholeList[i]->anglebetween(*ship2.bulletList[j]);
+				angbet += 180.0;
+				if (angbet > 360) { angbet -= 360; }
+
+				
+				ship2.bulletList[j]->setVelocityX(ship2.bulletList[j]->getVelocityX() + ((sin(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength() )*frameTime));
+				ship2.bulletList[j]->setVelocityY(ship2.bulletList[j]->getVelocityY() - ((cos(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength() )*frameTime));
+				
+			}
+		}
+		for (int j = 0; j < (ship1.mineList.size()); j++)
+		{
+			if (ship2.blackholeList[i]->collidesWith(*ship1.mineList[j], collisionVector))
+			{
+				
+				double angbet = ship2.blackholeList[i]->anglebetween(*ship1.mineList[j]);
+				angbet += 180.0;
+				if (angbet > 360) { angbet -= 360; }
+
+				ship1.mineList[j]->setVelocityX(ship1.mineList[j]->getVelocityX() + ((sin(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength())*frameTime));
+				ship1.mineList[j]->setVelocityY(ship1.mineList[j]->getVelocityY() - ((cos(angbet / 360 * 2 * PI)*ship2.blackholeList[i]->getsuckstrength())*frameTime));
+
+				
+			}
+		}
+	}
+
 	//EXPLOSION COLLISION
 	for (int i = 0; i < (explosionList.size()); i++)
 	{
