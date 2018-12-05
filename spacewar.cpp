@@ -659,7 +659,7 @@ void Spacewar::collisions()
 		if (ship2.bulletList[i]->collidesWith(ship1, collisionVector))
 		{
 			ship1.setHP(ship1.getHP() - (ship2.bulletList[i]->getDamage()));
-			//ship1.bounce(collisionVector,*ship2.bulletList[i]);
+			
 			if (ship2.bulletList[i] != NULL)
 			{
 				SAFE_DELETE(ship2.bulletList[i]);
