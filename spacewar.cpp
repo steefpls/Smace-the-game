@@ -462,6 +462,11 @@ void Spacewar::update()
 		}
 	}
 
+	if (input->isKeyDown('E'))
+	{
+		deleteAll();
+		initialize(hwnd);
+	}
 
 	if (input->isKeyDown(ESC_KEY))
 	{
@@ -928,6 +933,8 @@ void Spacewar::collisions()
 	{
 		ship2.bounce(collisionVector, ship1);
 	}
+
+
 	//if (ship1.collidesWith(missile1, collisionVector))
 	//{
 	//	ship1.setX(600);
