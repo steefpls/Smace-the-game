@@ -26,6 +26,7 @@ namespace spacewarNS
 //=============================================================================
 class Spacewar : public Game
 {
+
 private:
 	// game items
 	TextureManager nebulaTexture;   // nebula texture
@@ -69,6 +70,9 @@ private:
 	const char player1Secondary = 'X';
 
 	const char player2Secondary = 'M';
+	int trigger = 0;
+	string triggeredship = "";
+	
 
 	//Missile missile1;				// missile object
 	Explosion explosion1;
