@@ -132,11 +132,13 @@
   <ItemGroup>
     <Image Include="..\..\..\Desktop\giphy.gif" />
     <Image Include="pictures\bigblackrect.png" />
+    <Image Include="pictures\blue_heart.png" />
     <Image Include="pictures\Bullet123.png" />
     <Image Include="pictures\explosion.png" />
     <Image Include="pictures\mine.png" />
     <Image Include="pictures\orion.jpg" />
     <Image Include="pictures\planet.png" />
+    <Image Include="pictures\red_heart.png" />
     <Image Include="pictures\rockets_PNG13274.png" />
     <Image Include="pictures\ship.png" />
     <Image Include="pictures\ship2.png" />

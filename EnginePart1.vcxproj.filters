@@ -163,5 +163,11 @@
     <Image Include="pictures\explosion.png">
       <Filter>pictures</Filter>
     </Image>
+    <Image Include="pictures\blue_heart.png">
+      <Filter>pictures</Filter>
+    </Image>
+    <Image Include="pictures\red_heart.png">
+      <Filter>pictures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

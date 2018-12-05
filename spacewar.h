@@ -39,9 +39,13 @@ private:
 	TextureManager mineTexture;	//mine texture
 	TextureManager blackholeTexture;	//black hole texture
 	TextureManager rectTexture;	//big black rectangle and smaller blue one texture
+	TextureManager blueHeartTexture;
+	TextureManager redHeartTexture;
 
 	Image   planet;                 // planet image
 	Image   nebula;                 // nebula image
+	Image   blueHeart;
+	Image	redHeart;
 
 	//Ship * ship1 = NULL;
 	Ship	ship1;					// ship object
