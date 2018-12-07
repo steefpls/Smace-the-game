@@ -2,6 +2,8 @@
 //  Assignment1:        Ships and Shapes
 //  Student Name:       Steven Koe
 //  Student Number:     S10181536D
+//  Student Name:       Jedidiah Wong
+//  Student Number:     S10178790F
 
 #include "entity.h"
 
@@ -541,9 +543,9 @@ void Entity::getExplosionBlast(Entity &ent2, float blastPower)
 {
 	float powerX = abs(ent2.getCenterX() - getCenterX());
 	float powerY = abs(ent2.getCenterY() - getCenterY());
-	float power = (powerX + powerY)/2;
+	float power = 1/(powerX+ powerY);
 	double angbet = anglebetween(ent2);
 	angbet = (angbet * PI / 180)+0.005;		//So angbet is never exactly 0 or PI, since that causes wonky behaviour that I can't fix (steve)
-	ent2.setVelocityX(ent2.getVelocityX() + (blastPower * power * sin(angbet)));
-	ent2.setVelocityY(ent2.getVelocityY() + (blastPower * power * -cos(angbet)));
+	ent2.setVelocityX(ent2.getVelocityX() + (blastPower * power *1000* sin(angbet)));
+	ent2.setVelocityY(ent2.getVelocityY() + (blastPower * power *1000* -cos(angbet)));
 }

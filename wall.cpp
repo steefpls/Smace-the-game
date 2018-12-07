@@ -1,7 +1,7 @@
 //  Module:             Gameplay Programming
 //  Assignment1:        Ships and Shapes
-//  Student Name:       your name
-//  Student Number:     your student number
+//  Student Name:       Jedidiah Wong
+//  Student Number:     S10178790F
 
 #include "wall.h"
 

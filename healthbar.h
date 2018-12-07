@@ -1,3 +1,4 @@
+//for future use
 
 #ifndef _HEALTHBAR_H                 // Prevent multiple definitions if this 
 #define _HEALTHBAR_H                 // file is included in more than one place
