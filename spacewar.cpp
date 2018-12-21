@@ -328,16 +328,17 @@ void Spacewar::update()
 		ship1.dash();
 	}
 
-	for (int i = 0; i < ship1.missileList.size(); i++)									//Update all ship1 missile objects
-	{
-		ship1.missileList[i]->update(frameTime);
-	}
 
 	if (input->isKeyDown(player1Secondary) && ship1.getmissiletimer()<0)				//If player is pressing X, shoot missiles
 	{
 		ship1.spawnmissile();
 		ship1.missileList[ship1.missileList.size() - 1]->initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture);
 		ship1.setMissileXY();
+	}
+
+	for (int i = 0; i < ship1.missileList.size(); i++)									//Update all ship1 missile objects
+	{
+		ship1.missileList[i]->update(frameTime);
 	}
 
 	for (int i = 0; i < ship1.missileList.size(); i++)				//check if missile is out of bounds
@@ -725,7 +726,7 @@ void Spacewar::collisions()
 
 					SAFE_DELETE(ship2.bulletList[j]);
 					ship2.bulletList.erase(ship2.bulletList.begin() + j);
-
+					
 				}
 			}
 		}
@@ -788,28 +789,28 @@ void Spacewar::collisions()
 	//BULLET COLLISION
 	for (int i = 0; i < (ship2.bulletList.size()); i++)
 	{
-		if (ship1.collidesWith(*ship2.bulletList[i], collisionVector))
-		{
-			ship1.setVelocityX(ship1.getVelocityX() + sin(ship2.bulletList[i]->getRadians()) *  (ship2.bulletList[i]->getDamage())*ship1.getKnockBack());
-			ship1.setVelocityY(ship1.getVelocityY() + -cos(ship2.bulletList[i]->getRadians()) *  (ship2.bulletList[i]->getDamage())*ship1.getKnockBack());
-
-		}
 		if (ship2.bulletList[i] != NULL)
 		{
-			if (ship2.bulletList[i]->collidesWith(ship1, collisionVector))
+			if (ship1.collidesWith(*ship2.bulletList[i], collisionVector))			//If ship1 collides with bullet
 			{
-				ship1.setHP(ship1.getHP() - (ship2.bulletList[i]->getDamage()));
+				ship1.setVelocityX(ship1.getVelocityX() + sin(ship2.bulletList[i]->getRadians()) *  (ship2.bulletList[i]->getDamage())*ship1.getKnockBack());
+				ship1.setVelocityY(ship1.getVelocityY() + -cos(ship2.bulletList[i]->getRadians()) *  (ship2.bulletList[i]->getDamage())*ship1.getKnockBack());
 
+
+				ship1.setHP(ship1.getHP() - (ship2.bulletList[i]->getDamage()));
 
 				SAFE_DELETE(ship2.bulletList[i]);
 				ship2.bulletList.erase(ship2.bulletList.begin() + i);
+				continue;
 
 			}
+			
 		}
+		
 
 		for (int j = 0; j < (ship1.missileList.size()); j++)
 		{
-			if (ship1.missileList[j] != NULL)
+			if (ship1.missileList[j] != NULL && ship2.bulletList[i] != NULL)
 			{
 				if (ship2.bulletList[i]->collidesWith(*ship1.missileList[j], collisionVector))
 				{

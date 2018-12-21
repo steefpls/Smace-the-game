@@ -68,16 +68,16 @@ namespace shipNS
 	const float BOOST_AMT = 400; //pixels per second
 
 	//Missile
-	const float MAX_MISSILE_TIMER = 1.5f;
-	static float MISSILE_TIMER = 0.5f;
+	const float MAX_MISSILE_TIMER = 0.5f;
+	static float MISSILE_TIMER = 0.2f;
 	
 	//bullet
 	const float MAX_BULLET_TIMER = 0.75f;
 	static float BULLET_TIMER = 0.5f;
 	
 	//Mine
-	const float MAX_MINE_TIMER = 0.5f;
-	static float MINE_TIMER = 0.5f;
+	const float MAX_MINE_TIMER = 0.25f;
+	static float MINE_TIMER = 0.2f;
 	
 	//blackhole
 	const float MAX_BLACKHOLE_TIMER = 5.0f;

@@ -198,8 +198,9 @@ void Game::run(HWND hwnd)
     // These functions must be provided in the class that inherits from Game.
     if (!paused)                    // if not paused
     {
-		collisions();               // handle collisions
+		
         update();                   // update all game items
+		collisions();               // handle collisions
         ai();                       // artificial intelligence
         
         input->vibrateControllers(frameTime); // handle controller vibration
