@@ -226,6 +226,11 @@ void Spacewar::update()
 {
 	//bullet1.update(frameTime); //update bullet frames
 
+	if (input->isKeyDown('E'))
+	{
+		resetAll();
+	}
+
 	ship1.update(frameTime);	//update ship1 frames
 	ship2.update(frameTime);	//update ship2 frames
 	
@@ -1109,6 +1114,17 @@ void Spacewar::releaseAll()
 {
 	planetTexture.onLostDevice();
 	nebulaTexture.onLostDevice();
+	ship1Texture.onLostDevice();
+	ship2Texture.onLostDevice();
+	wallTexture.onLostDevice();
+	missileTexture.onLostDevice();
+	explosionTexture.onLostDevice();
+	bulletTexture.onLostDevice();
+	mineTexture.onLostDevice();
+	blackholeTexture.onLostDevice();
+	rectTexture.onLostDevice();
+	blueHeartTexture.onLostDevice();
+	redHeartTexture.onLostDevice();
 
     Game::releaseAll();
     return;
@@ -1122,6 +1138,17 @@ void Spacewar::resetAll()
 {
 	nebulaTexture.onResetDevice();
 	planetTexture.onResetDevice();
+	ship1Texture.onResetDevice();
+	ship2Texture.onResetDevice();
+	wallTexture.onResetDevice();
+	missileTexture.onResetDevice();
+	explosionTexture.onResetDevice();
+	bulletTexture.onResetDevice();
+	mineTexture.onResetDevice();
+	blackholeTexture.onResetDevice();
+	rectTexture.onResetDevice();
+	blueHeartTexture.onResetDevice();
+	redHeartTexture.onResetDevice();
 
     Game::resetAll();
     return;
