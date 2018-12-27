@@ -228,7 +228,7 @@ void Spacewar::update()
 
 	if (input->isKeyDown('E'))
 	{
-		resetAll();
+		releaseAll();
 	}
 
 	ship1.update(frameTime);	//update ship1 frames

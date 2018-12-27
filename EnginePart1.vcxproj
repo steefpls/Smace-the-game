@@ -107,6 +107,7 @@
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="audio.h" />
     <ClInclude Include="blackhole.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="constants.h" />
@@ -127,6 +128,7 @@
     <ClInclude Include="wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="audio\smace_audio.xap" />
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +145,9 @@
     <Image Include="pictures\ship.png" />
     <Image Include="pictures\ship2.png" />
     <Image Include="pictures\wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="audio\koriuchi8bit.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

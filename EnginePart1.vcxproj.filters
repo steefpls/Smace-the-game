@@ -16,6 +16,9 @@
     <Filter Include="pictures">
       <UniqueIdentifier>{1de3224b-5ddc-422a-ad12-4821398cfec0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="audio">
+      <UniqueIdentifier>{69cc9ece-fc68-4490-b91f-3cca77bd21da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp">
@@ -125,9 +128,15 @@
     <ClInclude Include="text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="audio\smace_audio.xap">
+      <Filter>audio</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="pictures\orion.jpg">
@@ -169,5 +178,10 @@
     <Image Include="pictures\red_heart.png">
       <Filter>pictures</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="audio\koriuchi8bit.wav">
+      <Filter>audio</Filter>
+    </Media>
   </ItemGroup>
 </Project>
