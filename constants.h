@@ -51,8 +51,11 @@ const char BLUEHEART_IMAGE[] = "pictures\\blue_heart.png";	//blue heart
 const char REDHEART_IMAGE[] = "pictures\\red_heart.png";	//red heart
 
 // audio files
-const char WAVE_BANK[] = "audio\\smace_audio\\Win\\Wave Bank.xwb";
-const char SOUND_BANK[] = "audio\\smace_audio\\Win\\Sound Bank.xsb";
+const char WAVE_BANK[] = "audio\\Win\\Wave Bank.xwb";
+const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
+
+//audio cues
+const char BGM[] = "koriuchi8bit";
 
 ////keybinds
 //const char player1Right = 'D';

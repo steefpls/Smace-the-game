@@ -19,6 +19,9 @@
     <Filter Include="audio">
       <UniqueIdentifier>{69cc9ece-fc68-4490-b91f-3cca77bd21da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="audio\Win">
+      <UniqueIdentifier>{6862091c-c82a-4eb1-98c6-14558ea3dc63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp">
@@ -70,6 +73,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,8 +140,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
-    <None Include="audio\smace_audio.xap">
+    <None Include="audio\Win\smace_audio.xap">
       <Filter>audio</Filter>
+    </None>
+    <None Include="audio\Win\smace_audio.xgs">
+      <Filter>audio\Win</Filter>
+    </None>
+    <None Include="audio\Win\Sound Bank.xsb">
+      <Filter>audio\Win</Filter>
+    </None>
+    <None Include="audio\Win\Wave Bank.xwb">
+      <Filter>audio\Win</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +195,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="audio\koriuchi8bit.wav">
+    <Media Include="audio\Win\koriuchi8bit.wav">
       <Filter>audio</Filter>
     </Media>
   </ItemGroup>

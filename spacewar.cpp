@@ -29,6 +29,8 @@ Spacewar::~Spacewar()
 void Spacewar::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
+
+	audio->playCue(BGM);
 	
 		// blue heart texture
 	if (!blueHeartTexture.initialize(graphics,BLUEHEART_IMAGE))

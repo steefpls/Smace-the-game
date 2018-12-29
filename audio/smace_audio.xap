@@ -306,4 +306,24 @@ Sound Bank
             }
         }
     }
+
+    Cue
+    {
+        Name = koriuchi8bit;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = koriuchi8bit;
+            Index = 0;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
 }

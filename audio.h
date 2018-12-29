@@ -10,10 +10,11 @@ class Audio
 private:
 	IXACT3Engine* xactEngine;		//pointer to XACT sound engine
 	IXACT3WaveBank* waveBank;		//pointer to XACT wave bank
+	IXACT3SoundBank* soundBank;		//pointer to XACT sound bank
 	XACTINDEX cueI;					//XACT sound index
 	void* mapWaveBank;				//call UnmapViewOfFile() to release file
 	void* soundBankData;
-	bool* coInitialized;			//set true if coInitialize is successful
+	bool coInitialized;			//set true if coInitialize is successful
 
 public:
 	Audio();

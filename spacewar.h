@@ -17,6 +17,7 @@
 #include "explosion.h"
 #include "blackhole.h"
 #include "text.h"
+#include "audio.h"
 
 #include <iostream>
 #include <list>
