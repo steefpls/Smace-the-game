@@ -11,6 +11,7 @@
 
 #include "entity.h"
 #include "constants.h"
+#include "audio.h"
 
 namespace explosionNS
 {

@@ -243,7 +243,6 @@ void Spacewar::update()
 			explosionList[i]->update(frameTime);
 			if (explosionList[i]->getCurrentFrame() == explosionList[i]->getEndFrame())
 			{
-
 				SAFE_DELETE(explosionList[i]);
 				explosionList.erase(explosionList.begin() + i);
 
@@ -338,6 +337,7 @@ void Spacewar::update()
 
 	if (input->isKeyDown(player1Secondary) && ship1.getmissiletimer()<0)				//If player is pressing X, shoot missiles
 	{
+		audio->playCue(MISSILE);
 		ship1.spawnmissile();
 		ship1.missileList[ship1.missileList.size() - 1]->initialize(this, missileNS::WIDTH, missileNS::HEIGHT, missileNS::TEXTURE_COLS, &missileTexture);
 		ship1.setMissileXY();
@@ -431,6 +431,7 @@ void Spacewar::update()
 	
 	if (input->isKeyDown(SPACE) && ship2.getbullettimer() < 0)	//if Space is pressed, shoot bullets
 	{
+		audio->playCue(BULLETSHOT);
 		if (ship2.getnoofbullets() > 1)
 		{
 			double degdiff = ship2.getdegreespread() / (ship2.getnoofbullets() - 1);
@@ -548,7 +549,7 @@ void Spacewar::collisions()
 						explosionList[explosionList.size() - 1]->setX(ship1.missileList[x]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth() + sin(ship1.missileList[x]->getRadians())*ship1.missileList[x]->getHeight() / 2 * ship1.missileList[x]->getScale());
 						explosionList[explosionList.size() - 1]->setY(ship1.missileList[x]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight() - cos(ship1.missileList[x]->getRadians())*ship1.missileList[x]->getHeight() / 2 * ship1.missileList[x]->getScale());	//This set of codes ensures that the explosion is spawned at the tip of the missile, first by centering the xplosion point around the missile center, then adding x and y based on angle of missile.
 						wallListList[i][j]->setHP(wallListList[i][j]->getHP() - ship1.missileList[x]->getDamage());
-
+						audio->playCue(BOOM);
 						SAFE_DELETE(ship1.missileList[x]);
 						ship1.missileList.erase(ship1.missileList.begin() + x);
 
@@ -785,7 +786,7 @@ void Spacewar::collisions()
 				explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
 				explosionList[explosionList.size() - 1]->setX(ship1.mineList[i]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth());
 				explosionList[explosionList.size() - 1]->setY(ship1.mineList[i]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight());
-
+				audio->playCue(BOOM);
 				SAFE_DELETE(ship1.mineList[i]);
 				ship1.mineList.erase(ship1.mineList.begin() + i);
 
@@ -852,7 +853,7 @@ void Spacewar::collisions()
 				explosionList[explosionList.size() - 1]->setFrames(explosionNS::EXPLOSION_START_FRAME, explosionNS::EXPLOSION_END_FRAME);
 				explosionList[explosionList.size() - 1]->setX(ship1.missileList[i]->getCenterX() - explosionList[explosionList.size() - 1]->getWidth() + sin(ship1.missileList[i]->getRadians())*ship1.missileList[i]->getHeight() / 2 * ship1.missileList[i]->getScale());
 				explosionList[explosionList.size() - 1]->setY(ship1.missileList[i]->getCenterY() - explosionList[explosionList.size() - 1]->getHeight() - cos(ship1.missileList[i]->getRadians())*ship1.missileList[i]->getHeight() / 2 * ship1.missileList[i]->getScale());	//This set of codes ensures that the explosion is spawned at the tip of the missile, first by centering the xplosion point around the missile center, then adding x and y based on angle of missile.
-
+				audio->playCue(BOOM);
 
 				SAFE_DELETE(ship1.missileList[i]);
 				ship1.missileList.erase(ship1.missileList.begin() + i);

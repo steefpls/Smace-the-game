@@ -151,6 +151,7 @@
     <Image Include="pictures\wall.png" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="audio\boom.wav" />
     <Media Include="audio\Win\koriuchi8bit.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

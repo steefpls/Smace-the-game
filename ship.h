@@ -15,6 +15,7 @@
 #include "bullet.h"
 #include "mine.h"
 #include "blackhole.h"
+#include "audio.h"
 
 
 using namespace std;
