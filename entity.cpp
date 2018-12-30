@@ -412,7 +412,7 @@ void Entity::bounce(VECTOR2 &collisionVector, Entity &ent)
 		setY(getY() - cUV.y * massRatio * damagemultiplier);
 	}
 	else
-		deltaV += ((massRatio * cUVdotVdiff) * cUV*damagemultiplier);
+		deltaV += ((massRatio * cUVdotVdiff) * cUV* damagemultiplier);
 }
 
 //=============================================================================
