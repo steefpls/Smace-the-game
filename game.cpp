@@ -12,6 +12,7 @@ Game::Game()
     // additional initialization is handled in later call to input->initialize()
     paused = false;             // game is not paused
     graphics = NULL;
+	audio = NULL;
     initialized = false;
 }
 
@@ -103,6 +104,17 @@ void Game::initialize(HWND hw)
     // initialize input, do not capture mouse
     input->initialize(hwnd, false);             // throws GameError
 
+	audio = new Audio();
+	if (*WAVE_BANK != '\0'&& *SOUND_BANK != '\0')
+	{
+		if (FAILED(hr = audio->initialize()))
+		{
+			if (hr == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND)) 
+				throw(GameError(gameErrorNS::FATAL_ERROR, "Failed to initialize sound systems because media file not found."));
+			else 
+				throw(GameError(gameErrorNS::FATAL_ERROR, "Failed to initialize sound system."));
+		}
+	}
     // attempt to set up high resolution timer
     if(QueryPerformanceFrequency(&timerFreq) == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing high resolution timer"));
@@ -241,6 +253,7 @@ void Game::deleteAll()
 {
     releaseAll();               // call onLostDevice() for every graphics item
     SAFE_DELETE(graphics);
+	SAFE_DELETE(audio);
     SAFE_DELETE(input);
     initialized = false;
 }

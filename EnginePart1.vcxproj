@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="audio.cpp" />
     <ClCompile Include="blackhole.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="entity.cpp" />
@@ -107,6 +108,7 @@
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="audio.h" />
     <ClInclude Include="blackhole.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="constants.h" />
@@ -127,6 +129,10 @@
     <ClInclude Include="wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="audio\Win\smace_audio.xap" />
+    <None Include="audio\Win\smace_audio.xgs" />
+    <None Include="audio\Win\Sound Bank.xsb" />
+    <None Include="audio\Win\Wave Bank.xwb" />
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +149,9 @@
     <Image Include="pictures\ship.png" />
     <Image Include="pictures\ship2.png" />
     <Image Include="pictures\wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="audio\Win\koriuchi8bit.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

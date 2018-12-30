@@ -50,6 +50,13 @@ const char RECTANGLE_IMAGE[] = "pictures\\bigblackrect.png";	//big black rectang
 const char BLUEHEART_IMAGE[] = "pictures\\blue_heart.png";	//blue heart
 const char REDHEART_IMAGE[] = "pictures\\red_heart.png";	//red heart
 
+// audio files
+const char WAVE_BANK[] = "audio\\Win\\Wave Bank.xwb";
+const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
+
+//audio cues
+const char BGM[] = "koriuchi8bit";
+
 ////keybinds
 //const char player1Right = 'D';
 //const char player1Left = 'A';
