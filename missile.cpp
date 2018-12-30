@@ -101,7 +101,7 @@ void Missile::update(float frameTime)
 	
 	
 
-	//SHIP LOCATION UPDATEb
+	//MISSILE LOCATION UPDATE
 	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
 	spriteData.y += (velocity.y  * frameTime); // Update Ship Y location
 
