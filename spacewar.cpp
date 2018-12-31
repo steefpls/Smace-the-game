@@ -775,7 +775,7 @@ void Spacewar::collisions()
 		{
 			if (ship1.mineList[i]->collidesWith(*explosionList[j], collisionVector) && explosionList[j]->getCurrentFrame() == 0)
 			{
-				ship1.mineList[i]->setHP(ship1.mineList[i]->getHP() - explosionList[j]->getDamage());
+				ship1.mineList[i]->setHP(0);
 			}
 		}
 		if (ship1.mineList[i] != NULL)
