@@ -384,7 +384,7 @@ float Ship::getDamageResistance()
 
 double Ship::getKnockBack()
 {
-	return 6000 / (hp + 2000);
+	return 3.00 - (hp / maxhp) * 2.00;
 }
 
 string Ship::getdamagestring()
