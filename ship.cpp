@@ -28,6 +28,7 @@ Ship::Ship() : Entity()
 	currentFrame = startFrame;
 	damage = shipNS::DAMAGE_MULTIPLIER;
 
+	damageTimer = shipNS::DMG_TIMER;
 	dashTimer = shipNS::DASH_TIMER;
 	missileTimer = shipNS::MISSILE_TIMER;
 	bulletTimer = shipNS::BULLET_TIMER;
@@ -45,6 +46,7 @@ Ship::Ship() : Entity()
 	edge.top = -spriteData.height / 2;
 	edge.bottom = spriteData.height / 2;
 	damagemultiplier = getKnockBack();
+	prevhp = shipNS::HP;
 	hp = shipNS::HP;
 	maxhp = shipNS::MAX_HP;
 
@@ -132,7 +134,6 @@ void Ship::update(float frameTime)
 		}
 	}
 	
-
 	//================================================= Ship Rotation Drag Handling =====================================
 
 	if (!input->isKeyDown(player1Left) && RotationRate < -RotationDrag * frameTime)			//If A is not being pressed and ship is rotating counter clockwise
@@ -179,7 +180,19 @@ void Ship::update(float frameTime)
 		}
 	}
 
+	if (prevhp > hp || damageTimer > 0)
+	{
+		currentFrame = 1;
+		damageTimer = shipNS::MAX_DMG_TIMER;
+	}
+	else currentFrame = 0;
+
 	//================================================= SHIP TIMERS =================================================
+	if (damageTimer > 0)
+	{
+		damageTimer -= 1.0f * frameTime;
+	}
+
 	if (dashTimer > 0)		//If timer is larger than 0
 	{
 		dashTimer -= 1.0f * frameTime; //Timer goes down by 1 per second
@@ -209,6 +222,8 @@ void Ship::update(float frameTime)
 
 	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
 	spriteData.y += (velocity.y  * frameTime); // Update Ship Y location
+
+	prevhp = hp;
 }
 
 void Ship::spawnmissile()
@@ -228,6 +243,7 @@ void Ship::spawnmine()
 	mineList.push_back(new Mine());
 	mineTimer = shipNS::MAX_MINE_TIMER;
 }
+
 void Ship::spawnblackhole()
 {
 	blackholeList.push_back(new Blackhole());
@@ -263,6 +279,7 @@ void Ship::setMineXY()
 	mineList[mineList.size() - 1]->setVelocityY(mineList[mineList.size() - 1]->getVelocityY() + getVelocityY());
 	mineList[mineList.size() - 1]->setVelocityX(mineList[mineList.size() - 1]->getVelocityX() + getVelocityX());
 }
+
 void Ship::setBlackholeXY()
 {
 	blackholeList[blackholeList.size() - 1]->setX(getCenterX() - ((blackholeList[blackholeList.size() - 1]->getWidth())*(blackholeList[blackholeList.size() - 1]->getScale()) / 2));
@@ -273,13 +290,15 @@ void Ship::setBlackholeXY()
 	blackholeList[blackholeList.size() - 1]->setVelocityY(blackholeList[blackholeList.size() - 1]->getVelocityY()*-cos(blackholeList[blackholeList.size() - 1]->getRadians()));
 }
 
-
 int Ship::getmaxmines()
 {
 	return shipNS::MAX_MINES;
 }
 
-
+float Ship::getDamageTimer()
+{
+	return damageTimer;
+}
 
 float Ship::getmissiletimer()
 {
@@ -393,4 +412,9 @@ double Ship::getMaxHP()
 double Ship::getblackholesuckmultiplier()
 {
 	return blackholesuccmultiplier;
+}
+
+void Ship::setPrevHP(int hp)
+{
+	prevhp = hp;
 }

@@ -177,16 +177,6 @@ void Spacewar::initialize(HWND hwnd)
 	if(!blackholeTexture.initialize(graphics,BLACKHOLE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole texture"));
 
-	//blackhole object
-	//if (!blackhole1.initialize(this, blackholeNS::WIDTH, blackholeNS::HEIGHT, blackholeNS::TEXTURE_COLS, &blackholeTexture))
-	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing black hole"));
-	//blackhole1.setFrames(blackholeNS::BLACKHOLE_START_FRAME, blackholeNS::BLACKHOLE_END_FRAME);
-	//blackhole1.setX(3 * GAME_WIDTH / 4);
-	//blackhole1.setY(3 * GAME_HEIGHT / 4);
-
-	//blackholeList.push_back(blackhole1);
-	//ship1.setVelocity(VECTOR2(shipNS::SPEED, -shipNS::SPEED)); // VECTOR2(X, Y)
-
 	Player1Label.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
 	Player1Label.setFontColor(SETCOLOR_ARGB(255, 19, 25, 48));
 	
@@ -815,7 +805,6 @@ void Spacewar::collisions()
 			
 		}
 		
-
 		for (int j = 0; j < (ship1.missileList.size()); j++)
 		{
 			if (ship1.missileList[j] != NULL && ship2.bulletList[i] != NULL)
@@ -985,6 +974,9 @@ void Spacewar::collisions()
 	{
 		ship2.bounce(collisionVector, ship1);
 	}
+
+	ship1.setPrevHP(ship1.getHP());
+	ship2.setPrevHP(ship2.getHP());
 }
 
 //=============================================================================
@@ -1128,6 +1120,7 @@ void Spacewar::releaseAll()
 	rectTexture.onLostDevice();
 	blueHeartTexture.onLostDevice();
 	redHeartTexture.onLostDevice();
+	//audio->stopCue(BGM);
 
     Game::releaseAll();
     return;

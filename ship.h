@@ -15,7 +15,6 @@
 #include "bullet.h"
 #include "mine.h"
 #include "blackhole.h"
-#include "audio.h"
 
 
 using namespace std;
@@ -55,7 +54,7 @@ namespace shipNS
 	//Textures
 	const int   TEXTURE_COLS = 2;           // texture has 2 columns
 	const int   SHIP_START_FRAME = 0;      // ship1 starts at frame 0
-	const int   SHIP_END_FRAME = 3;        // ship1 animation frames 0,1,2,3
+	const int   SHIP_END_FRAME = 0;        // ship1 animation frames 0,1,2,3
 	const float SHIP_ANIMATION_DELAY = 0.2f;    // time between frames
 	const int   SHIELD_START_FRAME = 24;    // shield start frame
 	const int   SHIELD_END_FRAME = 27;      // shield end frame
@@ -67,6 +66,10 @@ namespace shipNS
 	static float DASH_TIMER = 1.0f;
 	//static bool CAN_DASH = false;
 	const float BOOST_AMT = 400; //pixels per second
+
+	//Damage Timer
+	const float MAX_DMG_TIMER = 0.1f;
+	static float DMG_TIMER = 0.05f;
 
 	//Missile
 	const float MAX_MISSILE_TIMER = 0.5f;
@@ -88,8 +91,8 @@ namespace shipNS
 	static double DAMAGE_MULTIPLIER = 1.0;
 	static float DAMAGE_RESISTANCE = 1000.0;
 	const int MAX_MINES = 20;
-	static int NO_OF_BULLETS_SHOT = 100;
-	static double DEGREE_SPREAD = 50.0f;
+	static int NO_OF_BULLETS_SHOT = 4;
+	static double DEGREE_SPREAD = 20.0f;
 	static float MAX_HP = 4000;
 	static float HP = MAX_HP;
 
@@ -104,9 +107,11 @@ class Ship : public Entity
 private:
 	bool    shieldOn;
 	Image   shield;
+	float prevhp;
 	//vector<Missile*> missileList;
 
 protected:
+	float damageTimer;
 	float dashTimer;
 	float missileTimer;
 	float bulletTimer;
@@ -115,6 +120,7 @@ protected:
 	float damageResistance;
 	float maxhp;
 	double blackholesuccmultiplier;
+	
 
 	int noOfBullets = shipNS::NO_OF_BULLETS_SHOT;
 	float bulletDegreeSpread = shipNS::DEGREE_SPREAD;
@@ -153,6 +159,7 @@ public:
 	void setMineXY();
 	void setBlackholeXY();
 
+	float getDamageTimer();
 	float getmissiletimer();
 	float getbullettimer();
 	float getminetimer();
@@ -186,5 +193,6 @@ public:
 	double getMaxHP();
 	string getdamagestring();
 	double getblackholesuckmultiplier();
+	void setPrevHP(int hp);
 };
 #endif _SHIP_H

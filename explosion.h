@@ -16,20 +16,20 @@
 namespace explosionNS
 {
 	//Location Handling
-	const int WIDTH = 128;					//image width
-	const int HEIGHT = 128;					//image height
+	const int WIDTH = 1000;					//image width
+	const int HEIGHT = 1000;					//image height
 	static float X = GAME_WIDTH / 2;
 	static float Y = GAME_HEIGHT / 2;
 
 	//Texture handling
-	const int TEXTURE_COLS = 10;			//texture has 1 columns
-	const int EXPLOSION_START_FRAME = 1;      // ship1 starts at frame 0
-	const int EXPLOSION_END_FRAME = 10;        // ship1 animation frames 0,1,2,3
+	const int TEXTURE_COLS = 4;			//texture has 1 columns
+	const int EXPLOSION_START_FRAME = 0;      // ship1 starts at frame 0
+	const int EXPLOSION_END_FRAME = 18;        // ship1 animation frames 0,1,2,3
 	const float EXPLOSION_ANIMATION_DELAY = 0.05;
 	
 	const float MASS = 1.0e14f;
 	static bool ACTIVE = true;
-	static float SCALE = 2;
+	static float SCALE = 1;
 	//const int COLLISION_RADIUS = 60 / 2;
 	const float DAMAGE = 50.0f;
 }

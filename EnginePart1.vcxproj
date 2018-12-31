@@ -100,8 +100,10 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="mine.cpp" />
     <ClCompile Include="missile.cpp" />
+    <ClCompile Include="particles.cpp" />
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="spacewar.cpp" />
+    <ClCompile Include="startscreen.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="wall.cpp" />
@@ -122,8 +124,10 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="mine.h" />
     <ClInclude Include="missile.h" />
+    <ClInclude Include="particles.h" />
     <ClInclude Include="ship.h" />
     <ClInclude Include="spacewar.h" />
+    <ClInclude Include="startscreen.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="wall.h" />
