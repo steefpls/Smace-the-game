@@ -29,7 +29,7 @@ namespace explosionNS
 	
 	const float MASS = 1.0e14f;
 	static bool ACTIVE = true;
-	static float SCALE = 1;
+	static float SCALE = 0.125;
 	//const int COLLISION_RADIUS = 60 / 2;
 	const float DAMAGE = 50.0f;
 }
