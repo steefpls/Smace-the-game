@@ -12,6 +12,7 @@
 #include "input.h"
 #include "image.h"
 #include "game.h"
+#include "audio.h"
 
 namespace entityNS
 {
@@ -45,6 +46,7 @@ protected:
 	double randval;			//Random Degree variance
 	double damage;			//damage done
 	double damagemultiplier; //Damage multiplier
+	Audio *audio;
 	
 	
 

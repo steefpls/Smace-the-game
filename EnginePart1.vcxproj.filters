@@ -198,5 +198,8 @@
     <Media Include="audio\Win\koriuchi8bit.wav">
       <Filter>audio</Filter>
     </Media>
+    <Media Include="audio\boom.wav">
+      <Filter>audio</Filter>
+    </Media>
   </ItemGroup>
 </Project>

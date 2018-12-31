@@ -56,6 +56,9 @@ const char SOUND_BANK[] = "audio\\Win\\Sound Bank.xsb";
 
 //audio cues
 const char BGM[] = "koriuchi8bit";
+const char BOOM[] = "boom";
+const char MISSILE[] = "missileLaunch";
+const char BULLETSHOT[] = "bulletShot";
 
 ////keybinds
 //const char player1Right = 'D';
