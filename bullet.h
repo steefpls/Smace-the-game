@@ -17,8 +17,8 @@
 namespace bulletNS
 {
 	//Location handling
-	const int WIDTH = 16;                   // image width
-	const int HEIGHT = 64;                  // image height
+	const int WIDTH = 75;                   // image width
+	const int HEIGHT = 175;                  // image height
 	static int X = GAME_WIDTH / 2 - WIDTH / 2;   // location on screen
 	static int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
 
@@ -42,7 +42,7 @@ namespace bulletNS
 	const int   BULLET_START_FRAME = 0;      // ship1 starts at frame 0
 	const int   BULLET_END_FRAME = 0;        // ship1 animation frames 0,1,2,3
 	const float BULLET_ANIMATION_DELAY = 0.2f;    // time between frames
-	static float SCALE = 1;			//ship scale
+	static float SCALE = 0.3;			//ship scale
 
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;

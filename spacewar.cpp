@@ -44,9 +44,9 @@ void Spacewar::initialize(HWND hwnd)
 	if (!nebulaTexture.initialize(graphics, NEBULA_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing nebula texture"));
 
-	// planet texture
-	if (!planetTexture.initialize(graphics, PLANET_IMAGE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing planet texture"));
+	//// planet texture
+	//if (!planetTexture.initialize(graphics, PLANET_IMAGE))
+	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing planet texture"));
 
 	//ship1Textures
 	if (!ship1Texture.initialize(graphics, SHIP1_IMAGE))
@@ -197,16 +197,16 @@ void Spacewar::initialize(HWND hwnd)
 	if (!nebula.initialize(graphics, 0, 0, 0, &nebulaTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing nebula"));
 
-	// planet
-	if (!planet.initialize(graphics, 0, 0, 0, &planetTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing planet"));
+	//// planet
+	//if (!planet.initialize(graphics, 0, 0, 0, &planetTexture))
+	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing planet"));
 
 	//Scale Nebula to fullscreen
 	nebula.setScale(GAME_WIDTH / nebula.getWidth());
 
-	// place planet in center of screen
-	planet.setX(GAME_WIDTH*0.5f - planet.getWidth()*0.5f);
-	planet.setY(GAME_HEIGHT*0.5f - planet.getHeight()*0.5f);
+	//// place planet in center of screen
+	//planet.setX(GAME_WIDTH*0.5f - planet.getWidth()*0.5f);
+	//planet.setY(GAME_HEIGHT*0.5f - planet.getHeight()*0.5f);
 
 	return;
 }
@@ -926,13 +926,13 @@ void Spacewar::collisions()
 	//EXPLOSION COLLISION
 	for (int i = 0; i < (explosionList.size()); i++)
 	{
-		if (ship1.collidesWith(*explosionList[i], collisionVector) && explosionList[i]->getCurrentFrame() == 1)
+		if (ship1.collidesWith(*explosionList[i], collisionVector) /*&& explosionList[i]->getCurrentFrame() == 18*/)
 		{
 			ship1.setHP(ship1.getHP() - explosionList[i]->getDamage());
 			explosionList[i]->getExplosionBlast(ship1, ship1.getKnockBack());
 		}
 
-		if (ship2.collidesWith(*explosionList[i], collisionVector) && explosionList[i]->getCurrentFrame() == 1)
+		if (ship2.collidesWith(*explosionList[i], collisionVector) /*&& explosionList[i]->getCurrentFrame() == 18*/)
 		{
 			ship2.setHP(ship2.getHP() - explosionList[i]->getDamage());
 			explosionList[i]->getExplosionBlast(ship2, ship2.getKnockBack());
@@ -995,7 +995,7 @@ void Spacewar::render()
 	graphics->spriteBegin();                // begin drawing sprites
 
 	nebula.draw();                          // add the orion nebula to the scene
-	planet.draw();                          // add the planet to the scene
+	//planet.draw();                          // add the planet to the scene
 	
 	for (int i = 0; i < ship1.lifeList.size(); i++)
 	{
@@ -1107,7 +1107,7 @@ void Spacewar::render()
 //=============================================================================
 void Spacewar::releaseAll()
 {
-	planetTexture.onLostDevice();
+	//planetTexture.onLostDevice();
 	nebulaTexture.onLostDevice();
 	ship1Texture.onLostDevice();
 	ship2Texture.onLostDevice();
@@ -1133,7 +1133,7 @@ void Spacewar::releaseAll()
 void Spacewar::resetAll()
 {
 	nebulaTexture.onResetDevice();
-	planetTexture.onResetDevice();
+	//planetTexture.onResetDevice();
 	ship1Texture.onResetDevice();
 	ship2Texture.onResetDevice();
 	wallTexture.onResetDevice();

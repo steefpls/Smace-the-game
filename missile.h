@@ -17,8 +17,8 @@
 namespace missileNS
 {
 	//Location handling
-	const int WIDTH = 300;                   // image width
-	const int HEIGHT = 1599;                  // image height
+	const int WIDTH = 150;                   // image width
+	const int HEIGHT = 200;                  // image height
 	static int X = GAME_WIDTH / 2 - WIDTH / 2;   // location on screen
 	static int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
 
@@ -42,7 +42,7 @@ namespace missileNS
 	const int   MISSILE_START_FRAME = 0;      // ship1 starts at frame 0
 	const int   MISSILE_END_FRAME = 0;        // ship1 animation frames 0,1,2,3
 	const float MISSILE_ANIMATION_DELAY = 0.2f;    // time between frames
-	static float SCALE = 0.05;			//ship scale
+	static float SCALE = 0.125;			//ship scale
 
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
