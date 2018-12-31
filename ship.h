@@ -87,8 +87,8 @@ namespace shipNS
 	static double DAMAGE_MULTIPLIER = 1.0;
 	static float DAMAGE_RESISTANCE = 1000.0;
 	const int MAX_MINES = 20;
-	static int NO_OF_BULLETS_SHOT = 100;
-	static double DEGREE_SPREAD = 50.0f;
+	static int NO_OF_BULLETS_SHOT = 4;
+	static double DEGREE_SPREAD = 40.0f;
 	static float MAX_HP = 4000;
 	static float HP = MAX_HP;
 
