@@ -25,13 +25,13 @@ namespace explosionNS
 	const int TEXTURE_COLS = 4;			//texture has 1 columns
 	const int EXPLOSION_START_FRAME = 0;      // ship1 starts at frame 0
 	const int EXPLOSION_END_FRAME = 18;        // ship1 animation frames 0,1,2,3
-	const float EXPLOSION_ANIMATION_DELAY = 0.05;
+	const float EXPLOSION_ANIMATION_DELAY = 0.01;
 	
 	const float MASS = 1.0e14f;
 	static bool ACTIVE = true;
 	static float SCALE = 0.125;
 	//const int COLLISION_RADIUS = 60 / 2;
-	const float DAMAGE = 50.0f;
+	const float DAMAGE = 15.0f;
 }
 
 class Explosion : public Entity

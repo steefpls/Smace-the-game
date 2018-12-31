@@ -37,7 +37,7 @@ class Spacewar : public Game
 private:
 	// game items
 	TextureManager nebulaTexture;   // nebula texture
-	TextureManager planetTexture;   // planet texture
+	//TextureManager planetTexture;   // planet texture
 	TextureManager ship1Texture;		// ship texture
 	TextureManager ship2Texture;		// cooler ship texture
 	TextureManager wallTexture;		// wall texture
@@ -50,7 +50,7 @@ private:
 	TextureManager blueHeartTexture;
 	TextureManager redHeartTexture;
 
-	Image   planet;                 // planet image
+	//Image   planet;                 // planet image
 	Image   nebula;                 // nebula image
 	Image   blueHeart;
 	Image	redHeart;
