@@ -205,6 +205,9 @@
     <Image Include="pictures\red_heart.png">
       <Filter>pictures</Filter>
     </Image>
+    <Image Include="pictures\Background.png">
+      <Filter>pictures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="audio\Win\koriuchi8bit.wav">

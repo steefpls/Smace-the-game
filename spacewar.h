@@ -24,7 +24,7 @@
 #include <vector>
 namespace spacewarNS
 {
-	const char FONT[] = "Arial Bold";  // font
+	const char FONT[] = "Omelette";  // font
 	const int FONT_SIZE = 48;     // font height
 	const COLOR_ARGB FONT_COLOR = graphicsNS::YELLOW;
 }
@@ -49,8 +49,10 @@ private:
 	TextureManager rectTexture;	//big black rectangle and smaller blue one texture
 	TextureManager blueHeartTexture;
 	TextureManager redHeartTexture;
+	TextureManager titleTexture;
 
 	//Image   planet;                 // planet image
+	Image	title;
 	Image   nebula;                 // nebula image
 	Image   blueHeart;
 	Image	redHeart;
@@ -68,6 +70,8 @@ private:
 	Text Player1Label;	//Player 1 Label
 	Text Player1DamagePercent;	//Player 1 Damage percentage
 
+	Text PressEnterToStart;
+
 	Text gameOverText;
 
 	Text Player2Label;	//Player 1 Label
@@ -80,6 +84,7 @@ private:
 	int trigger = 0;
 	string triggeredship = "";
 	
+	bool startscreenon = true;
 
 	//Missile missile1;				// missile object
 	Explosion explosion1;
@@ -99,7 +104,7 @@ public:
     void render();      // "
     void releaseAll();
     void resetAll();
-	
+	void resetGame();
 	
 };
 

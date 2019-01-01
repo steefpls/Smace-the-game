@@ -29,9 +29,9 @@ namespace explosionNS
 	
 	const float MASS = 1.0e14f;
 	static bool ACTIVE = true;
-	static float SCALE = 0.125;
+	static float SCALE = 0.25;
 	//const int COLLISION_RADIUS = 60 / 2;
-	const float DAMAGE = 15.0f;
+	const float DAMAGE = 12.0f;
 }
 
 class Explosion : public Entity

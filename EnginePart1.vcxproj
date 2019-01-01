@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Desktop\giphy.gif" />
+    <Image Include="pictures\Background.png" />
     <Image Include="pictures\bigblackrect.png" />
     <Image Include="pictures\blue_heart.png" />
     <Image Include="pictures\Bullet123.png" />
