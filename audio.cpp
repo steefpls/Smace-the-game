@@ -11,7 +11,6 @@ Audio::Audio()
 	cueI = 0;
 	mapWaveBank = NULL;         // Call UnmapViewOfFile() to release file
 	soundBankData = NULL;
-
 	HRESULT hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
 	if (SUCCEEDED(hr))
 		coInitialized = true;

@@ -39,10 +39,6 @@ void Startscreen::initialize(HWND hwnd)
 //==========================================================================================================================================================================================================================
 void Startscreen::update()
 {
-	if (input->isKeyDown(SPACE))
-	{
-		newGame.initialize(NULL);
-	}
 
 	if (input->isKeyDown(ESC_KEY))
 	{

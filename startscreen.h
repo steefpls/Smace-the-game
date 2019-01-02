@@ -34,7 +34,6 @@ private:
 	// game items
 	TextureManager nebulaTexture;   // nebula texture
 	Image   nebula;                 // nebula image
-	Spacewar newGame;
 
 
 public:

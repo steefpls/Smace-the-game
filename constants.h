@@ -36,19 +36,22 @@
 enum WEAPON {BULLET, TORPEDO, SHIP, WALL};
 
 // graphic images
-const char NEBULA_IMAGE[] = "pictures\\orion.jpg";  // photo source NASA/courtesy of nasaimages.org 
+const char NEBULA_IMAGE[] = "pictures\\BackgroundShipsandSHapes.png";  // photo source NASA/courtesy of nasaimages.org 
 const char PLANET_IMAGE[] = "pictures\\planet.png"; // picture of planet
 const char SHIP1_IMAGE[] = "pictures\\ship1.png";   // spaceship
 const char SHIP2_IMAGE[] = "pictures\\ship2.png";  //cooler spaceship
-const char WALL_IMAGE[] = "pictures\\wall.png";   // wall
+const char WALL_IMAGE[] = "pictures\\wallAlt.png";   // wall
 const char MISSILE_IMAGE[] = "pictures\\missile.png";	//missile
 const char EXPLOSION_IMAGE[] = "pictures\\explosion.png";	//explosion
 const char BULLET_IMAGE[] = "pictures\\Bullet123.png";	//bullet
 const char MINE_IMAGE[] = "pictures\\mine.png";	//mine
 const char BLACKHOLE_IMAGE[] = "pictures\\blackhole.png";	//black hole
 const char RECTANGLE_IMAGE[] = "pictures\\bigblackrect.png";	//big black rectangle and smaller blue one
-const char BLUEHEART_IMAGE[] = "pictures\\blue_heart.png";	//blue heart
-const char REDHEART_IMAGE[] = "pictures\\red_heart.png";	//red heart
+const char BLUEHEART_IMAGE[] = "pictures\\red_heart.png";	//blue heart
+const char REDHEART_IMAGE[] = "pictures\\blue_heart.png";	//red heart
+
+const char TITLE_IMAGE[] = "pictures\\Title.png";
+
 
 // audio files
 const char WAVE_BANK[] = "audio\\Win\\Wave Bank.xwb";
@@ -59,6 +62,8 @@ const char BGM[] = "koriuchi8bit";
 const char BOOM[] = "boom";
 const char MISSILE[] = "missileLaunch";
 const char BULLETSHOT[] = "bulletShot";
+const char SHIPHITSHIP[] = "ShipHitShip";
+const char MINEBLEEP[] = "mineBleep";
 
 ////keybinds
 //const char player1Right = 'D';
@@ -71,6 +76,7 @@ const char BULLETSHOT[] = "bulletShot";
 //const char player2Up = VK_UP;
 //const char player2Down = VK_DOWN;
 
+static bool startscreen = true;
 // window
 const char CLASS_NAME[] = "Spacewar";
 const char GAME_TITLE[] = "Spacewar";
