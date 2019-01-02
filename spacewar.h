@@ -37,6 +37,8 @@ class Spacewar : public Game
 private:
 	// game items
 	TextureManager nebulaTexture;   // nebula texture
+	TextureManager nebulabackgroundTexture; //nebula background texture
+
 	//TextureManager planetTexture;   // planet texture
 	TextureManager ship1Texture;		// ship texture
 	TextureManager ship2Texture;		// cooler ship texture
@@ -58,6 +60,8 @@ private:
 	float titleScale;
 	bool titleScaleIncrease;
 	Image   nebula;                 // nebula image
+	Image nebulabackground1;
+	Image nebulabackground2;
 	Image   blueHeart;
 	Image	redHeart;
 

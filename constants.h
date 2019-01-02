@@ -36,7 +36,8 @@
 enum WEAPON {BULLET, TORPEDO, SHIP, WALL};
 
 // graphic images
-const char NEBULA_IMAGE[] = "pictures\\BackgroundShipsandSHapes.png";  // photo source NASA/courtesy of nasaimages.org 
+const char NEBULA_IMAGE[] = "pictures\\Ships-and-shapes-Backgroundshapes.png";  // photo source NASA/courtesy of nasaimages.org 
+const char NEBULABACKGROUND_IMAGE[] = "pictures\\BackgroundShipsandSHapes.png";
 const char PLANET_IMAGE[] = "pictures\\planet.png"; // picture of planet
 const char SHIP1_IMAGE[] = "pictures\\ship1.png";   // spaceship
 const char SHIP2_IMAGE[] = "pictures\\ship2.png";  //cooler spaceship

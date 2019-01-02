@@ -47,13 +47,24 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing red heart texture"));
 
 		// nebula texture
-	if (!nebulaTexture.initialize(graphics, NEBULA_IMAGE))
+	if (!nebulaTexture.initialize(graphics, NEBULABACKGROUND_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing nebula texture"));
+
+	// nebulabackground texture
+	if (!nebulabackgroundTexture.initialize(graphics, NEBULA_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing nebula texture"));
+	
 
 	// nebula
 	if (!nebula.initialize(graphics, 0, 0, 0, &nebulaTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing nebula"));
 
+	// nebulabackground
+	if (!nebulabackground1.initialize(graphics, 0, 0, 0, &nebulabackgroundTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing nebulabackground"));
+	// nebulabackground
+	if (!nebulabackground2.initialize(graphics, 0, 0, 0, &nebulabackgroundTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing nebulabackground"));
 
 	//// planet texture
 	//if (!planetTexture.initialize(graphics, PLANET_IMAGE))
@@ -218,10 +229,21 @@ void Spacewar::initialize(HWND hwnd)
 	PressEnterToStart.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
 	PETSalpha = 255;
 	alphaIncrease = false;
+
 	nebula.setX(0);
 	nebula.setY(0);
-	nebula.setScale(GAME_HEIGHT/1000);
 	
+	nebula.setScale(1.08);
+
+	double nebulaoffset1 = 0;
+	double nebulaoffset2 = GAME_WIDTH;
+
+	nebulabackground1.setX(0);
+	nebulabackground1.setY(0);
+	nebulabackground1.setScale(1.08);
+	nebulabackground2.setX(2000*1.08);
+	nebulabackground2.setY(0);
+	nebulabackground2.setScale(1.08);
 	//// planet
 	//if (!planet.initialize(graphics, 0, 0, 0, &planetTexture))
 	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing planet"));
@@ -247,8 +269,21 @@ void Spacewar::update()
 	{
 		PostQuitMessage(0);
 	}
+	nebulabackground1.setX(nebulabackground1.getX() - 100 * frameTime);
+	nebulabackground2.setX(nebulabackground2.getX() - 100 * frameTime);
+
+	if (nebulabackground1.getX() <= (-2000 * 1.08))
+	{
+		nebulabackground1.setX(2000 * 1.08);
+	}
+	if (nebulabackground2.getX() <= (-2000 * 1.08))
+	{
+		nebulabackground2.setX(2000 * 1.08);
+	}
 	if (startscreenon == true)
 	{
+		
+		
 
 		if (input->isKeyDown(VK_RETURN))
 		{
@@ -1129,8 +1164,14 @@ void Spacewar::ai()
 void Spacewar::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
+	nebula.draw();
 
-	nebula.draw();                          // add the orion nebula to the scene
+	nebulabackground1.draw();
+	nebulabackground2.draw();
+
+	                       // add the orion nebula to the scene
+
+	
 	//planet.draw();                          // add the planet to the scene
 	if (startscreenon == true)
 	{
@@ -1281,6 +1322,7 @@ void Spacewar::releaseAll()
 void Spacewar::resetAll()
 {
 	nebulaTexture.onResetDevice();
+	nebulabackgroundTexture.onResetDevice();
 	//planetTexture.onResetDevice();
 	ship1Texture.onResetDevice();
 	ship2Texture.onResetDevice();
