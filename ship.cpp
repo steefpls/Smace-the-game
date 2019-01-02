@@ -309,8 +309,8 @@ void Ship::setParticlesXY()
 	particleList[particleList.size() - 1]->setY(getCenterY() - ((particleList[particleList.size() - 1]->getHeight())*(particleList[particleList.size() - 1]->getScale()) / 2));
 	particleList[particleList.size() - 1]->setAngle(rand() % 359 + 1);
 	
-	particleList[particleList.size() - 1]->setVelocityX(-particleList[particleList.size() - 1]->getVelocityX()*sin((rand() % 4 + 8) / 10 * getRadians()));
-	particleList[particleList.size() - 1]->setVelocityY(-particleList[particleList.size() - 1]->getVelocityY()*-cos((rand() % 4 + 8) / 10 * getRadians()));
+	particleList[particleList.size() - 1]->setVelocityX(-particleList[particleList.size() - 1]->getVelocityX()*(rand() % 4 + 8) / 10 * sin(getRadians()));
+	particleList[particleList.size() - 1]->setVelocityY(-particleList[particleList.size() - 1]->getVelocityY()*(rand() % 4 + 8) / 10 *-cos(getRadians()));
 	
 }
 
