@@ -306,7 +306,12 @@ void Ship::setBlackholeXY()
 void Ship::setParticlesXY()
 {
 	particleList[particleList.size() - 1]->setX(getCenterX() - ((particleList[particleList.size() - 1]->getWidth())*(particleList[particleList.size() - 1]->getScale()) / 2));
-	particleList[particleList.size() - 1]->setX(getCenterY() - ((particleList[particleList.size() - 1]->getHeight())*(particleList[particleList.size() - 1]->getScale()) / 2));
+	particleList[particleList.size() - 1]->setY(getCenterY() - ((particleList[particleList.size() - 1]->getHeight())*(particleList[particleList.size() - 1]->getScale()) / 2));
+	particleList[particleList.size() - 1]->setAngle(rand() % 359 + 1);
+	
+	particleList[particleList.size() - 1]->setVelocityX(particleList[particleList.size() - 1]->getVelocityX()*sin(particleList[particleList.size() - 1]->getRadians()));
+	particleList[particleList.size() - 1]->setVelocityY(particleList[particleList.size() - 1]->getVelocityY()*sin(particleList[particleList.size() - 1]->getRadians()));
+	
 }
 
 int Ship::getmaxmines()
@@ -337,6 +342,11 @@ float Ship::getminetimer()
 float Ship::getblackholetimer()
 {
 	return blackholeTimer;
+}
+
+float Ship::getparticlestimer()
+{
+	return particlesTimer;
 }
 
 void Ship::topbottomrotatebounce()	//rotation when hitting top and bottom walls

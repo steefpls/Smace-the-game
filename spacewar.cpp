@@ -31,6 +31,12 @@ void Spacewar::initialize(HWND hwnd)
     Game::initialize(hwnd); // throws GameError
 
 	audio->playCue(BGM);
+
+	if (!ship1ParticleTexture.initialize(graphics, SHIP1_PARTICLES))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1 particle"));
+	
+	if (!ship2ParticleTexture.initialize(graphics, SHIP2_PARTICLES))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship2 particle"));
 	
 		// blue heart texture
 	if (!blueHeartTexture.initialize(graphics,BLUEHEART_IMAGE))
@@ -558,6 +564,44 @@ void Spacewar::update()
 					ship2.blackholeList.erase(ship2.blackholeList.begin() + i);
 
 				}
+			}
+		}
+
+		//PARTICLE EFFECTS
+		if (ship1.getparticlestimer() <= 0)
+		{
+			ship1.spawnparticles();
+			ship1.particleList[ship1.particleList.size() - 1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship1ParticleTexture);
+			ship1.setParticlesXY();
+		}
+
+		if (ship2.getparticlestimer() <= 0)
+		{
+			ship2.spawnparticles();
+			ship2.particleList[ship2.particleList.size() - 1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship2ParticleTexture);
+			ship2.setParticlesXY();
+		}
+
+		for (int i = 0; i < ship1.particleList.size(); i++)
+		{
+			ship1.particleList[i]->setScale(ship1.particleList[i]->getScale()-0.002);
+			//ship1.particleList[i]->setColorFilter(SETCOLOR_ARGB(ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha()));
+			//ship1.particleList[i]->setAlpha(ship1.particleList[i]->getAlpha() - 1);
+			if (ship1.particleList[i]->getScale() <= 0)
+			{
+				SAFE_DELETE(ship1.particleList[i]);
+				ship1.particleList.erase(ship1.particleList.begin() + i);
+			}
+		}
+		for (int i = 0; i < ship2.particleList.size(); i++)
+		{
+			ship2.particleList[i]->setScale(ship2.particleList[i]->getScale() - 0.002);
+			//ship1.particleList[i]->setColorFilter(SETCOLOR_ARGB(ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha()));
+			//ship1.particleList[i]->setAlpha(ship1.particleList[i]->getAlpha() - 1);
+			if (ship2.particleList[i]->getScale() <= 0)
+			{
+				SAFE_DELETE(ship2.particleList[i]);
+				ship2.particleList.erase(ship2.particleList.begin() + i);
 			}
 		}
 	}
@@ -1105,8 +1149,15 @@ void Spacewar::render()
 			ship2.lifeList[i]->draw();
 		}
 
+		for (int i = 0; i < ship1.particleList.size(); i++)
+		{
+			ship1.particleList[i]->draw();
+		}
 
-
+		for (int i = 0; i < ship2.particleList.size(); i++)
+		{
+			ship2.particleList[i]->draw();
+		}
 		//draw blackholes from ship 2
 		if (ship2.blackholeList.size() > 0)
 		{

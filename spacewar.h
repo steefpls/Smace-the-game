@@ -50,6 +50,8 @@ private:
 	TextureManager blueHeartTexture;
 	TextureManager redHeartTexture;
 	TextureManager titleTexture;
+	TextureManager ship1ParticleTexture;
+	TextureManager ship2ParticleTexture;
 
 	//Image   planet;                 // planet image
 	Image	title;

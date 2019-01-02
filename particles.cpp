@@ -31,6 +31,7 @@ Particles::Particles() : Entity()
 	mass = MASS;
 	collisionType = entityNS::CIRCLE;
 	radius = WIDTH / 2;
+	alpha = ALPHA;
 }
 
 //=============================================================================
@@ -84,13 +85,23 @@ void Particles::update(float frameTime)
 	velocity.x = velocity.x - ((1 - particlesNS::DRAG) *velocity.x) * frameTime;
 	velocity.y = velocity.y - ((1 - particlesNS::DRAG) *velocity.y) * frameTime;   //Implementation of "Air" Resistance
 
-	//SHIP LOCATION UPDATEb
+	//PARTICLE LOCATION UPDATE
 	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
 	spriteData.y += (velocity.y  * frameTime); // Update Ship Y location
+	//alpha -= 1;
+	//spriteData.scale -= 0.1;
 }
 
 void Particles::setAngle(float a)
 {
 	spriteData.angle = a;
+}
+int Particles::getAlpha()
+{
+	return alpha;
+}
+void Particles::setAlpha(int a)
+{
+	alpha = a;
 }
 

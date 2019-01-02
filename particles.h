@@ -15,8 +15,8 @@
 namespace particlesNS
 {
 	//Location handling
-	const int WIDTH = 50;                   // image width
-	const int HEIGHT = 50;                  // image height
+	const int WIDTH = 32;                   // image width
+	const int HEIGHT = 32;                  // image height
 	static int X = GAME_WIDTH / 2 - WIDTH / 2;   // location on screen
 	static int Y = GAME_HEIGHT / 2 - HEIGHT / 2;
 
@@ -47,12 +47,14 @@ namespace particlesNS
 	const double MAX_HP = 300.0;			//wall maxhp
 	static double HP = MAX_HP;				//wall hp
 	static double HP_PERCENTAGE = (HP / MAX_HP) * 100.0;
+
+	static int ALPHA = 255;
 }
 
 class Particles : public Entity
 {
 protected:
-	//int hp;
+	int alpha;
 
 public:
 	//constructor
@@ -65,6 +67,9 @@ public:
 	void update(float frameTime);
 	bool getdel();
 	void setAngle(float a);
+	int getAlpha();
+
+	void setAlpha(int a);
 
 };
 #endif _MINE_H
