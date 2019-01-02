@@ -35,19 +35,13 @@ namespace particlesNS
 	const float MAX_VELOCITY = 40000.0f;		//max speed
 	//Textures
 	const int   TEXTURE_COLS = 1;           // texture has 2 columns
-	const int   MINE_START_FRAME = 0;      // ship1 starts at frame 0
-	const int   MINE_END_FRAME = 0;        // ship1 animation frames 0,1,2,3
-	const float MINE_ANIMATION_DELAY = 0.2f;    // time between frames
-
-	//Arbritrary values
-	static float DAMAGE_MULTIPLIER = 1.0;
-	const float DAMAGE = 200.0f;
-	const int MAX_BOUNCES = 3;
-	static int BOUNCES = 0;
+	const int   PARTICLE_START_FRAME = 0;      // ship1 starts at frame 0
+	const int   PARTICLE_END_FRAME = 0;        // ship1 animation frames 0,1,2,3
+	const float PARTICLE_ANIMATION_DELAY = 0.2f;    // time between frames
 
 	const float MASS = 300.0f;
 	static bool ACTIVE = true;
-	static float SCALE = 0.04;
+	static float SCALE = 1;
 	//const int COLLISION_RADIUS = 60 / 2;
 
 	const double MAX_HP = 300.0;			//wall maxhp
