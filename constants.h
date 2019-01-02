@@ -51,6 +51,8 @@ const char RECTANGLE_IMAGE[] = "pictures\\bigblackrect.png";	//big black rectang
 const char BLUEHEART_IMAGE[] = "pictures\\red_heart.png";	//blue heart
 const char REDHEART_IMAGE[] = "pictures\\blue_heart.png";	//red heart
 
+const char SHIP1_PARTICLES[] = "pictures\\32x32hex.png";
+const char SHIP2_PARTICLES[] = "pictures\\32x32sqr.png";
 const char TITLE_IMAGE[] = "pictures\\Title.png";
 
 

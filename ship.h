@@ -15,6 +15,7 @@
 #include "bullet.h"
 #include "mine.h"
 #include "blackhole.h"
+#include "particles.h"
 
 
 using namespace std;
@@ -86,6 +87,10 @@ namespace shipNS
 	//blackhole
 	const float MAX_BLACKHOLE_TIMER = 5.0f;
 	static float BLACKHOLE_TIMER = 1.0f;
+
+	//particles
+	const float MAX_PARTICLES_TIMER = 0.2f;
+	static float PARTICLES_TIMER = 0.1f;
 	
 	//Arbritrary values
 	static double DAMAGE_MULTIPLIER = 1.0;
@@ -117,6 +122,7 @@ protected:
 	float bulletTimer;
 	float mineTimer;
 	float blackholeTimer;
+	float particlesTimer;
 	float damageResistance;
 	float maxhp;
 	double blackholesuccmultiplier;
@@ -145,6 +151,7 @@ public:
 	std::vector<Bullet *> bulletList;
 	std::vector<Mine *> mineList;
 	std::vector<Blackhole *> blackholeList;	//list of black holes
+	std::vector<Particles *> particleList;
 
 	std::vector<Image *> lifeList;
 	
@@ -154,17 +161,20 @@ public:
 	void spawnbullet();
 	void spawnmine();
 	void spawnblackhole();
+	void spawnparticles();
 
 	void setMissileXY();
 	void setBulletXY(double b);
 	void setMineXY();
 	void setBlackholeXY();
+	void setParticlesXY();
 
 	float getDamageTimer();
 	float getmissiletimer();
 	float getbullettimer();
 	float getminetimer();
 	float getblackholetimer();
+	float getparticlestimer();
 
 	float x_acc = shipNS::ORIGINAL_X_ACC;
 	float y_acc = shipNS::ORIGINAL_Y_ACC;

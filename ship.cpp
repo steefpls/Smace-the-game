@@ -34,6 +34,7 @@ Ship::Ship() : Entity()
 	bulletTimer = shipNS::BULLET_TIMER;
 	mineTimer = shipNS::MINE_TIMER;
 	blackholeTimer = shipNS::BLACKHOLE_TIMER;
+	particlesTimer = shipNS::PARTICLES_TIMER;
 	blackholesuccmultiplier = shipNS::BLACK_HOLE_SUCC_MULTIPLIER;
 
 	//radius = shipNS::WIDTH / 2.0;
@@ -218,6 +219,12 @@ void Ship::update(float frameTime)
 		blackholeTimer -= 1.0f * frameTime;
 	}
 
+	if (particlesTimer > 0)
+	{
+		particlesTimer -= 1.0f*frameTime;
+	}
+
+
 	//SHIP LOCATION UPDATE
 
 	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
@@ -248,6 +255,12 @@ void Ship::spawnblackhole()
 {
 	blackholeList.push_back(new Blackhole());
 	blackholeTimer = shipNS::MAX_BLACKHOLE_TIMER;
+}
+
+void Ship::spawnparticles()
+{
+	particleList.push_back(new Particles);
+	particlesTimer = shipNS::MAX_PARTICLES_TIMER;
 }
 
 void Ship::setMissileXY()
@@ -288,6 +301,12 @@ void Ship::setBlackholeXY()
 
 	blackholeList[blackholeList.size() - 1]->setVelocityX(blackholeList[blackholeList.size() - 1]->getVelocityX()*sin(blackholeList[blackholeList.size() - 1]->getRadians()));
 	blackholeList[blackholeList.size() - 1]->setVelocityY(blackholeList[blackholeList.size() - 1]->getVelocityY()*-cos(blackholeList[blackholeList.size() - 1]->getRadians()));
+}
+
+void Ship::setParticlesXY()
+{
+	particleList[particleList.size() - 1]->setX(getCenterX() - ((particleList[particleList.size() - 1]->getWidth())*(particleList[particleList.size() - 1]->getScale()) / 2));
+	particleList[particleList.size() - 1]->setX(getCenterY() - ((particleList[particleList.size() - 1]->getHeight())*(particleList[particleList.size() - 1]->getScale()) / 2));
 }
 
 int Ship::getmaxmines()

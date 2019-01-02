@@ -23,9 +23,9 @@ Particles::Particles() : Entity()
 	velocity.x = X_SPEED;                             // velocity X
 	velocity.y = Y_SPEED;                             // velocity Y
 	maxvel = MAX_VELOCITY;							// Max Velocity
-	frameDelay = MINE_ANIMATION_DELAY;
-	startFrame = MINE_START_FRAME;     // first frame of ship animation
-	endFrame = MINE_END_FRAME;     // last frame of ship animation
+	frameDelay = PARTICLE_ANIMATION_DELAY;
+	startFrame = PARTICLE_START_FRAME;     // first frame of ship animation
+	endFrame = PARTICLE_END_FRAME;     // last frame of ship animation
 	currentFrame = startFrame;
 	//radius = shipNS::WIDTH / 2.0;
 	mass = MASS;
