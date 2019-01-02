@@ -11,7 +11,10 @@
 
 #include "entity.h"
 
+#include "particles.h"
 #include "constants.h"
+#include <iostream>
+#include <vector>
 
 
 namespace missileNS
@@ -47,6 +50,10 @@ namespace missileNS
 	//Arbritrary values
 	static float DAMAGE_MULTIPLIER = 1.0;
 	const float DAMAGE = 500.0f;
+
+	//particles
+	const float MAX_PARTICLES_TIMER = 0.05f;
+	static float PARTICLES_TIMER = 0.01f;
 }
 
 // inherits from Entity class
@@ -57,6 +64,7 @@ private:
 	//Image   shield;
 	float xacc = missileNS::X_ACC;
 	float yacc = missileNS::Y_ACC;
+	float particlesTimer;
 
 public:
 	// constructor
@@ -70,6 +78,10 @@ public:
 	bool getdel();
 	void setAngle(float a);
 	float getDamage();
+	float getparticlestimer();
+	std::vector<Particles*>particleList;
+	void spawnparticles();
+	void setParticlesXY();
 
 	//void damage(WEAPON);
 };

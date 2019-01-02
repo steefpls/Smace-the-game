@@ -639,6 +639,28 @@ void Spacewar::update()
 				ship2.particleList.erase(ship2.particleList.begin() + i);
 			}
 		}
+
+		for (int i = 0; i < ship1.missileList.size(); i++)
+		{
+			if (ship1.missileList[i]->getparticlestimer() <= 0)
+			{
+				ship1.missileList[i]->spawnparticles();
+				ship1.missileList[i]->particleList[ship1.missileList[i]->particleList.size()-1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship1ParticleTexture);
+				ship1.missileList[i]->setParticlesXY();
+			}
+
+			for (int j = 0; j < ship1.missileList[i]->particleList.size(); j++)
+			{
+				ship1.missileList[i]->particleList[j]->update(frameTime);
+				//ship1.particleList[i]->setColorFilter(SETCOLOR_ARGB(ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha()));
+				//ship1.particleList[i]->setAlpha(ship1.particleList[i]->getAlpha() - 1);
+				if (ship1.missileList[i]->particleList[j]->getScale() <= 0)
+				{
+					SAFE_DELETE(ship1.missileList[i]->particleList[j]);
+					ship1.missileList[i]->particleList.erase(ship1.missileList[i]->particleList.begin() + j);
+				}
+			}
+		}
 	}
 }
 	
@@ -1234,6 +1256,14 @@ void Spacewar::render()
 			for (int i = 0; i < ship1.missileList.size(); i++)
 			{
 				ship1.missileList[i]->draw();
+
+				//if (ship1.missileList[i]->particleList.size()>0)
+				//{
+				//	for (int j = 0; ship1.missileList[i]->particleList.size(); j++)
+				//	{
+				//		ship1.missileList[i]->particleList[j]->draw();
+				//	}
+				//}
 			}
 		}
 		//draw mines from ship 1
