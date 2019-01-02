@@ -16,8 +16,8 @@ Global Settings
     Header File = smace_audio.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 4244861394;
-    Last Modified High = 30712246;
+    Last Modified Low = 1979184853;
+    Last Modified High = 30712275;
 
     Category
     {
@@ -380,8 +380,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 4244881341;
-    Bank Last Modified High = 30712246;
+    Bank Last Modified Low = 1979209698;
+    Bank Last Modified High = 30712275;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -492,7 +492,7 @@ Sound Bank
     {
         Name = missileLaunch;
         Volume = -1200;
-        Pitch = 0;
+        Pitch = 200;
         Priority = 0;
 
         Category Entry

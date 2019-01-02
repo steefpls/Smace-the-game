@@ -53,6 +53,8 @@ private:
 
 	//Image   planet;                 // planet image
 	Image	title;
+	float titleScale;
+	bool titleScaleIncrease;
 	Image   nebula;                 // nebula image
 	Image   blueHeart;
 	Image	redHeart;
@@ -71,6 +73,8 @@ private:
 	Text Player1DamagePercent;	//Player 1 Damage percentage
 
 	Text PressEnterToStart;
+	int PETSalpha;
+	bool alphaIncrease;
 
 	Text gameOverText;
 

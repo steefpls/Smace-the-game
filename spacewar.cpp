@@ -108,6 +108,9 @@ void Spacewar::initialize(HWND hwnd)
 
 	if (!title.initialize(graphics, 0, 0, 0, &titleTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing title"));
+
+	titleScale = 0.5;
+	titleScaleIncrease = false;
 	//Wall texture
 	if (!wallTexture.initialize(graphics, WALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
@@ -206,9 +209,13 @@ void Spacewar::initialize(HWND hwnd)
 	gameOverText.setFontColor(SETCOLOR_ARGB(255, 60, 47, 55));
 
 	PressEnterToStart.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);
-	PressEnterToStart.setFontColor(SETCOLOR_ARGB(255, 100, 200, 100));
-	//nebula.setScale(GAME_WIDTH/nebula.getWidth());
-	nebula.setScale(1.28);
+	PressEnterToStart.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
+	PETSalpha = 255;
+	alphaIncrease = false;
+	nebula.setX(0);
+	nebula.setY(0);
+	nebula.setScale(GAME_HEIGHT/1000);
+	
 	//// planet
 	//if (!planet.initialize(graphics, 0, 0, 0, &planetTexture))
 	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing planet"));
@@ -236,10 +243,42 @@ void Spacewar::update()
 	}
 	if (startscreenon == true)
 	{
+
 		if (input->isKeyDown(VK_RETURN))
 		{
 			startscreenon = false;
 		}
+
+		if (titleScale >= 0.45 && titleScaleIncrease == false)
+		{
+			titleScale -= 0.0003;
+		}
+		else if (titleScale <= 0.55 && titleScaleIncrease == true)
+		{
+			titleScale += 0.0003;
+		}
+
+		if (titleScale <= 0.45)
+			titleScaleIncrease = true;
+		else if (titleScale >= 0.55)
+			titleScaleIncrease = false;
+
+		title.setScale(titleScale);
+		title.setX(GAME_WIDTH*0.5f - title.getWidth()*title.getScale()*0.5f);
+		title.setY(GAME_HEIGHT*0.5f - title.getHeight()*title.getScale()*0.5f);
+
+		if (PETSalpha > 0 && alphaIncrease == false)
+		{
+			PETSalpha -= 1;
+		}
+		else if (PETSalpha <= 255 && alphaIncrease == true)
+		{
+			PETSalpha += 1;
+		}
+		
+		if (PETSalpha == 0) alphaIncrease = true;
+		else if (PETSalpha == 255) alphaIncrease = false;
+		PressEnterToStart.setFontColor(SETCOLOR_ARGB(PETSalpha, PETSalpha, PETSalpha, PETSalpha));
 	}
 
 	if (startscreenon == false)
@@ -991,7 +1030,7 @@ void Spacewar::collisions()
 		{
 			if (ship2.bulletList[j] != NULL)
 			{
-				if (ship2.bulletList[j]->collidesWith(*explosionList[i], collisionVector) && explosionList[i]->getCurrentFrame() == 1)
+				if (ship2.bulletList[j]->collidesWith(*explosionList[i], collisionVector)/* && explosionList[i]->getCurrentFrame() == 1*/)
 				{
 
 					SAFE_DELETE(ship2.bulletList[j]);
@@ -1005,7 +1044,7 @@ void Spacewar::collisions()
 		{
 			if (ship1.missileList[j] != NULL)
 			{
-				if (ship1.missileList[j]->collidesWith(*explosionList[i], collisionVector) && explosionList[i]->getCurrentFrame() == 1)
+				if (ship1.missileList[j]->collidesWith(*explosionList[i], collisionVector)/* && explosionList[i]->getCurrentFrame() == 1*/)
 				{
 					SAFE_DELETE(ship1.missileList[j]);
 					ship1.missileList.erase(ship1.missileList.begin() + j);
@@ -1052,7 +1091,7 @@ void Spacewar::render()
 	if (startscreenon == true)
 	{
 		title.draw();
-		PressEnterToStart.print("Press Enter to Start", GAME_WIDTH/2 - 5 * spacewarNS::FONT_SIZE, (GAME_HEIGHT/2)+5*spacewarNS::FONT_SIZE);
+		PressEnterToStart.print("Press Enter to Start", GAME_WIDTH/2 -4.5 * spacewarNS::FONT_SIZE, (GAME_HEIGHT/2)+5*spacewarNS::FONT_SIZE);
 	}
 	else if (startscreenon == false)
 	{
