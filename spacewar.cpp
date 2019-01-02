@@ -619,7 +619,7 @@ void Spacewar::update()
 
 		for (int i = 0; i < ship1.particleList.size(); i++)
 		{
-			ship1.particleList[i]->setScale(ship1.particleList[i]->getScale()-0.002);
+			ship1.particleList[i]->update(frameTime);
 			//ship1.particleList[i]->setColorFilter(SETCOLOR_ARGB(ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha()));
 			//ship1.particleList[i]->setAlpha(ship1.particleList[i]->getAlpha() - 1);
 			if (ship1.particleList[i]->getScale() <= 0)
@@ -630,7 +630,7 @@ void Spacewar::update()
 		}
 		for (int i = 0; i < ship2.particleList.size(); i++)
 		{
-			ship2.particleList[i]->setScale(ship2.particleList[i]->getScale() - 0.002);
+			ship2.particleList[i]->update(frameTime);
 			//ship1.particleList[i]->setColorFilter(SETCOLOR_ARGB(ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha()));
 			//ship1.particleList[i]->setAlpha(ship1.particleList[i]->getAlpha() - 1);
 			if (ship2.particleList[i]->getScale() <= 0)
