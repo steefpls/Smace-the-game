@@ -93,6 +93,9 @@ public:
     // Call graphics->spriteEnd();
     //   draw non-sprites
     virtual void render() = 0;
+
+	bool startscreenon = true;
+	bool gameoverscreen = false;
 };
 
 #endif

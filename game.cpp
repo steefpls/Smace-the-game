@@ -206,7 +206,7 @@ void Game::run(HWND hwnd)
 
     timeStart = timeEnd;
 
-	if (input->isKeyDown('E'))
+	if (input->isKeyDown('E') && !startscreenon && !gameoverscreen)
 	{
 		if (!paused)
 		{
@@ -214,7 +214,7 @@ void Game::run(HWND hwnd)
 		}
 	}
 
-	else if (input->isKeyDown('R'))
+	else if (input->isKeyDown('R') && !startscreenon && !gameoverscreen)
 	{
 		if (paused)
 		{

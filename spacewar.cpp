@@ -230,6 +230,9 @@ void Spacewar::initialize(HWND hwnd)
 	PETSalpha = 255;
 	alphaIncrease = false;
 
+	PressAnyKey.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);
+	PressAnyKey.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
+
 	nebula.setX(0);
 	nebula.setY(0);
 	
@@ -1326,32 +1329,32 @@ void Spacewar::render()
 
 	else if (startscreenon == false && gameoverscreen == true)
 	{
-	if (ship1.lifeList.size() <= 0)
-	{
-		trigger += 1;
-	}
-	else if (ship2.lifeList.size() <= 0)
-	{
-		trigger += 1;
-	}
-
-	if (trigger == 1)
-	{
-		if (ship1.getLifeCount() < ship2.getLifeCount())
+		if (ship1.lifeList.size() <= 0)
 		{
-			triggeredship = "Player 2";
+			trigger += 1;
 		}
-		else if (ship1.getLifeCount() > ship2.getLifeCount())
+		else if (ship2.lifeList.size() <= 0)
 		{
-			triggeredship = "Player 1";
+			trigger += 1;
 		}
-	}
 
-	if (trigger >= 1)
-	{
-		gameOverText.print(triggeredship + " won!", GAME_WIDTH / 2 - 5, GAME_HEIGHT / 2);		//Render Player Label Text
-	}
-		
+		if (trigger == 1)
+		{
+			if (ship1.getLifeCount() < ship2.getLifeCount())
+			{
+				triggeredship = "Player 2";
+			}
+			else if (ship1.getLifeCount() > ship2.getLifeCount())
+			{
+				triggeredship = "Player 1";
+			}
+		}
+
+		if (trigger >= 1)
+		{
+			gameOverText.print(triggeredship + " won!", GAME_WIDTH / 2 - 5 * spacewarNS::FONT_SIZE, GAME_HEIGHT / 2);		//Render Player Label Text
+			PressAnyKey.print("Press Any Key to Continue", GAME_WIDTH / 2 - 3 * spacewarNS::FONT_SIZE, GAME_HEIGHT / 2 + spacewarNS::FONT_SIZE*1.5);
+		}
 	}
 	
 

@@ -86,6 +86,8 @@ private:
 
 	Text Player2Label;	//Player 1 Label
 	Text Player2DamagePercent;	//Player 1 Damage percentage
+
+	Text PressAnyKey;
 	
 	const char player1Primary = 'C';
 	const char player1Secondary = 'X';
@@ -94,8 +96,7 @@ private:
 	int trigger = 0;
 	string triggeredship = "";
 	
-	bool startscreenon = true;
-	bool gameoverscreen = false;
+	
 
 	//Missile missile1;				// missile object
 	Explosion explosion1;
