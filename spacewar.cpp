@@ -665,6 +665,19 @@ void Spacewar::update()
 
 	else if (startscreenon == false && gameoverscreen == true)
 	{
+		if (PETSalpha > 0 && alphaIncrease == false)
+		{
+			PETSalpha -= 1;
+		}
+		else if (PETSalpha <= 255 && alphaIncrease == true)
+		{
+			PETSalpha += 1;
+		}
+
+		if (PETSalpha == 0) alphaIncrease = true;
+		else if (PETSalpha == 255) alphaIncrease = false;
+
+		PressAnyKey.setFontColor(SETCOLOR_ARGB(PETSalpha, PETSalpha, PETSalpha, PETSalpha));
 		if (input->anyKeyPressed())
 		{
 			gameoverscreen = false;
