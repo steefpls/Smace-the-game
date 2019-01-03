@@ -206,6 +206,22 @@ void Game::run(HWND hwnd)
 
     timeStart = timeEnd;
 
+	if (input->isKeyDown('E'))
+	{
+		if (!paused)
+		{
+			paused = true;
+		}
+	}
+
+	else if (input->isKeyDown('R'))
+	{
+		if (paused)
+		{
+			paused = false;
+		}
+	}
+
     // update(), ai(), and collisions() are pure virtual functions.
     // These functions must be provided in the class that inherits from Game.
     if (!paused)                    // if not paused

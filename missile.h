@@ -52,7 +52,7 @@ namespace missileNS
 	const float DAMAGE = 500.0f;
 
 	//particles
-	const float MAX_PARTICLES_TIMER = 0.05f;
+	const float MAX_PARTICLES_TIMER = 0.2f;
 	static float PARTICLES_TIMER = 0.01f;
 }
 

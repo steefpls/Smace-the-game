@@ -95,6 +95,7 @@ private:
 	string triggeredship = "";
 	
 	bool startscreenon = true;
+	bool gameoverscreen = false;
 
 	//Missile missile1;				// missile object
 	Explosion explosion1;
