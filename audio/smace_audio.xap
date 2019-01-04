@@ -16,8 +16,8 @@ Global Settings
     Header File = smace_audio.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 1979184853;
-    Last Modified High = 30712275;
+    Last Modified Low = 653485678;
+    Last Modified High = 30712478;
 
     Category
     {
@@ -227,12 +227,10 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 2966668533;
-    PC Bank Last Modified High = 30712227;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 2798372776;
-    Bank Last Revised High = 30712227;
+    PC Bank Last Modified Low = 653530285;
+    PC Bank Last Modified High = 30712478;
+    Bank Last Revised Low = 340777056;
+    Bank Last Revised High = 30712478;
 
     Wave
     {
@@ -328,29 +326,6 @@ Wave Bank
 
     Wave
     {
-        Name = ShipHitShip;
-        File = ShipHitShip.wav;
-        Build Settings Last Modified Low = 382014698;
-        Build Settings Last Modified High = 30712056;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 2;
-            Sampling Rate = 22050;
-            Bits Per Sample = 1;
-            Play Region Offset = 44;
-            Play Region Length = 118784;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 3626205950;
-            Last Modified High = 30712055;
-        }
-    }
-
-    Wave
-    {
         Name = mineBleep;
         File = mineBleep.wav;
         Build Settings Last Modified Low = 2680737219;
@@ -367,8 +342,31 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1896398991;
-            Last Modified High = 30712028;
+            Last Modified Low = 1732686459;
+            Last Modified High = 30712458;
+        }
+    }
+
+    Wave
+    {
+        Name = ShipHitShip;
+        File = ShipHitShip.wav;
+        Build Settings Last Modified Low = 225248448;
+        Build Settings Last Modified High = 30712478;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 22050;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 41308;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 4032883760;
+            Last Modified High = 30712477;
         }
     }
 }
@@ -380,8 +378,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 1979209698;
-    Bank Last Modified High = 30712275;
+    Bank Last Modified Low = 1064308068;
+    Bank Last Modified High = 30712478;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -600,61 +598,6 @@ Sound Bank
 
     Sound
     {
-        Name = ShipHitShip;
-        Volume = -1850;
-        Pitch = -600;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Pitch Variation
-                {
-                    Min = -100;
-                    Max = 100;
-                    Operator = 0;
-                    New Variation On Loop = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = Wave Bank;
-                    Bank Index = 0;
-                    Entry Name = ShipHitShip;
-                    Entry Index = 4;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
         Name = mineBleep;
         Volume = -2500;
         Pitch = -200;
@@ -701,6 +644,61 @@ Sound Bank
                     Bank Name = Wave Bank;
                     Bank Index = 0;
                     Entry Name = mineBleep;
+                    Entry Index = 4;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = ShipHitShip;
+        Volume = -1850;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Pitch Variation
+                {
+                    Min = -100;
+                    Max = 100;
+                    Operator = 0;
+                    New Variation On Loop = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = ShipHitShip;
                     Entry Index = 5;
                     Weight = 255;
                     Weight Min = 0;
@@ -787,23 +785,11 @@ Sound Bank
             Weight Min = 0;
             Weight Max = 255;
         }
-    }
-
-    Cue
-    {
-        Name = ShipHitShip;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
 
         Sound Entry
         {
             Name = ShipHitShip;
-            Index = 4;
+            Index = 5;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -823,6 +809,26 @@ Sound Bank
         Sound Entry
         {
             Name = mineBleep;
+            Index = 4;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = ShipHitShip;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = ShipHitShip;
             Index = 5;
             Weight Min = 0;
             Weight Max = 255;

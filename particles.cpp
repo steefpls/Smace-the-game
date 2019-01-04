@@ -89,7 +89,9 @@ void Particles::update(float frameTime)
 	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
 	spriteData.y += (velocity.y  * frameTime); // Update Ship Y location
 	//alpha -= 1;
-	//spriteData.scale -= 0.1;
+	spriteData.scale -= SHRINK_RATE*frameTime;
+	spriteData.x = spriteData.x + (SHRINK_RATE  * spriteData.width / 2 * frameTime);
+	spriteData.y = spriteData.y + (SHRINK_RATE  * spriteData.height / 2 * frameTime);
 }
 
 void Particles::setAngle(float a)

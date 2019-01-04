@@ -37,6 +37,7 @@ Missile::Missile() : Entity()
 	edge.right = WIDTH / 2;
 	edge.top = -HEIGHT / 2;
 	edge.bottom = HEIGHT / 2;
+	particlesTimer = PARTICLES_TIMER;
 
 	
 	damage = DAMAGE;
@@ -99,7 +100,10 @@ void Missile::update(float frameTime)
 		velocity.y += yacc * -cos(spriteData.angle)*frameTime;
 	}
 	
-	
+	if (particlesTimer > 0)
+	{
+		particlesTimer -= 1.0f*frameTime;
+	}
 
 	//MISSILE LOCATION UPDATE
 	spriteData.x += (velocity.x  * frameTime); // Update Ship X location
@@ -114,4 +118,26 @@ void Missile::setAngle(float a)
 float Missile::getDamage()
 {
 	return DAMAGE;
+}
+
+float Missile::getparticlestimer()
+{
+	return particlesTimer;
+}
+
+void Missile::spawnparticles()
+{
+	particleList.push_back(new Particles);
+	particlesTimer = MAX_PARTICLES_TIMER;
+}
+
+void Missile::setParticlesXY()
+{
+	particleList[particleList.size() - 1]->setX(getCenterX() - ((particleList[particleList.size() - 1]->getWidth())*(particleList[particleList.size() - 1]->getScale()) / 2));
+	particleList[particleList.size() - 1]->setY(getCenterY() - ((particleList[particleList.size() - 1]->getHeight())*(particleList[particleList.size() - 1]->getScale()) / 2));
+	particleList[particleList.size() - 1]->setAngle(rand() % 359 + 1);
+	particleList[particleList.size() - 1]->setScale(0.5);
+
+	particleList[particleList.size() - 1]->setVelocityX(-particleList[particleList.size() - 1]->getVelocityX()*(rand() % 5 + 8) / 10 * sin(getRadians()));
+	particleList[particleList.size() - 1]->setVelocityY(-particleList[particleList.size() - 1]->getVelocityY()*(rand() % 5 + 8) / 10 * -cos(getRadians()));
 }

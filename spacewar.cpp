@@ -223,12 +223,15 @@ void Spacewar::initialize(HWND hwnd)
 	Player2DamagePercent.setFontColor(SETCOLOR_ARGB(255, 39, 45, 208));
 
 	gameOverText.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);		//Initialises text font =======================================
-	gameOverText.setFontColor(SETCOLOR_ARGB(255, 60, 47, 55));
+	gameOverText.setFontColor(SETCOLOR_ARGB(255, 160, 147, 155));
 
 	PressEnterToStart.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);
 	PressEnterToStart.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
 	PETSalpha = 255;
 	alphaIncrease = false;
+
+	PressAnyKey.initialize(graphics, spacewarNS::FONT_SIZE, false, false, spacewarNS::FONT);
+	PressAnyKey.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
 
 	nebula.setX(0);
 	nebula.setY(0);
@@ -280,11 +283,8 @@ void Spacewar::update()
 	{
 		nebulabackground2.setX(2000 * 1.08);
 	}
-	if (startscreenon == true)
+	if (startscreenon == true && gameoverscreen==false)
 	{
-		
-		
-
 		if (input->isKeyDown(VK_RETURN))
 		{
 			startscreenon = false;
@@ -322,12 +322,8 @@ void Spacewar::update()
 		PressEnterToStart.setFontColor(SETCOLOR_ARGB(PETSalpha, PETSalpha, PETSalpha, PETSalpha));
 	}
 
-	if (startscreenon == false)
+	else if (startscreenon == false && gameoverscreen==false)
 	{
-		if (input->isKeyDown('E'))
-		{
-			resetGame();
-		}
 
 		ship1.update(frameTime);	//update ship1 frames
 		ship2.update(frameTime);	//update ship2 frames
@@ -411,7 +407,7 @@ void Spacewar::update()
 			ship2.setVelocityX(0);
 			ship2.setVelocityY(0);
 			ship2.setRadians(0);
-			ship2.setLifeCount(ship1.getLifeCount() - 1);
+			ship2.setLifeCount(ship2.getLifeCount() - 1);
 			ship2.setHP(ship2.getMaxHP());
 
 			if (ship2.lifeList.size() >= 1)
@@ -619,7 +615,7 @@ void Spacewar::update()
 
 		for (int i = 0; i < ship1.particleList.size(); i++)
 		{
-			ship1.particleList[i]->setScale(ship1.particleList[i]->getScale()-0.002);
+			ship1.particleList[i]->update(frameTime);
 			//ship1.particleList[i]->setColorFilter(SETCOLOR_ARGB(ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha()));
 			//ship1.particleList[i]->setAlpha(ship1.particleList[i]->getAlpha() - 1);
 			if (ship1.particleList[i]->getScale() <= 0)
@@ -630,7 +626,7 @@ void Spacewar::update()
 		}
 		for (int i = 0; i < ship2.particleList.size(); i++)
 		{
-			ship2.particleList[i]->setScale(ship2.particleList[i]->getScale() - 0.002);
+			ship2.particleList[i]->update(frameTime);
 			//ship1.particleList[i]->setColorFilter(SETCOLOR_ARGB(ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha()));
 			//ship1.particleList[i]->setAlpha(ship1.particleList[i]->getAlpha() - 1);
 			if (ship2.particleList[i]->getScale() <= 0)
@@ -638,6 +634,55 @@ void Spacewar::update()
 				SAFE_DELETE(ship2.particleList[i]);
 				ship2.particleList.erase(ship2.particleList.begin() + i);
 			}
+		}
+
+		for (int i = 0; i < ship1.missileList.size(); i++)
+		{
+			if (ship1.missileList[i]->getparticlestimer() <= 0)
+			{
+				ship1.missileList[i]->spawnparticles();
+				ship1.missileList[i]->particleList[ship1.missileList[i]->particleList.size()-1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship1ParticleTexture);
+				ship1.missileList[i]->setParticlesXY();
+			}
+
+			for (int j = 0; j < ship1.missileList[i]->particleList.size(); j++)
+			{
+				ship1.missileList[i]->particleList[j]->update(frameTime);
+				//ship1.particleList[i]->setColorFilter(SETCOLOR_ARGB(ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha()));
+				//ship1.particleList[i]->setAlpha(ship1.particleList[i]->getAlpha() - 1);
+				if (ship1.missileList[i]->particleList[j]->getScale() <= 0)
+				{
+					SAFE_DELETE(ship1.missileList[i]->particleList[j]);
+					ship1.missileList[i]->particleList.erase(ship1.missileList[i]->particleList.begin() + j);
+				}
+			}
+		}
+		if (ship1.getLifeCount() <= 0 || ship2.getLifeCount() <= 0)
+		{
+			gameoverscreen = true;
+		}
+	}
+
+	else if (startscreenon == false && gameoverscreen == true)
+	{
+		if (PETSalpha > 0 && alphaIncrease == false)
+		{
+			PETSalpha -= 1;
+		}
+		else if (PETSalpha <= 255 && alphaIncrease == true)
+		{
+			PETSalpha += 1;
+		}
+
+		if (PETSalpha == 0) alphaIncrease = true;
+		else if (PETSalpha == 255) alphaIncrease = false;
+
+		PressAnyKey.setFontColor(SETCOLOR_ARGB(PETSalpha, PETSalpha, PETSalpha, PETSalpha));
+		if (input->anyKeyPressed())
+		{
+			gameoverscreen = false;
+			startscreenon = true;
+			resetGame();
 		}
 	}
 }
@@ -1173,12 +1218,12 @@ void Spacewar::render()
 
 	
 	//planet.draw();                          // add the planet to the scene
-	if (startscreenon == true)
+	if (startscreenon == true && gameoverscreen ==false)
 	{
 		title.draw();
 		PressEnterToStart.print("Press Enter to Start", GAME_WIDTH/2 -4.5 * spacewarNS::FONT_SIZE, (GAME_HEIGHT/2)+5*spacewarNS::FONT_SIZE);
 	}
-	else if (startscreenon == false)
+	else if (startscreenon == false && gameoverscreen==false)
 	{
 		for (int i = 0; i < ship1.lifeList.size(); i++)
 		{
@@ -1234,6 +1279,14 @@ void Spacewar::render()
 			for (int i = 0; i < ship1.missileList.size(); i++)
 			{
 				ship1.missileList[i]->draw();
+
+				//if (ship1.missileList[i]->particleList.size()!=NULL)
+				//{
+				//	for (int j = 0; ship1.missileList[i]->particleList.size(); j++)
+				//	{
+				//		ship1.missileList[i]->particleList[j]->draw();
+				//	}
+				//}
 			}
 		}
 		//draw mines from ship 1
@@ -1260,6 +1313,35 @@ void Spacewar::render()
 		Player2DamagePercent.print("Player 2\n" + ship2.getdamagestring(), GAME_WIDTH - 5 * spacewarNS::FONT_SIZE, GAME_HEIGHT - spacewarNS::FONT_SIZE * 2);		//Render Player Health Text
 		Player2Label.print("Player 2\n     v", ship2.getCenterX() - 67, ship2.getCenterY() - spacewarNS::FONT_SIZE / 2 - spacewarNS::FONT_SIZE * 2);		//Render Player Label Text
 
+	//	if (ship1.lifeList.size() <= 0)
+	//	{
+	//		trigger += 1;
+	//	}
+	//	else if (ship2.lifeList.size() <= 0)
+	//	{
+	//		trigger += 1;
+	//	}
+
+	//	if (trigger == 1)
+	//	{
+	//		if (ship1.getLifeCount() < ship2.getLifeCount())
+	//		{
+	//			triggeredship = "Player 2";
+	//		}
+	//		else if (ship1.getLifeCount() > ship2.getLifeCount())
+	//		{
+	//			triggeredship = "Player 1";
+	//		}
+	//	}
+
+	//	if (trigger >= 1)
+	//	{
+	//		gameOverText.print(triggeredship + " won!", GAME_WIDTH / 2, GAME_HEIGHT / 2);		//Render Player Label Text
+	//	}
+	}
+
+	else if (startscreenon == false && gameoverscreen == true)
+	{
 		if (ship1.lifeList.size() <= 0)
 		{
 			trigger += 1;
@@ -1283,7 +1365,8 @@ void Spacewar::render()
 
 		if (trigger >= 1)
 		{
-			gameOverText.print(triggeredship + " won!", GAME_WIDTH / 2, GAME_HEIGHT / 2);		//Render Player Label Text
+			gameOverText.print(triggeredship + " won!", GAME_WIDTH / 2 - 5 * spacewarNS::FONT_SIZE, GAME_HEIGHT / 2);		//Render Player Label Text
+			PressAnyKey.print("Press Any Key to Continue", GAME_WIDTH / 2 - 3 * spacewarNS::FONT_SIZE, GAME_HEIGHT / 2 + spacewarNS::FONT_SIZE*1.5);
 		}
 	}
 	
@@ -1464,7 +1547,7 @@ void Spacewar::resetGame()
 		wallListList[1][wallListList[1].size() - 1]->setX(0);
 		wallListList[1][wallListList[1].size() - 1]->setY((i + 1)*(wallNS::HEIGHT*wallNS::SCALE));
 
-		wallListList[0][wallListList[1].size() - 1]->setRadians(wallListList[1][wallListList[1].size() - 1]->getRadians() + (PI / 2));
+		wallListList[1][wallListList[1].size() - 1]->setRadians(wallListList[1][wallListList[1].size() - 1]->getRadians() + (PI / 2));
 	}
 
 	for (int i = 0; i < (GAME_HEIGHT - wallNS::HEIGHT) / (wallNS::HEIGHT*wallNS::SCALE); i++)
@@ -1476,10 +1559,10 @@ void Spacewar::resetGame()
 		wallListList[0][wallListList[0].size() - 1]->setY((i + 1)*(wallNS::HEIGHT*wallNS::SCALE));
 		wallListList[0][wallListList[0].size() - 1]->setRadians(wallListList[0][wallListList[0].size() - 1]->getRadians() + ((3 * PI) / 2));
 	}
-
-	wallListList.push_back(wallListTop);		//wallListList[3] = wallListTop
-	wallListList.push_back(wallListBottom);		//wallListList[2] = wallListBottom
-	wallListList.push_back(wallListLeft);		//wallListList[1] = wallListLeft
-	wallListList.push_back(wallListRight);		//wallListList[0] = wallListRight
+	trigger = 0;
+	//wallListList.push_back(wallListTop);		//wallListList[3] = wallListTop
+	//wallListList.push_back(wallListBottom);		//wallListList[2] = wallListBottom
+	//wallListList.push_back(wallListLeft);		//wallListList[1] = wallListLeft
+	//wallListList.push_back(wallListRight);		//wallListList[0] = wallListRight
 }
 //for (i = 0; i < wall list amount; i++) { wall[i].CollidesWith
