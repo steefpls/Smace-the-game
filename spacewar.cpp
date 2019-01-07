@@ -423,7 +423,19 @@ void Spacewar::update()
 		//SHIP
 		if (input->isKeyDown(SHIFT_KEY))													//if shift is pressed, ship 1 dashes
 		{
+			if (ship1.getdashtimer() < 0)
+				for (int i = 0; i < 40; i++)
+				{
+					ship1.setParticleSpread(ship1.getparticlespread() + 20);
+					ship1.spawnparticles();
+					ship1.particleList[ship1.particleList.size() - 1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship1ParticleTexture);
+					ship1.particleList[ship1.particleList.size() - 1]->setScale(ship1.particleList[ship1.particleList.size() - 1]->getScale()*1.5);
+					ship1.setParticlesXY();
+					ship1.setParticleSpread(ship1.getparticlespread() - 20);
+
+				}
 			ship1.dash();
+			
 		}
 
 
@@ -527,6 +539,12 @@ void Spacewar::update()
 		}
 
 		ship2.boost(input->isKeyDown(CTRL));				//Checking if boost button is pressed
+		if (input->isKeyDown(CTRL))
+		{
+			ship2.spawnparticles();
+			ship2.particleList[ship2.particleList.size() - 1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship2ParticleTexture);
+			ship2.setParticlesXY();
+		}
 
 		if (input->isKeyDown(SPACE) && ship2.getbullettimer() < 0)	//if Space is pressed, shoot bullets
 		{
@@ -599,17 +617,19 @@ void Spacewar::update()
 		}
 
 		//PARTICLE EFFECTS
-		if (ship1.getparticlestimer() <= 0)
+		
+		if (ship1.getparticlestimer() <= 0 && ship1.getacceleration())
 		{
 			ship1.spawnparticles();
 			ship1.particleList[ship1.particleList.size() - 1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship1ParticleTexture);
 			ship1.setParticlesXY();
 		}
 
-		if (ship2.getparticlestimer() <= 0)
+		if (ship2.getparticlestimer() <= 0 && ship2.getacceleration())
 		{
 			ship2.spawnparticles();
 			ship2.particleList[ship2.particleList.size() - 1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship2ParticleTexture);
+
 			ship2.setParticlesXY();
 		}
 
