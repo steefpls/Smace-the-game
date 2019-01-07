@@ -468,7 +468,10 @@ void Spacewar::update()
 		if (input->isKeyDown(player1Primary) && ship1.getminetimer() < 0)				//If player is pressing X, shoot mines
 		{
 			ship1.spawnmine();
-			audio->playCue(MINEBLEEP);
+			for (int i = 0; i < ship1.mineList.size(); i++)
+			{
+				audio->playCue(MINEBLEEP);
+			}
 			ship1.mineList[ship1.mineList.size() - 1]->initialize(this, mineNS::WIDTH, mineNS::HEIGHT, mineNS::TEXTURE_COLS, &mineTexture);
 
 
@@ -483,10 +486,10 @@ void Spacewar::update()
 			ship1.setMineXY();
 		}
 
-		if (ship1.mineList.size() <= 0)
-		{
-			audio->stopCue(MINEBLEEP);
-		}
+		//if (ship1.mineList.size() <= 0)
+		//{
+		//	audio->stopCue(MINEBLEEP);
+		//}
 
 		for (int i = 0; i < ship1.mineList.size(); i++)								//Update all ship1 mine objects
 		{
@@ -983,7 +986,7 @@ void Spacewar::collisions()
 
 				audio->playCue(BOOM);
 				SAFE_DELETE(ship1.mineList[i]);
-				//audio->stopCue(MINEBLEEP);
+				audio->stopCue(MINEBLEEP);
 				ship1.mineList.erase(ship1.mineList.begin() + i);
 
 			}

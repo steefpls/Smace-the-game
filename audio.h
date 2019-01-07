@@ -4,6 +4,7 @@
 
 #include <xact3.h>
 #include "constants.h"
+#include <vector>
 
 class Audio
 {
@@ -28,6 +29,8 @@ public:
 	void playCue(const char cue[]);
 
 	void stopCue(const char cue[]);
+
+	std::vector<int> mineBleepList;
 
 };
 

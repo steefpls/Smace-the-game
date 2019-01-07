@@ -139,6 +139,7 @@ void Audio::playCue(const char cue[])
 		return;
 	cueI = soundBank->GetCueIndex(cue);        // get cue index from sound bank
 	soundBank->Play(cueI, 0, 0, NULL);
+		
 }
 
 //=============================================================================
