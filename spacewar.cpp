@@ -429,7 +429,7 @@ void Spacewar::update()
 		//===========================================================================================================
 
 		//SHIP
-		if (input->isKeyDown(SHIFT_KEY))													//if shift is pressed, ship 1 dashes
+		if (input->isKeyDown(player1Boost))													//if shift is pressed, ship 1 dashes
 		{
 			if (ship1.getdashtimer() < 0)
 				for (int i = 0; i < 40; i++)
@@ -510,7 +510,7 @@ void Spacewar::update()
 		//{
 		//	audio->stopCue(MINEBLEEP);
 		//}
-
+		
 		for (int i = 0; i < ship1.mineList.size(); i++)								//Update all ship1 mine objects
 		{
 			ship1.mineList[i]->update(frameTime);
@@ -559,14 +559,14 @@ void Spacewar::update()
 		}
 
 		ship2.boost(input->isKeyDown(VK_OEM_COMMA));				//Checking if boost button is pressed
-		if (input->isKeyDown(CTRL))
+		if (input->isKeyDown(player2Boost))
 		{
 			ship2.spawnparticles();
 			ship2.particleList[ship2.particleList.size() - 1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship2ParticleTexture);
 			ship2.setParticlesXY();
 		}
 
-		if (input->isKeyDown(SPACE) && ship2.getbullettimer() < 0)	//if Space is pressed, shoot bullets
+		if (input->isKeyDown(player2Primary) && ship2.getbullettimer() < 0)	//if Space is pressed, shoot bullets
 		{
 			audio->playCue(BULLETSHOT);
 			if (ship2.getnoofbullets() > 1)
@@ -1031,6 +1031,7 @@ void Spacewar::collisions()
 
 				audio->playCue(BOOM);
 				SAFE_DELETE(ship1.mineList[i]);
+				audio->stopCue(MINEBLEEP);
 				audio->stopCue(MINEBLEEP);
 				mineBleepPlayed = false;
 

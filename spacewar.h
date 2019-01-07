@@ -93,8 +93,11 @@ private:
 	
 	const char player1Primary = 'C';
 	const char player1Secondary = 'X';
+	const char player1Boost = SHIFT_KEY;
 
-	const char player2Secondary = 'M';
+	const char player2Primary = 'M';
+	const char player2Secondary = VK_OEM_COMMA;
+	const char player2Boost = ALT_KEY;
 	int trigger = 0;
 	string triggeredship = "";
 	
