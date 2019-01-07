@@ -36,7 +36,7 @@ Ship::Ship() : Entity()
 	blackholeTimer = shipNS::BLACKHOLE_TIMER;
 	particlesTimer = shipNS::PARTICLES_TIMER;
 	blackholesuccmultiplier = shipNS::BLACK_HOLE_SUCC_MULTIPLIER;
-
+	isacceleration = shipNS::IS_ACCELERATION;
 	//radius = shipNS::WIDTH / 2.0;
 	shieldOn = false;
 	mass = shipNS::MASS;
@@ -50,7 +50,7 @@ Ship::Ship() : Entity()
 	prevhp = shipNS::HP;
 	hp = shipNS::HP;
 	maxhp = shipNS::MAX_HP;
-
+	particlespread = shipNS::PARTICLE_SPREAD;
 	lifeCount = shipNS::LIFE_COUNT;
 	//damageResistance = shipNS::DAMAGE_RESISTANCE;
 }
@@ -157,8 +157,13 @@ void Ship::update(float frameTime)
 
 	if (input->isKeyDown(player1Up)) //If the W key is held
 	{
+		isacceleration = true;
 		velocity.x += sin(spriteData.angle) * x_acc * frameTime;
 		velocity.y -= cos(spriteData.angle) * y_acc * frameTime;		//Sets the ship X and Y speed based on angle
+	}
+	else
+	{
+		isacceleration = false;
 	}
 
 	if (input->isKeyDown(player1Down)) //If the S key is held
@@ -305,13 +310,23 @@ void Ship::setBlackholeXY()
 
 void Ship::setParticlesXY()
 {
-	particleList[particleList.size() - 1]->setX(getCenterX() - ((particleList[particleList.size() - 1]->getWidth())*(particleList[particleList.size() - 1]->getScale()) / 2));
-	particleList[particleList.size() - 1]->setY(getCenterY() - ((particleList[particleList.size() - 1]->getHeight())*(particleList[particleList.size() - 1]->getScale()) / 2));
+	particleList[particleList.size() - 1]->setScale(particleList[particleList.size() - 1]->getScale()*0.5);
+	particleList[particleList.size() - 1]->setX(-(getHeight()/3)*getScale()*sin(getRadians())+ getCenterX() - (particleList[particleList.size() - 1]->getWidth() / 2 * particleList[particleList.size() - 1]->getScale()));
+	particleList[particleList.size() - 1]->setY(-(getHeight() / 3)*getScale()*-cos(getRadians())+ getCenterY() - (particleList[particleList.size() - 1]->getHeight() / 2* particleList[particleList.size() - 1]->getScale()));
+
+
 	particleList[particleList.size() - 1]->setAngle(rand() % 359 + 1);
 	
-	particleList[particleList.size() - 1]->setVelocityX(-particleList[particleList.size() - 1]->getVelocityX()*(rand() % 6 + 7) / 10 * sin(getRadians()));
-	particleList[particleList.size() - 1]->setVelocityY(-particleList[particleList.size() - 1]->getVelocityY()*(rand() % 6 + 7) / 10 *-cos(getRadians()));
+	double randtrigger = (rand() % int(particlespread)) - particlespread / 2;
 	
+	particleList[particleList.size() - 1]->setVelocityX(-particleList[particleList.size() - 1]->getVelocityX()/2 * sin(getRadians() + (randtrigger / 360 * 2 * PI)));
+	particleList[particleList.size() - 1]->setVelocityY(-particleList[particleList.size() - 1]->getVelocityY()/2 *-cos(getRadians() + (randtrigger / 360 * 2 * PI)));
+	
+}
+
+void Ship::randomizeRadians()
+{
+	particleList[particleList.size() - 1]->setRadians(particleList[particleList.size() - 1]->getRadians() + (rand()% int(particlespread) - int(particlespread/2) ) / 360 * 2 * PI);
 }
 
 int Ship::getmaxmines()
@@ -381,6 +396,18 @@ void Ship::dash()
 		dashTimer = shipNS::MAX_DASH_TIMER;
 	}
 }
+void Ship::setParticleSpread(double a)
+{
+	particlespread = a;
+}
+double Ship::getparticlespread()
+{
+	return particlespread;
+}
+double Ship::getdashtimer()
+{
+	return dashTimer;
+}
 
 void Ship::boost(bool b)
 {
@@ -446,4 +473,9 @@ double Ship::getblackholesuckmultiplier()
 void Ship::setPrevHP(int hp)
 {
 	prevhp = hp;
+}
+
+bool Ship::getacceleration()
+{
+	return isacceleration;
 }

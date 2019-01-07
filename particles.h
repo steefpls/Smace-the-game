@@ -48,7 +48,7 @@ namespace particlesNS
 	static double HP = MAX_HP;				//wall hp
 	static double HP_PERCENTAGE = (HP / MAX_HP) * 100.0;
 	
-	static double SHRINK_RATE = 1;
+	static double SHRINK_RATE = 0.5;
 
 	static int ALPHA = 255;
 }

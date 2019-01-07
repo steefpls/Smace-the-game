@@ -89,15 +89,17 @@ namespace shipNS
 	static float BLACKHOLE_TIMER = 1.0f;
 
 	//particles
-	const float MAX_PARTICLES_TIMER = 0.2f;
-	static float PARTICLES_TIMER = 0.1f;
-	
+	const float MAX_PARTICLES_TIMER = 0.05f;
+	static float PARTICLES_TIMER = 0.02f;
+	static bool IS_ACCELERATION = false;
+	const double PARTICLE_SPREAD = 15.0;	//in degrees
+
 	//Arbritrary values
 	static double DAMAGE_MULTIPLIER = 1.0;
 	static float DAMAGE_RESISTANCE = 1000.0;
 	const int MAX_MINES = 20;
-	static int NO_OF_BULLETS_SHOT = 4;
-	static double DEGREE_SPREAD = 40.0f;
+	static int NO_OF_BULLETS_SHOT = 3;
+	static double DEGREE_SPREAD = 30.0;
 	static float MAX_HP = 4000;
 	static float HP = MAX_HP;
 
@@ -126,7 +128,9 @@ protected:
 	float damageResistance;
 	float maxhp;
 	double blackholesuccmultiplier;
+	bool isacceleration;
 	
+	double particlespread;
 
 	int noOfBullets = shipNS::NO_OF_BULLETS_SHOT;
 	float bulletDegreeSpread = shipNS::DEGREE_SPREAD;
@@ -168,6 +172,7 @@ public:
 	void setMineXY();
 	void setBlackholeXY();
 	void setParticlesXY();
+	void setParticleSpread(double a);
 
 	float getDamageTimer();
 	float getmissiletimer();
@@ -175,6 +180,11 @@ public:
 	float getminetimer();
 	float getblackholetimer();
 	float getparticlestimer();
+	double getdashtimer();
+	double getparticlespread();
+
+	bool getacceleration();
+	void randomizeRadians();
 
 	float x_acc = shipNS::ORIGINAL_X_ACC;
 	float y_acc = shipNS::ORIGINAL_Y_ACC;
