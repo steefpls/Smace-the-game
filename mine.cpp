@@ -33,6 +33,7 @@ Mine::Mine() : Entity()
 	radius = WIDTH / 2;
 	damage = DAMAGE;
 	hp = HP;
+	activationRadius = ACTIVATION_RADIUS;	//radius of the circle around the mine in which the mine detects the player to follow
 }
 
 //=============================================================================
@@ -99,6 +100,11 @@ void Mine::setAngle(float a)
 float Mine::getDamage()
 {
 	return DAMAGE;
+}
+
+float Mine::getActivationRadius()
+{
+	return activationRadius;
 }
 
 

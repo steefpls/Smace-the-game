@@ -259,6 +259,7 @@ void Spacewar::initialize(HWND hwnd)
 	title.setX(GAME_WIDTH*0.5f - title.getWidth()*title.getScale()*0.5f);
 	title.setY(GAME_HEIGHT*0.5f - title.getHeight()*title.getScale()*0.5f);
 
+	mineBleepPlayed = false;
 	return;
 }
 
@@ -283,11 +284,11 @@ void Spacewar::update()
 	{
 		nebulabackground2.setX(2000 * 1.08);
 	}
-	if (startscreenon == true && gameoverscreen==false)
+	if (startscreen == true)
 	{
 		if (input->isKeyDown(VK_RETURN))
 		{
-			startscreenon = false;
+			startscreen = false;
 		}
 
 		if (titleScale >= 0.45 && titleScaleIncrease == false)
@@ -322,9 +323,16 @@ void Spacewar::update()
 		PressEnterToStart.setFontColor(SETCOLOR_ARGB(PETSalpha, PETSalpha, PETSalpha, PETSalpha));
 	}
 
-	else if (startscreenon == false && gameoverscreen==false)
+	else if (startscreen == false && gameoverscreen==false)
 	{
-
+		if (ship1.mineList.size() > 0 && mineBleepPlayed==false)
+		{
+			for (int i = 0; i < ship1.mineList.size(); i++)
+			{
+				audio->playCue(MINEBLEEP);
+				mineBleepPlayed = true;
+			}
+		}
 		ship1.update(frameTime);	//update ship1 frames
 		ship2.update(frameTime);	//update ship2 frames
 
@@ -480,10 +488,6 @@ void Spacewar::update()
 		if (input->isKeyDown(player1Primary) && ship1.getminetimer() < 0)				//If player is pressing X, shoot mines
 		{
 			ship1.spawnmine();
-			for (int i = 0; i < ship1.mineList.size(); i++)
-			{
-				audio->playCue(MINEBLEEP);
-			}
 			ship1.mineList[ship1.mineList.size() - 1]->initialize(this, mineNS::WIDTH, mineNS::HEIGHT, mineNS::TEXTURE_COLS, &mineTexture);
 
 
@@ -493,9 +497,13 @@ void Spacewar::update()
 				{
 					SAFE_DELETE(ship1.mineList[0]);
 					ship1.mineList.erase(ship1.mineList.begin() + 0);
+					//audio->stopCue(MINEBLEEP);
+					//mineBleepPlayed = false;
 				}
 			}
 			ship1.setMineXY();
+			audio->stopCue(MINEBLEEP);
+			mineBleepPlayed = false;
 		}
 
 		//if (ship1.mineList.size() <= 0)
@@ -506,6 +514,15 @@ void Spacewar::update()
 		for (int i = 0; i < ship1.mineList.size(); i++)								//Update all ship1 mine objects
 		{
 			ship1.mineList[i]->update(frameTime);
+			if (abs(ship2.getX()*ship2.getX()) + abs(ship2.getY()*ship2.getY()) - (abs(ship1.mineList[i]->getX()*ship1.mineList[i]->getX()) + abs(ship1.mineList[i]->getY()*ship1.mineList[i]->getY())) < ship1.mineList[i]->getActivationRadius()*ship1.mineList[i]->getActivationRadius())
+			{
+				double angbet = ship1.mineList[i]->anglebetween(ship2);
+				angbet += 180.0;
+				if (angbet > 360) { angbet -= 360; }
+
+				ship1.mineList[i]->setVelocityX(ship1.mineList[i]->getVelocityX() + ((sin(angbet / 360 * 2 * PI)*mineNS::X_ACC)*frameTime));
+				ship1.mineList[i]->setVelocityY(ship1.mineList[i]->getVelocityY() - ((cos(angbet / 360 * 2 * PI)*mineNS::Y_ACC)*frameTime));
+			}
 		}
 
 		for (int i = 0; i < ship1.mineList.size(); i++)	//MINE Deletion when exits boundaries
@@ -541,7 +558,7 @@ void Spacewar::update()
 			ship2.bulletList[i]->update(frameTime);
 		}
 
-		ship2.boost(input->isKeyDown(CTRL));				//Checking if boost button is pressed
+		ship2.boost(input->isKeyDown(VK_OEM_COMMA));				//Checking if boost button is pressed
 		if (input->isKeyDown(CTRL))
 		{
 			ship2.spawnparticles();
@@ -686,7 +703,7 @@ void Spacewar::update()
 		}
 	}
 
-	else if (startscreenon == false && gameoverscreen == true)
+	else if (gameoverscreen == true)
 	{
 		if (PETSalpha > 0 && alphaIncrease == false)
 		{
@@ -704,10 +721,18 @@ void Spacewar::update()
 		if (input->anyKeyPressed())
 		{
 			gameoverscreen = false;
-			startscreenon = true;
+			startscreen = true;
 			resetGame();
 		}
 	}
+
+	//else if (instructionscreen == true)
+	//{
+	//	if (input->isKeyDown(VK_RETURN))
+	//	{
+	//		
+	//	}
+	//}
 }
 	
 
@@ -1007,6 +1032,8 @@ void Spacewar::collisions()
 				audio->playCue(BOOM);
 				SAFE_DELETE(ship1.mineList[i]);
 				audio->stopCue(MINEBLEEP);
+				mineBleepPlayed = false;
+
 				ship1.mineList.erase(ship1.mineList.begin() + i);
 
 			}
@@ -1241,12 +1268,12 @@ void Spacewar::render()
 
 	
 	//planet.draw();                          // add the planet to the scene
-	if (startscreenon == true && gameoverscreen ==false)
+	if (startscreen == true && gameoverscreen ==false)
 	{
 		title.draw();
 		PressEnterToStart.print("Press Enter to Start", GAME_WIDTH/2 -4.5 * spacewarNS::FONT_SIZE, (GAME_HEIGHT/2)+5*spacewarNS::FONT_SIZE);
 	}
-	else if (startscreenon == false && gameoverscreen==false)
+	else if (startscreen == false && gameoverscreen==false)
 	{
 		for (int i = 0; i < ship1.lifeList.size(); i++)
 		{
@@ -1363,7 +1390,7 @@ void Spacewar::render()
 	//	}
 	}
 
-	else if (startscreenon == false && gameoverscreen == true)
+	else if (startscreen == false && gameoverscreen == true)
 	{
 		if (ship1.lifeList.size() <= 0)
 		{

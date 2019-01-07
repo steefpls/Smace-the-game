@@ -29,8 +29,8 @@ namespace mineNS
 	//2d Movement
 	static float X_SPEED = 500.0f;                // pixels per second
 	static float Y_SPEED = 500.0f;                // pixels per second
-	static float X_ACC = 40000.0f;			//pixels per second per second
-	static float Y_ACC = 40000.0f;			//pixels per second per second
+	static float X_ACC = 4000.0f;			//pixels per second per second
+	static float Y_ACC = 4000.0f;			//pixels per second per second
 	static float DRAG = 98 / 100;			//air resistance (IK its in space but stfu)
 	const float MAX_VELOCITY = 40000.0f;		//max speed
 	//Textures
@@ -53,12 +53,15 @@ namespace mineNS
 	const double MAX_HP = 300.0;			//wall maxhp
 	static double HP = MAX_HP;				//wall hp
 	static double HP_PERCENTAGE = (HP / MAX_HP) * 100.0;
+
+	const double ACTIVATION_RADIUS = 11.0;
 }
 
 class Mine : public Entity
 {
 protected:
 	//int hp;
+	float activationRadius;
 
 public:
 	//constructor
@@ -72,6 +75,8 @@ public:
 	bool getdel();
 	void setAngle(float a);
 	float getDamage();
+
+	float getActivationRadius();
 
 };
 #endif _MINE_H

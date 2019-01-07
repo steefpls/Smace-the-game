@@ -88,6 +88,8 @@ private:
 	Text Player2DamagePercent;	//Player 1 Damage percentage
 
 	Text PressAnyKey;
+
+	bool mineBleepPlayed;
 	
 	const char player1Primary = 'C';
 	const char player1Secondary = 'X';

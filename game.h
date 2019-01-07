@@ -94,8 +94,11 @@ public:
     //   draw non-sprites
     virtual void render() = 0;
 
-	bool startscreenon = true;
+	bool startscreen = true;
 	bool gameoverscreen = false;
+	bool instructionscreen = false;
+
+	bool pButtonDown = false;
 };
 
 #endif
