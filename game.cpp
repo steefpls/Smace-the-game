@@ -206,7 +206,13 @@ void Game::run(HWND hwnd)
 
     timeStart = timeEnd;
 
-	if (input->isKeyDown('P') && !startscreen && !gameoverscreen && !instructionscreen && pButtonDown == false)
+	if (input->isKeyDown('P'))
+	{
+		pButtonDown = true;
+	}
+	else pButtonDown = false;
+		
+	if(!startscreen && !gameoverscreen && !instruction1screen &&!instruction2screen &&!instruction3screen && pButtonDown ==true &&prevPButtonDown==false)
 	{
 		if (paused)
 		{
@@ -216,10 +222,8 @@ void Game::run(HWND hwnd)
 		{
 			paused = true;
 		}
-		pButtonDown = true;
 	}
 
-	if (input->isKeyDown('P') && pButtonDown == true)pButtonDown = false;
 
     // update(), ai(), and collisions() are pure virtual functions.
     // These functions must be provided in the class that inherits from Game.
@@ -232,6 +236,8 @@ void Game::run(HWND hwnd)
         
         input->vibrateControllers(frameTime); // handle controller vibration
     }
+
+	prevPButtonDown = pButtonDown;
     renderGame();                   // draw all game items
     input->readControllers();       // read state of controllers
 

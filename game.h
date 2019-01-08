@@ -96,9 +96,12 @@ public:
 
 	bool startscreen = true;
 	bool gameoverscreen = false;
-	bool instructionscreen = false;
+	bool instruction1screen = false;
+	bool instruction2screen = false;
+	bool instruction3screen = false;
 
 	bool pButtonDown = false;
+	bool prevPButtonDown = false;
 };
 
 #endif

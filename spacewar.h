@@ -54,7 +54,7 @@ private:
 	TextureManager titleTexture;
 	TextureManager ship1ParticleTexture;
 	TextureManager ship2ParticleTexture;
-
+	
 	//Image   planet;                 // planet image
 	Image	title;
 	float titleScale;
@@ -65,6 +65,15 @@ private:
 	Image   blueHeart;
 	Image	redHeart;
 
+	TextureManager instruction1Texture;
+	TextureManager instruction2Texture;
+	TextureManager instruction3Texture;
+
+	Image instruction1;
+	Image instruction2;
+	Image instruction3;
+
+	std::vector<Image>instructionList;
 	//Ship * ship1 = NULL;
 	Ship	ship1;					// ship object
 	Ship	ship2;
@@ -101,8 +110,13 @@ private:
 	int trigger = 0;
 	string triggeredship = "";
 	
-	
+	bool ifAnyKey;
+	bool prevIfAnyKey;
 
+	bool enterKey;
+	bool prevEnterKey;
+
+	bool anyMineDestroyed;
 	//Missile missile1;				// missile object
 	Explosion explosion1;
 

@@ -32,11 +32,20 @@ void Spacewar::initialize(HWND hwnd)
 
 	audio->playCue(BGM);
 
+	if (!instruction1Texture.initialize(graphics, INSTRUCTION1_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing instruction texture"));
+
+	if (!instruction2Texture.initialize(graphics, INSTRUCTION2_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing instruction texture"));
+
+	if (!instruction3Texture.initialize(graphics, INSTRUCTION3_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing instruction texture"));
+
 	if (!ship1ParticleTexture.initialize(graphics, SHIP1_PARTICLES))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1 particle"));
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship1 particle texture"));
 	
 	if (!ship2ParticleTexture.initialize(graphics, SHIP2_PARTICLES))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship2 particle"));
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship2 particle texture"));
 	
 		// blue heart texture
 	if (!blueHeartTexture.initialize(graphics,BLUEHEART_IMAGE))
@@ -65,6 +74,18 @@ void Spacewar::initialize(HWND hwnd)
 	// nebulabackground
 	if (!nebulabackground2.initialize(graphics, 0, 0, 0, &nebulabackgroundTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing nebulabackground"));
+
+	//instructions
+	if (!instruction1.initialize(graphics, 0, 0, 0, &instruction1Texture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing instruction page 1"));
+	if (!instruction2.initialize(graphics, 0, 0, 0, &instruction2Texture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing instruction page 2"));
+	if (!instruction3.initialize(graphics, 0, 0, 0, &instruction3Texture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing instruction page 3"));
+
+	instructionList.push_back(instruction3);
+	instructionList.push_back(instruction2);
+	instructionList.push_back(instruction1);
 
 	//// planet texture
 	//if (!planetTexture.initialize(graphics, PLANET_IMAGE))
@@ -259,6 +280,14 @@ void Spacewar::initialize(HWND hwnd)
 	title.setX(GAME_WIDTH*0.5f - title.getWidth()*title.getScale()*0.5f);
 	title.setY(GAME_HEIGHT*0.5f - title.getHeight()*title.getScale()*0.5f);
 
+	ifAnyKey = false;
+	prevIfAnyKey = false;
+
+	enterKey = false;
+	prevEnterKey = false;
+
+
+	anyMineDestroyed = false;
 	mineBleepPlayed = false;
 	return;
 }
@@ -284,11 +313,19 @@ void Spacewar::update()
 	{
 		nebulabackground2.setX(2000 * 1.08);
 	}
+
+	if (input->isKeyDown(ENTER_KEY))
+	{
+		enterKey = true;
+	}
+	else enterKey = false;
+
 	if (startscreen == true)
 	{
-		if (input->isKeyDown(VK_RETURN))
+		if (enterKey ==true &&prevEnterKey==false)
 		{
 			startscreen = false;
+			instruction1screen = true;
 		}
 
 		if (titleScale >= 0.45 && titleScaleIncrease == false)
@@ -323,16 +360,64 @@ void Spacewar::update()
 		PressEnterToStart.setFontColor(SETCOLOR_ARGB(PETSalpha, PETSalpha, PETSalpha, PETSalpha));
 	}
 
-	else if (startscreen == false && gameoverscreen==false)
+	
+
+	else if (gameoverscreen == true)
 	{
-		if (ship1.mineList.size() > 0 && mineBleepPlayed==false)
+		if (PETSalpha > 0 && alphaIncrease == false)
 		{
-			for (int i = 0; i < ship1.mineList.size(); i++)
-			{
-				audio->playCue(MINEBLEEP);
-				mineBleepPlayed = true;
-			}
+			PETSalpha -= 1;
 		}
+		else if (PETSalpha <= 255 && alphaIncrease == true)
+		{
+			PETSalpha += 1;
+		}
+
+		if (PETSalpha == 0) alphaIncrease = true;
+		else if (PETSalpha == 255) alphaIncrease = false;
+
+		PressAnyKey.setFontColor(SETCOLOR_ARGB(PETSalpha, PETSalpha, PETSalpha, PETSalpha));
+		if (input->anyKeyPressed())
+		{
+			ifAnyKey = true;
+		}
+		else ifAnyKey = false;
+
+		if (ifAnyKey == true && prevIfAnyKey == false)
+		{
+			gameoverscreen = false;
+			startscreen = true;
+			resetGame();
+		}
+		prevIfAnyKey = ifAnyKey;
+	}
+
+	else if (instruction1screen == true)
+	{
+		if (enterKey == true && prevEnterKey ==false)
+		{
+			instruction1screen = false;
+			instruction2screen = true;
+		}
+	}
+	else if (instruction2screen == true)
+	{
+	if (enterKey == true && prevEnterKey == false)
+	{
+		instruction2screen = false;
+		instruction3screen = true;
+	}
+	}
+	else if (instruction3screen == true)
+	{
+	if (enterKey == true && prevEnterKey == false)
+	{
+		instruction3screen = false;
+		//instruction3screen = true;
+	}
+	}
+	else 
+	{
 		ship1.update(frameTime);	//update ship1 frames
 		ship2.update(frameTime);	//update ship2 frames
 
@@ -443,7 +528,7 @@ void Spacewar::update()
 
 				}
 			ship1.dash();
-			
+
 		}
 
 
@@ -506,11 +591,11 @@ void Spacewar::update()
 			mineBleepPlayed = false;
 		}
 
-		//if (ship1.mineList.size() <= 0)
-		//{
-		//	audio->stopCue(MINEBLEEP);
-		//}
-		
+		if (ship1.mineList.size() <= 0)
+		{
+			audio->stopCue(MINEBLEEP);
+		}
+
 		for (int i = 0; i < ship1.mineList.size(); i++)								//Update all ship1 mine objects
 		{
 			ship1.mineList[i]->update(frameTime);
@@ -628,16 +713,14 @@ void Spacewar::update()
 				ship2.blackholeList[i]->update(frameTime);
 				if (ship2.blackholeList[i]->getScale() <= 0)
 				{
-
 					SAFE_DELETE(ship2.blackholeList[i]);
 					ship2.blackholeList.erase(ship2.blackholeList.begin() + i);
-
 				}
 			}
 		}
 
 		//PARTICLE EFFECTS
-		
+
 		if (ship1.getparticlestimer() <= 0 && ship1.getacceleration())
 		{
 			ship1.spawnparticles();
@@ -681,7 +764,7 @@ void Spacewar::update()
 			if (ship1.missileList[i]->getparticlestimer() <= 0)
 			{
 				ship1.missileList[i]->spawnparticles();
-				ship1.missileList[i]->particleList[ship1.missileList[i]->particleList.size()-1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship1ParticleTexture);
+				ship1.missileList[i]->particleList[ship1.missileList[i]->particleList.size() - 1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship1ParticleTexture);
 				ship1.missileList[i]->setParticlesXY();
 			}
 
@@ -703,36 +786,7 @@ void Spacewar::update()
 		}
 	}
 
-	else if (gameoverscreen == true)
-	{
-		if (PETSalpha > 0 && alphaIncrease == false)
-		{
-			PETSalpha -= 1;
-		}
-		else if (PETSalpha <= 255 && alphaIncrease == true)
-		{
-			PETSalpha += 1;
-		}
-
-		if (PETSalpha == 0) alphaIncrease = true;
-		else if (PETSalpha == 255) alphaIncrease = false;
-
-		PressAnyKey.setFontColor(SETCOLOR_ARGB(PETSalpha, PETSalpha, PETSalpha, PETSalpha));
-		if (input->anyKeyPressed())
-		{
-			gameoverscreen = false;
-			startscreen = true;
-			resetGame();
-		}
-	}
-
-	//else if (instructionscreen == true)
-	//{
-	//	if (input->isKeyDown(VK_RETURN))
-	//	{
-	//		
-	//	}
-	//}
+	prevEnterKey = enterKey;
 }
 	
 
@@ -1031,15 +1085,27 @@ void Spacewar::collisions()
 
 				audio->playCue(BOOM);
 				SAFE_DELETE(ship1.mineList[i]);
-				audio->stopCue(MINEBLEEP);
-				audio->stopCue(MINEBLEEP);
-				mineBleepPlayed = false;
-
+				anyMineDestroyed = true;
 				ship1.mineList.erase(ship1.mineList.begin() + i);
-
 			}
 		}
 	}
+
+	if (anyMineDestroyed)
+	{
+		audio->stopCue(MINEBLEEP);
+		mineBleepPlayed = false;
+	}
+
+	if (mineBleepPlayed == false)
+	{
+		for (int i = 0; i < ship1.mineList.size(); i++)
+		{
+			audio->playCue(MINEBLEEP);
+			mineBleepPlayed = true;
+		}
+	}
+	anyMineDestroyed = false;
 
 	//BULLET COLLISION
 	for (int i = 0; i < (ship2.bulletList.size()); i++)
@@ -1274,7 +1340,50 @@ void Spacewar::render()
 		title.draw();
 		PressEnterToStart.print("Press Enter to Start", GAME_WIDTH/2 -4.5 * spacewarNS::FONT_SIZE, (GAME_HEIGHT/2)+5*spacewarNS::FONT_SIZE);
 	}
-	else if (startscreen == false && gameoverscreen==false)
+	else if (startscreen == false && gameoverscreen == true)
+	{
+		if (ship1.lifeList.size() <= 0)
+		{
+			trigger += 1;
+		}
+		else if (ship2.lifeList.size() <= 0)
+		{
+			trigger += 1;
+		}
+
+		if (trigger == 1)
+		{
+			if (ship1.getLifeCount() < ship2.getLifeCount())
+			{
+				triggeredship = "Player 2";
+			}
+			else if (ship1.getLifeCount() > ship2.getLifeCount())
+			{
+				triggeredship = "Player 1";
+			}
+		}
+
+		if (trigger >= 1)
+		{
+			gameOverText.print(triggeredship + " won!", GAME_WIDTH / 2 - 5 * spacewarNS::FONT_SIZE, GAME_HEIGHT / 2);		//Render Player Label Text
+			PressAnyKey.print("Press Any Key to Continue", GAME_WIDTH / 2 - 3 * spacewarNS::FONT_SIZE, GAME_HEIGHT / 2 + spacewarNS::FONT_SIZE*1.5);
+		}
+	}
+
+	else if (instruction1screen == true)
+	{
+		instructionList[0].draw();
+	}
+	else if (instruction2screen == true)
+	{
+
+	instructionList[1].draw();
+ }
+	else if (instruction3screen == true)
+	{
+	instructionList[2].draw();
+ }
+	else 
 	{
 		for (int i = 0; i < ship1.lifeList.size(); i++)
 		{
@@ -1390,36 +1499,6 @@ void Spacewar::render()
 	//		gameOverText.print(triggeredship + " won!", GAME_WIDTH / 2, GAME_HEIGHT / 2);		//Render Player Label Text
 	//	}
 	}
-
-	else if (startscreen == false && gameoverscreen == true)
-	{
-		if (ship1.lifeList.size() <= 0)
-		{
-			trigger += 1;
-		}
-		else if (ship2.lifeList.size() <= 0)
-		{
-			trigger += 1;
-		}
-
-		if (trigger == 1)
-		{
-			if (ship1.getLifeCount() < ship2.getLifeCount())
-			{
-				triggeredship = "Player 2";
-			}
-			else if (ship1.getLifeCount() > ship2.getLifeCount())
-			{
-				triggeredship = "Player 1";
-			}
-		}
-
-		if (trigger >= 1)
-		{
-			gameOverText.print(triggeredship + " won!", GAME_WIDTH / 2 - 5 * spacewarNS::FONT_SIZE, GAME_HEIGHT / 2);		//Render Player Label Text
-			PressAnyKey.print("Press Any Key to Continue", GAME_WIDTH / 2 - 3 * spacewarNS::FONT_SIZE, GAME_HEIGHT / 2 + spacewarNS::FONT_SIZE*1.5);
-		}
-	}
 	
 
 	graphics->spriteEnd();                  // end drawing sprites
@@ -1526,6 +1605,24 @@ void Spacewar::resetGame()
 			ship2.blackholeList.erase(ship2.blackholeList.begin() + i);
 		}
 	}
+
+	for (int i = 0; i < ship1.particleList.size(); i++)
+	{
+		if (ship1.particleList[i] != NULL)
+		{
+			SAFE_DELETE(ship1.particleList[i]);
+			ship1.particleList.erase(ship1.particleList.begin() + i);
+		}
+	}
+
+	for (int i = 0; i < ship2.particleList.size(); i++)
+	{
+		if (ship2.particleList[i] != NULL)
+		{
+			SAFE_DELETE(ship2.particleList[i]);
+			ship2.particleList.erase(ship2.particleList.begin() + i);
+		}
+	}
 	//ship1.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &ship1Texture);
 	ship1.setFrames(shipNS::SHIP_START_FRAME, shipNS::SHIP_END_FRAME);
 	ship1.setCurrentFrame(shipNS::SHIP_START_FRAME);
@@ -1610,6 +1707,7 @@ void Spacewar::resetGame()
 		wallListList[0][wallListList[0].size() - 1]->setY((i + 1)*(wallNS::HEIGHT*wallNS::SCALE));
 		wallListList[0][wallListList[0].size() - 1]->setRadians(wallListList[0][wallListList[0].size() - 1]->getRadians() + ((3 * PI) / 2));
 	}
+
 	trigger = 0;
 	//wallListList.push_back(wallListTop);		//wallListList[3] = wallListTop
 	//wallListList.push_back(wallListBottom);		//wallListList[2] = wallListBottom

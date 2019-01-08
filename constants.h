@@ -55,6 +55,9 @@ const char SHIP1_PARTICLES[] = "pictures\\32x32hex.png";
 const char SHIP2_PARTICLES[] = "pictures\\32x32sqr.png";
 const char TITLE_IMAGE[] = "pictures\\Title.png";
 
+const char INSTRUCTION1_IMAGE[] = "pictures\\Instruction-screen1.png";
+const char INSTRUCTION2_IMAGE[] = "pictures\\Instruction-screen2.png";
+const char INSTRUCTION3_IMAGE[] = "pictures\\Instruction-screen3.png";
 
 // audio files
 const char WAVE_BANK[] = "audio\\Win\\Wave Bank.xwb";
