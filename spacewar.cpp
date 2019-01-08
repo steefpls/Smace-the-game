@@ -574,6 +574,7 @@ void Spacewar::update()
 		if (input->isKeyDown(player1Primary) && ship1.getminetimer() < 0)				//If player is pressing X, shoot mines
 		{
 			ship1.spawnmine();
+			audio->playCue(MINE);
 			ship1.mineList[ship1.mineList.size() - 1]->initialize(this, mineNS::WIDTH, mineNS::HEIGHT, mineNS::TEXTURE_COLS, &mineTexture);
 
 

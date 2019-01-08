@@ -70,6 +70,7 @@ const char MISSILE[] = "missileLaunch";
 const char BULLETSHOT[] = "bulletShot";
 const char SHIPHITSHIP[] = "ShipHitShip";
 const char MINEBLEEP[] = "mineBleep";
+const char MINE[] = "Pipesound";
 
 ////keybinds
 //const char player1Right = 'D';
