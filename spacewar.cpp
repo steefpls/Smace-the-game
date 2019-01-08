@@ -48,11 +48,11 @@ void Spacewar::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ship2 particle texture"));
 	
 		// blue heart texture
-	if (!blueHeartTexture.initialize(graphics,BLUEHEART_IMAGE))
+	if (!blueHeartTexture.initialize(graphics,SHIP1LIFE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing blue heart texture"));
 
 		//red heart texture
-	if (!redHeartTexture.initialize(graphics, REDHEART_IMAGE))
+	if (!redHeartTexture.initialize(graphics, SHIP2LIFE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing red heart texture"));
 
 		// nebula texture
@@ -114,7 +114,8 @@ void Spacewar::initialize(HWND hwnd)
 	{
 		ship1.lifeList.push_back(new Image);
 		ship1.lifeList[i]->initialize(graphics, 0, 0, 0, &blueHeartTexture);
-		ship1.lifeList[i]->setScale(0.1);
+		ship1.lifeList[i]->setCurrentFrame(0);
+		ship1.lifeList[i]->setScale(3);
 		ship1.lifeList[i]->setX((wallNS::WIDTH*wallNS::SCALE)+i*(ship1.lifeList[i]->getWidth()*ship1.lifeList[i]->getScale()));
 		ship1.lifeList[i]->setY(GAME_HEIGHT - (wallNS::WIDTH*wallNS::SCALE) - (ship1.lifeList[i]->getHeight()*ship1.lifeList[i]->getScale()));
 	}
@@ -135,7 +136,8 @@ void Spacewar::initialize(HWND hwnd)
 	{
 		ship2.lifeList.push_back(new Image);
 		ship2.lifeList[i]->initialize(graphics, 0, 0, 0, &redHeartTexture);
-		ship2.lifeList[i]->setScale(0.1);
+		ship1.lifeList[i]->setCurrentFrame(0);
+		ship2.lifeList[i]->setScale(3);
 		ship2.lifeList[i]->setX(GAME_WIDTH - (wallNS::WIDTH*wallNS::SCALE) - (i+1) *(ship2.lifeList[i]->getWidth()*ship2.lifeList[i]->getScale()));
 		ship2.lifeList[i]->setY(GAME_HEIGHT - (wallNS::WIDTH*wallNS::SCALE) - (ship2.lifeList[i]->getHeight()*ship2.lifeList[i]->getScale()));
 	}
@@ -1639,7 +1641,8 @@ void Spacewar::resetGame()
 	{
 		ship1.lifeList.push_back(new Image);
 		ship1.lifeList[i]->initialize(graphics, 0, 0, 0, &blueHeartTexture);
-		ship1.lifeList[i]->setScale(0.1);
+		ship1.lifeList[i]->setCurrentFrame(0);
+		ship1.lifeList[i]->setScale(3);
 		ship1.lifeList[i]->setX((wallNS::WIDTH*wallNS::SCALE) + i * (ship1.lifeList[i]->getWidth()*ship1.lifeList[i]->getScale()));
 		ship1.lifeList[i]->setY(GAME_HEIGHT - (wallNS::WIDTH*wallNS::SCALE) - (ship1.lifeList[i]->getHeight()*ship1.lifeList[i]->getScale()));
 	}
@@ -1660,7 +1663,8 @@ void Spacewar::resetGame()
 	{
 		ship2.lifeList.push_back(new Image);
 		ship2.lifeList[i]->initialize(graphics, 0, 0, 0, &redHeartTexture);
-		ship2.lifeList[i]->setScale(0.1);
+		ship2.lifeList[i]->setCurrentFrame(0);
+		ship2.lifeList[i]->setScale(3);
 		ship2.lifeList[i]->setX(GAME_WIDTH - (wallNS::WIDTH*wallNS::SCALE) - (i + 1) *(ship2.lifeList[i]->getWidth()*ship2.lifeList[i]->getScale()));
 		ship2.lifeList[i]->setY(GAME_HEIGHT - (wallNS::WIDTH*wallNS::SCALE) - (ship2.lifeList[i]->getHeight()*ship2.lifeList[i]->getScale()));
 	}
