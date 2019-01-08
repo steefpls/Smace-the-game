@@ -362,8 +362,6 @@ void Spacewar::update()
 		PressEnterToStart.setFontColor(SETCOLOR_ARGB(PETSalpha, PETSalpha, PETSalpha, PETSalpha));
 	}
 
-	
-
 	else if (gameoverscreen == true)
 	{
 		if (PETSalpha > 0 && alphaIncrease == false)
@@ -385,7 +383,9 @@ void Spacewar::update()
 		}
 		else ifAnyKey = false;
 
-		if (ifAnyKey == true && prevIfAnyKey == false)
+		endScreenTimer -= (1 * frameTime);
+
+		if (ifAnyKey == true && prevIfAnyKey == false && endScreenTimer<=0)
 		{
 			gameoverscreen = false;
 			startscreen = true;
@@ -600,15 +600,15 @@ void Spacewar::update()
 		for (int i = 0; i < ship1.mineList.size(); i++)								//Update all ship1 mine objects
 		{
 			ship1.mineList[i]->update(frameTime);
-			//if (ship1.mineList[i]->withinMineRadius(ship2))
-			//{
-			//	double angbet = ship1.mineList[i]->anglebetween(ship2);
-			//	angbet += 180.0;
-			//	if (angbet > 360) { angbet -= 360; }
+			if (ship1.mineList[i]->withinMineRadius(ship2))
+			{
+				double angbet = ship1.mineList[i]->anglebetween(ship2);
+				angbet += 180.0;
+				if (angbet > 360) { angbet -= 360; }
 
-			//	ship1.mineList[i]->setVelocityX(ship1.mineList[i]->getVelocityX() - ((sin(angbet / 360 * 2 * PI)*mineNS::X_ACC)*frameTime));
-			//	ship1.mineList[i]->setVelocityY(ship1.mineList[i]->getVelocityY() + ((cos(angbet / 360 * 2 * PI)*mineNS::Y_ACC)*frameTime));
-			//}
+				ship1.mineList[i]->setVelocityX(ship1.mineList[i]->getVelocityX() - ((sin(angbet / 360 * 2 * PI)*mineNS::X_HOMING_ACC)*frameTime));
+				ship1.mineList[i]->setVelocityY(ship1.mineList[i]->getVelocityY() + ((cos(angbet / 360 * 2 * PI)*mineNS::Y_HOMING_ACC)*frameTime));
+			}
 		}
 
 		for (int i = 0; i < ship1.mineList.size(); i++)	//MINE Deletion when exits boundaries
@@ -785,6 +785,7 @@ void Spacewar::update()
 		if (ship1.getLifeCount() <= 0 || ship2.getLifeCount() <= 0)
 		{
 			gameoverscreen = true;
+			endScreenTimer = 1.50f;
 		}
 	}
 

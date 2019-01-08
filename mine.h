@@ -32,6 +32,10 @@ namespace mineNS
 	static float X_ACC = 4000.0f;			//pixels per second per second
 	static float Y_ACC = 4000.0f;			//pixels per second per second
 	static float DRAG = 98 / 100;			//air resistance (IK its in space but stfu)
+
+	static float X_HOMING_ACC = 1500.0f;
+	static float Y_HOMING_ACC = 1500.0f;
+
 	const float MAX_VELOCITY = 40000.0f;		//max speed
 	//Textures
 	const int   TEXTURE_COLS = 3;           // texture has 2 columns
@@ -54,7 +58,7 @@ namespace mineNS
 	static double HP = MAX_HP;				//wall hp
 	static double HP_PERCENTAGE = (HP / MAX_HP) * 100.0;
 
-	const double ACTIVATION_RADIUS = 11.0;
+	const double ACTIVATION_RADIUS = 200.0;
 }
 
 class Mine : public Entity

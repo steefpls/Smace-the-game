@@ -117,6 +117,8 @@ private:
 	bool prevEnterKey;
 
 	bool anyMineDestroyed;
+
+	float endScreenTimer = 1.50f;
 	//Missile missile1;				// missile object
 	Explosion explosion1;
 
