@@ -533,7 +533,6 @@ void Spacewar::update()
 
 		}
 
-
 		if (input->isKeyDown(player1Secondary) && ship1.getmissiletimer() < 0)				//If player is pressing X, shoot missiles
 		{
 			audio->playCue(MISSILE);
@@ -601,15 +600,15 @@ void Spacewar::update()
 		for (int i = 0; i < ship1.mineList.size(); i++)								//Update all ship1 mine objects
 		{
 			ship1.mineList[i]->update(frameTime);
-			if (abs(ship2.getX()*ship2.getX()) + abs(ship2.getY()*ship2.getY()) - (abs(ship1.mineList[i]->getX()*ship1.mineList[i]->getX()) + abs(ship1.mineList[i]->getY()*ship1.mineList[i]->getY())) < ship1.mineList[i]->getActivationRadius()*ship1.mineList[i]->getActivationRadius())
-			{
-				double angbet = ship1.mineList[i]->anglebetween(ship2);
-				angbet += 180.0;
-				if (angbet > 360) { angbet -= 360; }
+			//if (ship1.mineList[i]->withinMineRadius(ship2))
+			//{
+			//	double angbet = ship1.mineList[i]->anglebetween(ship2);
+			//	angbet += 180.0;
+			//	if (angbet > 360) { angbet -= 360; }
 
-				ship1.mineList[i]->setVelocityX(ship1.mineList[i]->getVelocityX() + ((sin(angbet / 360 * 2 * PI)*mineNS::X_ACC)*frameTime));
-				ship1.mineList[i]->setVelocityY(ship1.mineList[i]->getVelocityY() - ((cos(angbet / 360 * 2 * PI)*mineNS::Y_ACC)*frameTime));
-			}
+			//	ship1.mineList[i]->setVelocityX(ship1.mineList[i]->getVelocityX() - ((sin(angbet / 360 * 2 * PI)*mineNS::X_ACC)*frameTime));
+			//	ship1.mineList[i]->setVelocityY(ship1.mineList[i]->getVelocityY() + ((cos(angbet / 360 * 2 * PI)*mineNS::Y_ACC)*frameTime));
+			//}
 		}
 
 		for (int i = 0; i < ship1.mineList.size(); i++)	//MINE Deletion when exits boundaries
@@ -1099,14 +1098,14 @@ void Spacewar::collisions()
 		mineBleepPlayed = false;
 	}
 
-	if (mineBleepPlayed == false)
-	{
-		for (int i = 0; i < ship1.mineList.size(); i++)
-		{
-			audio->playCue(MINEBLEEP);
-			mineBleepPlayed = true;
-		}
-	}
+	//if (mineBleepPlayed == false)
+	//{
+	//	for (int i = 0; i < ship1.mineList.size(); i++)
+	//	{
+	//		audio->playCue(MINEBLEEP);
+	//		mineBleepPlayed = true;
+	//	}
+	//}
 	anyMineDestroyed = false;
 
 	//BULLET COLLISION

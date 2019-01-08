@@ -76,6 +76,7 @@ public:
 	void setAngle(float a);
 	float getDamage();
 
+	bool withinMineRadius(Entity ent);
 	float getActivationRadius();
 
 };

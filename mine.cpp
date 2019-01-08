@@ -107,4 +107,12 @@ float Mine::getActivationRadius()
 	return activationRadius;
 }
 
+bool Mine::withinMineRadius(Entity ent)
+{
+	if (abs((abs(ent.getX()*ent.getX()) + abs(ent.getY()*ent.getY())) - (abs(spriteData.x*spriteData.x) + abs(spriteData.y*spriteData.y))) < activationRadius*activationRadius)
+	{
+		return true;
+	}
+}
+
 
