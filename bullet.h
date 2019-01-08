@@ -48,7 +48,7 @@ namespace bulletNS
 	static float DAMAGE_MULTIPLIER = 1.0;
 	const double DAMAGE = 100.0f;
 	//const int MAX_BOUNCES = 3;
-	static int BOUNCES = 3;
+	static int BOUNCES = 1;
 }
 
 // inherits from Entity class

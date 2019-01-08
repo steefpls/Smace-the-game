@@ -644,7 +644,8 @@ void Spacewar::update()
 			ship2.bulletList[i]->update(frameTime);
 		}
 
-		ship2.boost(input->isKeyDown(VK_OEM_COMMA));				//Checking if boost button is pressed
+		ship2.boost(input->isKeyDown(ALT_KEY));
+												//Checking if boost button is pressed
 		if (input->isKeyDown(player2Boost))
 		{
 			ship2.spawnparticles();

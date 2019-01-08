@@ -319,8 +319,9 @@ void Ship::setParticlesXY()
 	
 	double randtrigger = (rand() % int(particlespread)) - particlespread / 2;
 	
-	particleList[particleList.size() - 1]->setVelocityX(-particleList[particleList.size() - 1]->getVelocityX()/2 * sin(getRadians() + (randtrigger / 360 * 2 * PI)));
-	particleList[particleList.size() - 1]->setVelocityY(-particleList[particleList.size() - 1]->getVelocityY()/2 *-cos(getRadians() + (randtrigger / 360 * 2 * PI)));
+	double randamount = (rand() % 100 - 50);
+	particleList[particleList.size() - 1]->setVelocityX((1 + (randamount / 100)) * -particleList[particleList.size() - 1]->getVelocityX()/2 * sin(getRadians() + (randtrigger / 360 * 2 * PI)));
+	particleList[particleList.size() - 1]->setVelocityY((1 + (randamount / 100)) * -particleList[particleList.size() - 1]->getVelocityY()/2 *-cos(getRadians() + (randtrigger / 360 * 2 * PI)));
 	
 }
 
