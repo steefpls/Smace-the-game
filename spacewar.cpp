@@ -1561,73 +1561,97 @@ void Spacewar::resetGame()
 {
 	for (int i = 0; i < wallListList.size(); i++)
 	{
-		for (int j = 0; j < wallListList[i].size(); j++)
+		for (vector<Wall*>::iterator it = wallListList[i].begin(); it != wallListList[i].end(); )
 		{
-			if (wallListList[i][j] != NULL)
-			{
-				SAFE_DELETE(wallListList[i][j]);
-				wallListList[i].erase(wallListList[i].begin() + j);
-			}
+			SAFE_DELETE(*it);	
+			it = wallListList[i].erase(it);
+			//wallListList[i].erase(wallListList[i].begin() + j);
 		}
 		wallListList[i].clear();
 		//wallListList.erase(wallListList.begin() + i);
 	}
 
-	for (int i = 0; i < ship1.missileList.size(); i++)
+	for (vector<Missile*>::iterator it = ship1.missileList.begin(); it != ship1.missileList.end();)
 	{
-		if (ship1.missileList[i] != NULL)
-		{
-			SAFE_DELETE(ship1.missileList[i]);
-			ship1.missileList.erase(ship1.missileList.begin() + i);
-		}
-
+		SAFE_DELETE(*it);
+		it = ship1.missileList.erase(it);
 	}
-	for (int i = 0; i < ship1.mineList.size(); i++)
+	
+	//int mineNum = ship1.mineList.size();
+	for (vector<Mine*>::iterator it = ship1.mineList.begin(); it != ship1.mineList.end(); )
 	{
-		if (ship1.mineList[i] != NULL)
-		{
-			SAFE_DELETE(ship1.mineList[i]);
-			ship1.mineList.erase(ship1.mineList.begin() + i);
-		}
-
-	}
-	for (int i = 0; i < ship2.bulletList.size(); i++)
-	{
-		if (ship2.bulletList[i] != NULL)
-		{
-			SAFE_DELETE(ship2.bulletList[i]);
-
-			ship2.bulletList.erase(ship2.bulletList.begin() + i);
-		}
-
-	}
-	for (int i = 0; i < ship2.blackholeList.size(); i++)
-	{
-		if (ship2.blackholeList[i] != NULL)
-		{
-			SAFE_DELETE(ship2.blackholeList[i]);
-			ship2.blackholeList.erase(ship2.blackholeList.begin() + i);
-		}
+		SAFE_DELETE(*it);
+		it = ship1.mineList.erase(it);
+		//ship1.mineList.erase(ship1.mineList.begin() + i);
 	}
 
-	for (int i = 0; i < ship1.particleList.size(); i++)
+	for (vector<Bullet*>::iterator it = ship2.bulletList.begin(); it != ship2.bulletList.end(); )
 	{
-		if (ship1.particleList[i] != NULL)
-		{
-			SAFE_DELETE(ship1.particleList[i]);
-			ship1.particleList.erase(ship1.particleList.begin() + i);
-		}
+		SAFE_DELETE(*it);
+		it = ship2.bulletList.erase(it);
 	}
 
-	for (int i = 0; i < ship2.particleList.size(); i++)
+	//for (int i = 0; i < ship2.bulletList.size(); i++)
+	//{
+	//	if (ship2.bulletList[i] != NULL)
+	//	{
+	//		SAFE_DELETE(ship2.bulletList[i]);
+	//	}
+	//	ship2.bulletList.erase(ship2.bulletList.begin() + i);
+	//}
+	for (vector<Blackhole*>::iterator it = ship2.blackholeList.begin(); it != ship2.blackholeList.end(); )
 	{
-		if (ship2.particleList[i] != NULL)
-		{
-			SAFE_DELETE(ship2.particleList[i]);
-			ship2.particleList.erase(ship2.particleList.begin() + i);
-		}
+		SAFE_DELETE(*it);
+		it = ship2.blackholeList.erase(it);
 	}
+
+	//for (int i = 0; i < ship2.blackholeList.size(); i++)
+	//{
+	//	if (ship2.blackholeList[i] != NULL)
+	//	{
+	//		SAFE_DELETE(ship2.blackholeList[i]);
+	//	}
+	//	ship2.blackholeList.erase(ship2.blackholeList.begin() + i);
+	//}
+
+	for (vector<Particles*>::iterator it = ship1.particleList.begin(); it != ship1.particleList.end(); )
+	{
+		SAFE_DELETE(*it);
+		it = ship1.particleList.erase(it);
+	}
+
+	//if (ship1.particleList.size() > 0)
+	//{
+	//	for (int i = 0; i < ship1.particleList.size(); i++)
+	//	{
+	//		SAFE_DELETE(ship1.particleList[i]);
+	//		ship1.particleList.erase(ship1.particleList.begin() + i);
+	//	}
+	//}
+
+	for (vector<Particles*>::iterator it = ship2.particleList.begin(); it != ship2.particleList.end(); )
+	{
+		SAFE_DELETE(*it);
+		it = ship2.particleList.erase(it);
+	}
+	//if (ship2.particleList.size() > 0)
+	//{
+	//	for (int i = 0; i < ship2.particleList.size(); i++)
+	//	{
+	//		SAFE_DELETE(ship2.particleList[i]);
+	//		ship2.particleList.erase(ship2.particleList.begin() + i);
+	//	}
+	//}
+
 	//ship1.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &ship1Texture);
+
+
+	//for (int i = 0; i < ship1.getLifeCount()-1; i++)
+	//{
+	//	SAFE_DELETE(ship1.lifeList[i]);
+	//	ship1.lifeList.erase(ship1.lifeList.begin() + i);
+	//}
+
 	ship1.setFrames(shipNS::SHIP_START_FRAME, shipNS::SHIP_END_FRAME);
 	ship1.setCurrentFrame(shipNS::SHIP_START_FRAME);
 	ship1.setLifeCount(shipNS::LIFE_COUNT);
@@ -1637,8 +1661,6 @@ void Spacewar::resetGame()
 	ship1.setX(GAME_WIDTH / 4);
 	ship1.setY(GAME_HEIGHT / 4);
 	ship1.setHP(shipNS::MAX_HP);
-
-	ship1.lifeList.clear();
 	for (int i = 0; i < ship1.getLifeCount(); i++)
 	{
 		ship1.lifeList.push_back(new Image);
@@ -1650,6 +1672,13 @@ void Spacewar::resetGame()
 	}
 
 	//ship2.initialize(this, shipNS::WIDTH, shipNS::HEIGHT, shipNS::TEXTURE_COLS, &ship2Texture);
+
+	//for (int i = 0; i < ship2.getLifeCount()-1; i++)
+	//{
+	//	SAFE_DELETE(ship2.lifeList[i]);
+	//	ship2.lifeList.erase(ship2.lifeList.begin() + i);
+	//}
+
 	ship2.setFrames(shipNS::SHIP_START_FRAME, shipNS::SHIP_END_FRAME);
 	ship2.setCurrentFrame(shipNS::SHIP_START_FRAME);
 	ship2.setLifeCount(shipNS::LIFE_COUNT);
@@ -1660,7 +1689,6 @@ void Spacewar::resetGame()
 	ship2.setY(GAME_HEIGHT / 4);
 	ship2.setHP(shipNS::MAX_HP);
 
-	ship2.lifeList.clear();
 	for (int i = 0; i < ship2.getLifeCount(); i++)
 	{
 		ship2.lifeList.push_back(new Image);
