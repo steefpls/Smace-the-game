@@ -735,7 +735,6 @@ void Spacewar::update()
 		{
 			ship2.spawnparticles();
 			ship2.particleList[ship2.particleList.size() - 1]->initialize(this, particlesNS::WIDTH, particlesNS::HEIGHT, particlesNS::TEXTURE_COLS, &ship2ParticleTexture);
-
 			ship2.setParticlesXY();
 		}
 
@@ -771,15 +770,18 @@ void Spacewar::update()
 				ship1.missileList[i]->setParticlesXY();
 			}
 
-			for (int j = 0; j < ship1.missileList[i]->particleList.size(); j++)
+			if (ship1.missileList[i]->particleList.size() > 0)
 			{
-				ship1.missileList[i]->particleList[j]->update(frameTime);
-				//ship1.particleList[i]->setColorFilter(SETCOLOR_ARGB(ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha()));
-				//ship1.particleList[i]->setAlpha(ship1.particleList[i]->getAlpha() - 1);
-				if (ship1.missileList[i]->particleList[j]->getScale() <= 0)
+				for (int j = 0; j < ship1.missileList[i]->particleList.size(); j++)
 				{
-					SAFE_DELETE(ship1.missileList[i]->particleList[j]);
-					ship1.missileList[i]->particleList.erase(ship1.missileList[i]->particleList.begin() + j);
+					ship1.missileList[i]->particleList[j]->update(frameTime);
+					//ship1.particleList[i]->setColorFilter(SETCOLOR_ARGB(ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha(), ship1.particleList[i]->getAlpha()));
+					//ship1.particleList[i]->setAlpha(ship1.particleList[i]->getAlpha() - 1);
+					if (ship1.missileList[i]->particleList[j]->getScale() <= 0.0)
+					{
+						SAFE_DELETE(ship1.missileList[i]->particleList[j]);
+						ship1.missileList[i]->particleList.erase(ship1.missileList[i]->particleList.begin() + j);
+					}
 				}
 			}
 		}
@@ -1444,13 +1446,13 @@ void Spacewar::render()
 			{
 				ship1.missileList[i]->draw();
 
-				//if (ship1.missileList[i]->particleList.size()!=NULL)
-				//{
-				//	for (int j = 0; ship1.missileList[i]->particleList.size(); j++)
-				//	{
-				//		ship1.missileList[i]->particleList[j]->draw();
-				//	}
-				//}
+				if (ship1.missileList[i]->particleList.size()!=NULL)
+				{
+					for (int j = 0; ship1.missileList[i]->particleList.size(); j++)
+					{
+						ship1.missileList[i]->particleList[j]->draw();
+					}
+				}
 			}
 		}
 		//draw mines from ship 1
