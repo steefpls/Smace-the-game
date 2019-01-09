@@ -1651,6 +1651,11 @@ void Spacewar::resetGame()
 	//	SAFE_DELETE(ship1.lifeList[i]);
 	//	ship1.lifeList.erase(ship1.lifeList.begin() + i);
 	//}
+	for (vector<Explosion*>::iterator it = explosionList.begin(); it != explosionList.end(); )
+	{
+		SAFE_DELETE(*it);
+		it = explosionList.erase(it);
+	}
 
 	ship1.setFrames(shipNS::SHIP_START_FRAME, shipNS::SHIP_END_FRAME);
 	ship1.setCurrentFrame(shipNS::SHIP_START_FRAME);
